@@ -1,0 +1,30 @@
+D:\Projects\WarehouseManage\WarehouseManage\WarehouseManage\obj\Debug\ResolveAssemblyReference.cache
+D:\Projects\WarehouseManage\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.csproj.ResolveComReference.cache
+D:\Projects\WarehouseManage\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.Properties.Resources.resources
+D:\Projects\WarehouseManage\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.csproj.GenerateResource.Cache
+D:\Projects\WarehouseManage\WarehouseManage\WarehouseManage\bin\Debug\WarehouseManage.exe
+D:\Projects\WarehouseManage\WarehouseManage\WarehouseManage\bin\Debug\WarehouseManage.pdb
+D:\Projects\WarehouseManage\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManager.User_Login.resources
+D:\Projects\WarehouseManage\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.exe
+D:\Projects\WarehouseManage\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.pdb
+D:\Projects\WarehouseManage\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManager.Form1.resources
+D:\Projects\WHM\Trunk\WarehouseManage\WarehouseManage\bin\Debug\WarehouseManage.exe
+D:\Projects\WHM\Trunk\WarehouseManage\WarehouseManage\bin\Debug\WarehouseManage.pdb
+D:\Projects\WHM\Trunk\WarehouseManage\WarehouseManage\obj\Debug\ResolveAssemblyReference.cache
+D:\Projects\WHM\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.csproj.ResolveComReference.cache
+D:\Projects\WHM\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManager.Form1.resources
+D:\Projects\WHM\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.Properties.Resources.resources
+D:\Projects\WHM\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManager.User_Login.resources
+D:\Projects\WHM\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.csproj.GenerateResource.Cache
+D:\Projects\WHM\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.exe
+D:\Projects\WHM\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.pdb
+D:\Projects\WarehouseManage import\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.csproj.ResolveComReference.cache
+D:\Projects\WarehouseManage import\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.exe
+D:\Projects\WarehouseManage import\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.pdb
+D:\Projects\WarehouseManage import\Trunk\WarehouseManage\WarehouseManage\bin\Debug\WarehouseManage.exe
+D:\Projects\WarehouseManage import\Trunk\WarehouseManage\WarehouseManage\bin\Debug\WarehouseManage.pdb
+D:\Projects\WarehouseManage import\Trunk\WarehouseManage\WarehouseManage\obj\Debug\ResolveAssemblyReference.cache
+D:\Projects\WarehouseManage import\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManager.Form1.resources
+D:\Projects\WarehouseManage import\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.Properties.Resources.resources
+D:\Projects\WarehouseManage import\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManager.User_Login.resources
+D:\Projects\WarehouseManage import\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.csproj.GenerateResource.Cache
