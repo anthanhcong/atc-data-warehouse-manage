@@ -75,18 +75,24 @@ namespace WarehouseManager
             // Init Card Table
             possize.pos_x = 6;
             possize.pos_y = 160;
-            possize.width = User_Manage_Tab.Size.Width - 400; // 200;
+            possize.width = 520; // 200;
             possize.height = User_Manage_Tab.Size.Height - 160;
             User_Table_Form = new Gridview_Grp(User_Manage_Tab, "User Table", possize, NO_AUTO_RESIZE,
-                                                User_Conn, @"SELECT * FROM dbo.USER_DASHBOARD_tb", AnchorType.LEFT);
+                                                User_Conn, @"SELECT * FROM dbo.USER_DASHBOARD_tb", AnchorType.NONE);
             User_Table_Form.Load_DataBase(User_Conn, @"SELECT * FROM dbo.USER_DASHBOARD_tb");
+            User_Table_Form.Tab_Grp.Anchor = (AnchorStyles)(AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Top);
+
             User_Table_Form.dataGridView_View.CellDoubleClick += new DataGridViewCellEventHandler(User_Table_Form_CellDoubleClick);
-            possize.pos_x = 380;
+
+            possize.pos_x = 540;
             possize.pos_y = 160;
-            possize.width = User_Manage_Tab.Size.Width - 200;
+            possize.width = User_Manage_Tab.Size.Width - 560;
             possize.height = User_Manage_Tab.Size.Height - 160;
-            Permission_Table_Form = new Gridview_Grp(User_Manage_Tab, "Permission Table", possize, NO_AUTO_RESIZE,
-                                                User_Conn, @"SELECT * FROM dbo.PERMISSION_tb", AnchorType.LEFT);
+            Permission_Table_Form = new Gridview_Grp(User_Manage_Tab, "Permission Table", possize, AUTO_RESIZE,
+                                                User_Conn, @"SELECT * FROM dbo.PERMISSION_tb", AnchorType.NONE);
+
+            Permission_Table_Form.Review_BT.Visible = false;
+            Permission_Table_Form.Export_BT.Visible = false;
 
             User_Manage_Init_BT();
             User_Manage_Init_Search();
@@ -135,11 +141,11 @@ namespace WarehouseManager
 
             possize.pos_x = 290;
             possize.pos_y = 6;
-            User_Manage_BomManage = new TextBox_Lbl_F2(User_Manage_Tab, "Bom Manage( true or false )", 20, 70, TextBox_Type.TEXT, possize, AnchorType.LEFT);
+            User_Manage_BomManage = new TextBox_Lbl_F2(User_Manage_Tab, "Bom Manage ( true or false )", 20, 70, TextBox_Type.TEXT, possize, AnchorType.LEFT);
 
             possize.pos_x = 290;
             possize.pos_y = 55;
-            User_Manage_ImportMaterial = new TextBox_Lbl_F2(User_Manage_Tab, "Import Material( true or false )", 20, 70, TextBox_Type.TEXT, possize, AnchorType.LEFT);
+            User_Manage_ImportMaterial = new TextBox_Lbl_F2(User_Manage_Tab, "Import Material ( true or false )", 20, 70, TextBox_Type.TEXT, possize, AnchorType.LEFT);
 
 
             User_Manage_Add_Part_number_BT.Name = "User_Manage_Add_Part_number_BT";
