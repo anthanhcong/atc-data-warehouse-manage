@@ -18,8 +18,8 @@ namespace WarehouseManager
         public System.Windows.Forms.DataGridView dataGridView_View;
         public System.Windows.Forms.Button Review_BT;
         private System.Windows.Forms.Button Submit_BT;
-        private System.Windows.Forms.Button Export_BT;
-        public System.Windows.Forms.Button Delete_BOM_BT;
+        public System.Windows.Forms.Button Export_BT;
+        public System.Windows.Forms.Button Delete_All_BT;
         public System.Windows.Forms.Button Delete_Rows_BT;
 
 
@@ -95,14 +95,14 @@ namespace WarehouseManager
             Review_BT = new Button();
             Submit_BT = new Button();
             Export_BT = new Button();
-            Delete_BOM_BT = new Button();
+            Delete_All_BT = new Button();
             Delete_Rows_BT = new Button();
             
             Tab_Grp.Controls.Add(dataGridView_View);
             Tab_Grp.Controls.Add(Review_BT);
             //Tab_Grp.Controls.Add(Submit_BT);
             Tab_Grp.Controls.Add(Export_BT);
-            Tab_Grp.Controls.Add(Delete_BOM_BT);
+            Tab_Grp.Controls.Add(Delete_All_BT);
             Tab_Grp.Controls.Add(Delete_Rows_BT);
 
             dataGridView_View.Location = new System.Drawing.Point(10, 16);
@@ -138,24 +138,24 @@ namespace WarehouseManager
                                 | System.Windows.Forms.AnchorStyles.Left));
             Delete_Rows_BT.Size = new System.Drawing.Size(65, 23);
             Delete_Rows_BT.Click += new System.EventHandler(Delete_Rows_BT_Click_event);
-            
 
-            //Submit_BT.Text = "Submit";
-            //Submit_BT.Location = new System.Drawing.Point(110, Tab_Grp.Size.Height - 30);
-            //Submit_BT.Anchor = ((System.Windows.Forms.AnchorStyles)((
-            //                    System.Windows.Forms.AnchorStyles.Bottom)
-            //                    | System.Windows.Forms.AnchorStyles.Left));
-            //Submit_BT.Click += new System.EventHandler(Submit_BT_Click_event);
-            //Submit_BT.Visible = false;
 
-            Delete_BOM_BT.Text = "Del Data";
-            Delete_BOM_BT.Location = new System.Drawing.Point(90, Tab_Grp.Size.Height - 30);
-            Delete_BOM_BT.Anchor = ((System.Windows.Forms.AnchorStyles)((
+            Submit_BT.Text = "Submit";
+            Submit_BT.Location = new System.Drawing.Point(300, Tab_Grp.Size.Height - 30);
+            Submit_BT.Anchor = ((System.Windows.Forms.AnchorStyles)((
                                 System.Windows.Forms.AnchorStyles.Bottom)
                                 | System.Windows.Forms.AnchorStyles.Left));
-            Delete_BOM_BT.Size = new System.Drawing.Size(60, 23);
-            Delete_BOM_BT.Click += new System.EventHandler(Delete_BOM_BT_Click_event);
-            //Delete_BOM_BT.Visible = false;
+            Submit_BT.Click += new System.EventHandler(Submit_BT_Click_event);
+            Submit_BT.Visible = false;
+
+            Delete_All_BT.Text = "Del Data";
+            Delete_All_BT.Location = new System.Drawing.Point(90, Tab_Grp.Size.Height - 30);
+            Delete_All_BT.Anchor = ((System.Windows.Forms.AnchorStyles)((
+                                System.Windows.Forms.AnchorStyles.Bottom)
+                                | System.Windows.Forms.AnchorStyles.Left));
+            Delete_All_BT.Size = new System.Drawing.Size(60, 23);
+            Delete_All_BT.Click += new System.EventHandler(Delete_All_BT_Click_event);
+            //Delete_All_BT.Visible = false;
 
             Export_BT.Text = "Export";
             Export_BT.Location = new System.Drawing.Point(165, Tab_Grp.Size.Height - 30);
@@ -221,20 +221,20 @@ namespace WarehouseManager
             }
         }
 
-        //public void Submit_BT_Click_event(object sender, EventArgs e)
-        //{
-        //    if ((Update_SQL_Data(Data_da, Data_dtb) == true))
-        //    {
-        //        MessageBox.Show("Store Data Complete", "Successful");
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Store Data Fail", "Failed");
-        //    }
-        //}
+        public void Submit_BT_Click_event(object sender, EventArgs e)
+        {
+            if ((Update_SQL_Data(Data_da, Data_dtb) == true))
+            {
+                MessageBox.Show("Store Data Complete", "Successful");
+            }
+            else
+            {
+                MessageBox.Show("Store Data Fail", "Failed");
+            }
+        }
 
 
-        public void Delete_BOM_BT_Click_event(object sender, EventArgs e)
+        public void Delete_All_BT_Click_event(object sender, EventArgs e)
         {  
             if (MessageBox.Show("Would you like to Delete All Data " + "?", "Attention", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {

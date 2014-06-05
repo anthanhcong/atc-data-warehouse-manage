@@ -9,6 +9,43 @@ using System.Windows.Forms;
 
 namespace WarehouseManager
 {
+    class Button_Lbl : SQL_APPL
+    {
+        public Button My_Button;
+        public Button_Lbl(System.Windows.Forms.TabPage owner_tab, string label,
+                          PosSize possize, AnchorType anchor_type)
+        {
+            My_Button = new System.Windows.Forms.Button();
+            owner_tab.Controls.Add(this.My_Button);
+            // button1
+            My_Button.Location = new System.Drawing.Point(possize.pos_x, possize.pos_y);
+            My_Button.Name = label;
+            My_Button.Size = new System.Drawing.Size(75, 23);
+            My_Button.TabIndex = 0;
+            My_Button.Text = label;
+            My_Button.UseVisualStyleBackColor = true;
+        }
+    }
+
+    class Checkbox_Lbl : SQL_APPL
+    {
+        public CheckBox My_CheckBox;
+        public Checkbox_Lbl(System.Windows.Forms.TabPage owner_tab, string label,
+                          PosSize possize, AnchorType anchor_type)
+        {
+            My_CheckBox = new System.Windows.Forms.CheckBox();
+            owner_tab.Controls.Add(this.My_CheckBox);
+            // button1
+            My_CheckBox.Location = new System.Drawing.Point(possize.pos_x, possize.pos_y);
+            My_CheckBox.AutoSize = true;
+            My_CheckBox.Size = new System.Drawing.Size(80, 17);
+            My_CheckBox.TabIndex = 0;
+            My_CheckBox.Text = label;
+            My_CheckBox.UseVisualStyleBackColor = true;
+            My_CheckBox.Checked = true;
+        }
+    }
+
     class TextBox_Lbl : SQL_APPL
     {
         public TextBox My_TextBox = new TextBox();
@@ -23,13 +60,13 @@ namespace WarehouseManager
             CheckType = type;
 
             My_Label.ForeColor = Color.Black;
-            My_Label.AutoSize = true;
+            My_Label.AutoSize = true;   
             My_Label.Visible = true;
             My_Label.Text = label + ":";
             My_Label.Location = new System.Drawing.Point(My_PosSize.pos_x, My_PosSize.pos_y+4);
             owner_tab.Controls.Add(My_Label);
 
-            My_TextBox.Location = new System.Drawing.Point(My_PosSize.pos_x + 10 + My_Label.Size.Width, My_PosSize.pos_y);
+            My_TextBox.Location = new System.Drawing.Point(My_PosSize.pos_x + 80, My_PosSize.pos_y);
             My_TextBox.Size = new System.Drawing.Size(90, 20);
 
             if (anchor_type == AnchorType.RIGHT)
@@ -124,7 +161,7 @@ namespace WarehouseManager
             My_Combo.DisplayMember = display_member;
             My_Combo.ValueMember = value_member;
             My_Combo.Size = new System.Drawing.Size(140, 20);
-            My_Combo.Location = new System.Drawing.Point(My_PosSize.pos_x + 100, My_PosSize.pos_y);
+            My_Combo.Location = new System.Drawing.Point(My_PosSize.pos_x + 80, My_PosSize.pos_y);
             My_Combo.Leave += new System.EventHandler(CheckCorrectValue);
 
             if (anchor_type == AnchorType.RIGHT)
@@ -260,7 +297,7 @@ namespace WarehouseManager
     class DatePick_LBL : SQL_APPL
     {
         public DateTimePicker My_picker = new DateTimePicker();
-        private Label My_Label = new Label();
+        public Label My_Label = new Label();
         PosSize My_PosSize = new PosSize();
 
         public DatePick_LBL(System.Windows.Forms.TabPage owner_tab, string label,
@@ -275,8 +312,10 @@ namespace WarehouseManager
             My_Label.Location = new System.Drawing.Point(My_PosSize.pos_x, My_PosSize.pos_y + 4);
             owner_tab.Controls.Add(My_Label);
 
-            My_picker.Location = new System.Drawing.Point(My_PosSize.pos_x + 100, My_PosSize.pos_y);
-            My_picker.Size = new System.Drawing.Size(200, 20);
+            My_picker.Location = new System.Drawing.Point(My_PosSize.pos_x + 70, My_PosSize.pos_y);
+            My_picker.Size = new System.Drawing.Size(100, 20);
+            My_picker.Format = DateTimePickerFormat.Custom;
+            My_picker.CustomFormat = "dd-MMM-yyyy";
 
             if (anchor_type == AnchorType.RIGHT)
             {
