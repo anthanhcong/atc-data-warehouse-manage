@@ -221,6 +221,14 @@ namespace WarehouseManager
             }
         }
 
+        public void Save_Data()
+        {
+            if ((Update_SQL_Data(Data_da, Data_dtb) == false))
+            {
+                MessageBox.Show("Store Data Fail", "Failed");
+            }
+        }
+
         public void Submit_BT_Click_event(object sender, EventArgs e)
         {
             if ((Update_SQL_Data(Data_da, Data_dtb) == true))

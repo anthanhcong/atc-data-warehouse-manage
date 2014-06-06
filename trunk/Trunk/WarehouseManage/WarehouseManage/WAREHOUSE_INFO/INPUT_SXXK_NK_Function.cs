@@ -31,9 +31,9 @@ namespace WarehouseManager
         public DataSet INPUT_SXXK_NK_Tbl_ds = new DataSet();
         public SqlDataAdapter INPUT_SXXK_NK_Tbl_da;
 
-        public DataTable INPUT_SXXK_List_TK_Tbl;
-        public DataSet INPUT_SXXK_List_TK_ds = new DataSet();
-        public SqlDataAdapter INPUT_SXXK_List_TK_da;
+        public DataTable INPUT_NK_List_TK_Tbl;
+        public DataSet INPUT_NK_List_TK_ds = new DataSet();
+        public SqlDataAdapter INPUT_NK_List_TK_da;
 
         public int Cur_Item_index = 0;
 
@@ -153,7 +153,7 @@ namespace WarehouseManager
                     ma_loai_hinh = Get_Text_Cell((Excel.Worksheet)OpenWB.Sheets[1], row, INPUT_SXXK_NK_Col[INPUT_SXXK_NK_Ma_loai_hinh].Col, INPUT_SXXK_NK_Col[INPUT_SXXK_NK_Ma_loai_hinh].Data_Max_len);
                    
                     // Kiem tra Line da co trong database chua
-                    //if(Is_exist_SXXK_NK(so_tk, ngay_dk, ma_loai_hinh, INPUT_SXXK_List_TK_Tbl) == true)
+                    //if(Is_exist_SXXK_NK(so_tk, ngay_dk, ma_loai_hinh, INPUT_NK_List_TK_Tbl) == true)
                     //{
                     //    // Update for this row
                     //    Update_SXXK_NK_Line(so_tk, ngay_dk, ma_loai_hinh, (Excel.Worksheet)OpenWB.Sheets[1], row);
@@ -163,7 +163,7 @@ namespace WarehouseManager
                     //    // Insert new row
                     //    Create_New_SXXK_NK_Line(so_tk, ngay_dk, ma_loai_hinh, (Excel.Worksheet)OpenWB.Sheets[1], row);
                     //}
-                    if (Is_exist_SXXK_NK(cur_tk, ngay_dk, ma_loai_hinh, INPUT_SXXK_List_TK_Tbl) == false)
+                    if (Is_exist_SXXK_NK(cur_tk, ngay_dk, ma_loai_hinh, INPUT_NK_List_TK_Tbl) == false)
                     {
                         Create_New_List_TK_NK_Line(cur_tk, ngay_dk, ma_loai_hinh, (Excel.Worksheet)OpenWB.Sheets[1], row);
                         //Create_New_SXXK_NK_Line(so_tk, ngay_dk, ma_loai_hinh, (Excel.Worksheet)OpenWB.Sheets[1], row);
@@ -182,7 +182,7 @@ namespace WarehouseManager
 
                 Close_WorkBook(OpenWB);
                 // Store data
-                if (Update_SQL_Data(INPUT_SXXK_List_TK_da, INPUT_SXXK_List_TK_Tbl) == true)
+                if (Update_SQL_Data(INPUT_NK_List_TK_da, INPUT_NK_List_TK_Tbl) == true)
                 {
                     if (Update_SQL_Data(INPUT_NK_Table_Form.Data_da, INPUT_NK_Table_Form.Data_dtb) == true)
                     {
@@ -217,7 +217,7 @@ namespace WarehouseManager
             return true;
         }
 
-         private void Load_So_TK_Item(string so_tk, string ngay_dk, string ma_lh)
+         private void Load_So_TK_NK_Item(string so_tk, string ngay_dk, string ma_lh)
         {
             string sql_cmd = @"SELECT * FROM [WHM_INFOMATION_DB].[dbo].[INPUT_NK_tb]";
             sql_cmd += " WHERE So_TK = '" + so_tk + "'";
@@ -266,24 +266,24 @@ namespace WarehouseManager
                         else
                         {
                             //Save Current TK
-                            INPUT_NK_Table_Form.Submit_BT_Click_event(null, null);
+                            INPUT_NK_Table_Form.Save_Data();
                         }
                         Cur_Item_index = 1;
 
                         // New TK
-                        if (Is_exist_So_TK_NK(cur_tk, cur_ngay_dk, cur_ma_lh, INPUT_SXXK_List_TK_Tbl) == true)
+                        if (Is_exist_So_TK_NK(cur_tk, cur_ngay_dk, cur_ma_lh, INPUT_NK_List_TK_Tbl) == true)
                         {
                             //NOTE : TK has already in database: Update new
                             message = "TK: " + cur_tk + " Ngày ĐK: " + cur_ngay_dk + " Mã loại hình:" + cur_ma_lh +  " is has already.\nDo you want to update?";
                             if (MessageBox.Show(message, "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
                             {
                                 //NOTE : Delete All item in current TK
-                                Load_So_TK_Item(cur_tk, cur_ngay_dk, cur_ma_lh);
+                                Load_So_TK_NK_Item(cur_tk, cur_ngay_dk, cur_ma_lh);
                                 foreach (DataRow item_row in INPUT_NK_Table_Form.Data_dtb.Rows)
                                 {
                                     item_row.Delete();
                                 }
-                                INPUT_NK_Table_Form.Submit_BT_Click_event(null, null);
+                                INPUT_NK_Table_Form.Save_Data();
                                 //NOTE : add Current row into Items
                                 tk_opened = true;
                                 Add_New_SXXK_NK_Line(cur_tk, cur_ngay_dk, cur_ma_lh, (Excel.Worksheet)OpenWB.Sheets[1], row);
@@ -297,7 +297,7 @@ namespace WarehouseManager
                         {
                             // New So TK: Add New TK
                             Create_New_List_TK_NK_Line(cur_tk, cur_ngay_dk, cur_ma_lh, (Excel.Worksheet)OpenWB.Sheets[1], row);
-                            Load_So_TK_Item(cur_tk, cur_ngay_dk, cur_ma_lh);
+                            Load_So_TK_NK_Item(cur_tk, cur_ngay_dk, cur_ma_lh);
                             Add_New_SXXK_NK_Line(cur_tk, cur_ngay_dk, cur_ma_lh, (Excel.Worksheet)OpenWB.Sheets[1], row);
                             tk_opened = true;
                         }
@@ -321,7 +321,7 @@ namespace WarehouseManager
                             Cur_Item_index = 1;
                             // New So TK: Add New TK
                             Create_New_List_TK_NK_Line(cur_tk, cur_ngay_dk, cur_ma_lh, (Excel.Worksheet)OpenWB.Sheets[1], row);
-                            Load_So_TK_Item(cur_tk, cur_ngay_dk, cur_ma_lh);
+                            Load_So_TK_NK_Item(cur_tk, cur_ngay_dk, cur_ma_lh);
                             Add_New_SXXK_NK_Line(cur_tk, cur_ngay_dk, cur_ma_lh, (Excel.Worksheet)OpenWB.Sheets[1], row);
                             tk_opened = true;
                         }
@@ -394,13 +394,13 @@ namespace WarehouseManager
             string load_list_TK_str = "SELECT * FROM [WHM_INFOMATION_DB].[dbo].[List_TK_NK_tb]";
 
             // Clean old data
-            if (INPUT_SXXK_List_TK_Tbl != null)
+            if (INPUT_NK_List_TK_Tbl != null)
             {
-                INPUT_SXXK_List_TK_Tbl.Clear();
+                INPUT_NK_List_TK_Tbl.Clear();
             }
 
             //Load Data into Table
-            INPUT_SXXK_List_TK_Tbl = Get_SQL_Data(Database_WHM_Info_Con_Str, load_list_TK_str, ref INPUT_SXXK_List_TK_da, ref INPUT_SXXK_List_TK_ds);
+            INPUT_NK_List_TK_Tbl = Get_SQL_Data(Database_WHM_Info_Con_Str, load_list_TK_str, ref INPUT_NK_List_TK_da, ref INPUT_NK_List_TK_ds);
         }
 
 
@@ -440,7 +440,7 @@ namespace WarehouseManager
 
         private bool Create_New_List_TK_NK_Line(string so_tk, string ngay_dk, string ma_loaihinh, Excel.Worksheet xsheet, int row)
         {
-            DataRow new_row = INPUT_SXXK_List_TK_Tbl.NewRow();
+            DataRow new_row = INPUT_NK_List_TK_Tbl.NewRow();
 
             new_row["So_TK"] = so_tk;
             new_row["Ngay_DK"] = ngay_dk;
@@ -451,8 +451,8 @@ namespace WarehouseManager
             new_row["KD_or_SX"] = Ma_KD_Or_SX;
             new_row["Ngay_import"] = DateTime.Now.ToShortDateString();
 
-            INPUT_SXXK_List_TK_Tbl.Rows.Add(new_row);
-            Update_SQL_Data(INPUT_SXXK_List_TK_da, INPUT_SXXK_List_TK_Tbl);
+            INPUT_NK_List_TK_Tbl.Rows.Add(new_row);
+            Update_SQL_Data(INPUT_NK_List_TK_da, INPUT_NK_List_TK_Tbl);
             return true;
 
         }
@@ -465,7 +465,7 @@ namespace WarehouseManager
             filterExpression = "So_TK = " + "'" + so_tk + "'";
             filterExpression += "and Ngay_DK = " + "'" + ngay_dk + "'";
             filterExpression += "and Ngay_DK = " + "'" + ngay_dk + "'";
-            DataRow[] rows = INPUT_SXXK_List_TK_Tbl.Select(filterExpression);
+            DataRow[] rows = INPUT_NK_List_TK_Tbl.Select(filterExpression);
 
             if (rows.Length == 1)
             {
@@ -542,7 +542,7 @@ namespace WarehouseManager
             //{
             //    max_stt = 1;
             //}
-            new_row["STT"] = so_tk + "." + Cur_Item_index;
+            new_row["STT"] = so_tk + "." + Cur_Item_index.ToString().PadLeft(2, '0');
             new_row["KD_or_SX"] = Ma_KD_Or_SX;
             new_row[INPUT_SXXK_NK_Col[INPUT_SXXK_NK_So_TK].DB_str] = so_tk;
             new_row[INPUT_SXXK_NK_Col[INPUT_SXXK_NK_Ngay_DK].DB_str] = ngay_dk;
