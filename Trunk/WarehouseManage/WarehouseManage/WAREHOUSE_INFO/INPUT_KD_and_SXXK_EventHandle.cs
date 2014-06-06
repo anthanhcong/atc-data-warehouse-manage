@@ -23,6 +23,8 @@ namespace WarehouseManager
         DataSet Recent_day_ds = new DataSet();
         SqlDataAdapter Recent_day_da;
 
+        String Show_Sort_log;
+
                 /**********************************/
                 //        Input Nhap Khau         //
                 /*********************************/
@@ -66,15 +68,26 @@ namespace WarehouseManager
             string so_tk, ma_lh, ma_hs, ma_hang, start_day, end_day, recent_day;
             bool dk_where = false;
 
+            if (INPUT_NK_Table_Form.Data_dtb != null)
+            {
+                INPUT_NK_Table_Form.Data_dtb.Clear();
+            }
+            Show_Sort_log = "";
+
             string sql_cmd = @"SELECT * FROM [WHM_INFOMATION_DB].[dbo].[INPUT_NK_tb]";
             if (INPUT_NK_Check_So_TK.My_CheckBox.Checked == true)
             {
                 so_tk = INPUT_NK_So_TK_TxbL.My_TextBox.Text.ToString().Trim();
                 if (so_tk != "")
                 {
-                    sql_cmd += " where So_TK = " + "'" + so_tk + "'";
-                    dk_where = true;
+                    Show_Sort_log = "Số TK: " + so_tk;
                 }
+                else
+                {
+                    Show_Sort_log = "Hãy điền vào Số TK";
+                }
+                sql_cmd += " where So_TK = " + "'" + so_tk + "'";
+                dk_where = true;
             }
             if (INPUT_NK_Check_Ngay_DK.My_CheckBox.Checked == true)
             {
@@ -84,17 +97,27 @@ namespace WarehouseManager
                 {
                     sql_cmd += " and Ngay_DK >= " + "'" + start_day + "'";
                     sql_cmd += " and Ngay_DK <= " + "'" + end_day + "'";
+                    Show_Sort_log += "\nTừ: " + start_day + " đến: " + end_day;
                 }
                 else
                 {
                     sql_cmd += " where Ngay_DK >= " + "'" + start_day + "'";
                     sql_cmd += " and Ngay_DK <= " + "'" + end_day + "'";
                     dk_where = true;
+                    Show_Sort_log += "\nTừ: " + start_day + " đến: " + end_day;
                 }
             }
             if (INPUT_NK_Check_Ma_loai_hinh.My_CheckBox.Checked == true)
             {
                 ma_lh = INPUT_NK_Ma_loai_hinh_TxbL.My_TextBox.Text.ToString().Trim();
+                if (ma_lh != "")
+                {
+                    Show_Sort_log += "\nMã loại hình: " + ma_lh;
+                }
+                else
+                {
+                    Show_Sort_log += "\nHãy điền vào Mã loại hình";
+                }
                 if (dk_where == true)
                 {
                     sql_cmd += " and Ma_loai_hinh = " + "'" + ma_lh + "'";
@@ -108,6 +131,14 @@ namespace WarehouseManager
             if (INPUT_NK_Check_Ma_HS.My_CheckBox.Checked == true)
             {
                 ma_hs = INPUT_NK_Ma_HS_TxbL.My_TextBox.Text.ToString().Trim();
+                if (ma_hs != "")
+                {
+                    Show_Sort_log += "\nMã HS: " + ma_hs;
+                }
+                else
+                {
+                    Show_Sort_log += "\nHãy điền vào Mã HS";
+                }
                 if (dk_where == true)
                 {
                     sql_cmd += " and Ma_HS = " + "'" + ma_hs + "'";
@@ -121,6 +152,14 @@ namespace WarehouseManager
             if (INPUT_NK_Check_Ma_hang.My_CheckBox.Checked == true)
             {
                 ma_hang = INPUT_NK_Ma_hang_TxbL.My_TextBox.Text.ToString().Trim();
+                if (ma_hang != "")
+                {
+                    Show_Sort_log += "\nMã hàng: " + ma_hang;
+                }
+                else
+                {
+                    Show_Sort_log += "\nHãy điền vào Mã hàng";
+                }
                 if (dk_where == true)
                 {
                     sql_cmd += " and Ma_hang = " + "'" + ma_hang + "'";
@@ -137,22 +176,32 @@ namespace WarehouseManager
 
                 Recent_day_TBL = Get_SQL_Data(Database_WHM_Info_Con_Str, sql_recent_day, ref Recent_day_da, ref Recent_day_ds);
                 //INPUT_NK_Table_Form.Load_DataBase(Database_WHM_Info_Con_Str, sql_recent_day);
-                if (Recent_day_TBL != null)
+                if (Recent_day_TBL.Rows.Count != 0)
                 {
                     recent_day = Convert.ToDateTime(Recent_day_TBL.Rows[0]["Ngay_DK"].ToString().Trim()).Date.ToString("yyyy-MM-dd");
+                    Recent_day_TBL.Clear();
                     if (dk_where == true)
                     {
                         sql_cmd += " and Ngay_DK = " + "'" + recent_day + "'";
+                        Show_Sort_log += "\nNgày gần nhất: " + recent_day;
                     }
                     else
                     {
                         sql_cmd += " where Ngay_DK = " + "'" + recent_day + "'";
                         dk_where = true;
+                        Show_Sort_log += "\nNgày gần nhất: " + recent_day;
                     }
                 }
-                
+                else
+                {
+                    Show_Sort_log += "\nDữ liệu chưa được import" ;
+                }
             }
             INPUT_NK_Table_Form.Load_DataBase(Database_WHM_Info_Con_Str, sql_cmd);
+            if (INPUT_NK_Table_Form.Data_dtb.Rows.Count == 0)
+            {
+                MessageBox.Show(Show_Sort_log, "Warning");
+            }
         }
 
         private void INPUT_NK_KD_Import_BT_Click(object sender, EventArgs e)
@@ -242,36 +291,36 @@ namespace WarehouseManager
 
         private void INPUT_XK_Search_BT_Click(object sender, EventArgs e)
         {
-            string component_id, component_cell;
-            bool component_exist;
+            //string component_id, component_cell;
+            //bool component_exist;
 
-            component_id = INPUT_XK_Search_Txt_Lb.My_TextBox.Text.ToString().Trim();
-            int i, max_row;
+            //component_id = INPUT_XK_Search_Txt_Lb.My_TextBox.Text.ToString().Trim();
+            //int i, max_row;
 
-            if (component_id != "")
-            {
-                component_exist = false;
-                max_row = INPUT_XK_Table_Form.dataGridView_View.RowCount;
-                for (i = 0; i < max_row - 1; i++)
-                {
-                    component_cell = INPUT_XK_Table_Form.dataGridView_View.Rows[i].Cells["So_TK"].Value.ToString().Trim();
-                    if (component_id == component_cell)
-                    {
-                        INPUT_XK_Table_Form.dataGridView_View.CurrentCell = INPUT_XK_Table_Form.dataGridView_View.Rows[i].Cells["So_TK"];
-                        INPUT_XK_Table_Form.dataGridView_View.CurrentCell.Selected = true;
-                        component_exist = true;
-                        break;
-                    }
-                }
-                if (component_exist == false)
-                {
-                    MessageBox.Show("Component number : " + component_id + " isn't exist", "Error");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please Fill Name !", "Warning");
-            }
+            //if (component_id != "")
+            //{
+            //    component_exist = false;
+            //    max_row = INPUT_XK_Table_Form.dataGridView_View.RowCount;
+            //    for (i = 0; i < max_row - 1; i++)
+            //    {
+            //        component_cell = INPUT_XK_Table_Form.dataGridView_View.Rows[i].Cells["So_TK"].Value.ToString().Trim();
+            //        if (component_id == component_cell)
+            //        {
+            //            INPUT_XK_Table_Form.dataGridView_View.CurrentCell = INPUT_XK_Table_Form.dataGridView_View.Rows[i].Cells["So_TK"];
+            //            INPUT_XK_Table_Form.dataGridView_View.CurrentCell.Selected = true;
+            //            component_exist = true;
+            //            break;
+            //        }
+            //    }
+            //    if (component_exist == false)
+            //    {
+            //        MessageBox.Show("Component number : " + component_id + " isn't exist", "Error");
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Please Fill Name !", "Warning");
+            //}
 
         }
 
@@ -294,7 +343,8 @@ namespace WarehouseManager
                 temp = INPUT_XK_SX_Import_BT.Text;
                 INPUT_XK_SX_Import_BT.Text = "Running ...";
                 INPUT_XK_SX_Import_BT.Enabled = false;
-                Import_INPUT_SXXK_XK_Table_in_file(file_name);
+                //Import_INPUT_SXXK_XK_Table_in_file(file_name);
+                Import_INPUT_XK_Table_in_file(file_name);
                 INPUT_XK_SX_Import_BT.Enabled = true;
                 INPUT_XK_SX_Import_BT.Text = temp;
             }
@@ -320,11 +370,153 @@ namespace WarehouseManager
                 temp = INPUT_XK_KD_Import_BT.Text;
                 INPUT_XK_KD_Import_BT.Text = "Running ...";
                 INPUT_XK_KD_Import_BT.Enabled = false;
-                Import_INPUT_SXXK_XK_Table_in_file(file_name);
+                //Import_INPUT_SXXK_XK_Table_in_file(file_name);
+                Import_INPUT_XK_Table_in_file(file_name);
                 INPUT_XK_KD_Import_BT.Enabled = true;
                 INPUT_XK_KD_Import_BT.Text = temp;
             }
 
+        }
+
+        private void INPUT_XK_Find_BtL_Click(object sender, EventArgs e)
+        {
+            string so_tk, ma_lh, ma_hs, ma_hang, start_day, end_day, recent_day;
+            bool dk_where = false;
+
+            if (INPUT_XK_Table_Form.Data_dtb != null)
+            {
+                INPUT_XK_Table_Form.Data_dtb.Clear();
+            }
+            Show_Sort_log = "";
+
+            string sql_cmd = @"SELECT * FROM [WHM_INFOMATION_DB].[dbo].[INPUT_XK_tb]";
+            if (INPUT_XK_Check_So_TK.My_CheckBox.Checked == true)
+            {
+                so_tk = INPUT_XK_So_TK_TxbL.My_TextBox.Text.ToString().Trim();
+                if (so_tk != "")
+                {
+                    Show_Sort_log = "Số TK: " + so_tk;
+                }
+                else
+                {
+                    Show_Sort_log = "Hãy điền vào Số TK";
+                }
+                sql_cmd += " where So_TK = " + "'" + so_tk + "'";
+                dk_where = true;
+            }
+            if (INPUT_XK_Check_Ngay_DK.My_CheckBox.Checked == true)
+            {
+                start_day = INPUT_XK_Start_Date.My_picker.Value.Date.ToString("yyyy-MM-dd");
+                end_day = INPUT_XK_End_Date.My_picker.Value.Date.ToString("yyyy-MM-dd");
+                if (dk_where == true)
+                {
+                    sql_cmd += " and Ngay_DK >= " + "'" + start_day + "'";
+                    sql_cmd += " and Ngay_DK <= " + "'" + end_day + "'";
+                    Show_Sort_log += "\nTừ: " + start_day + " đến: " + end_day;
+                }
+                else
+                {
+                    sql_cmd += " where Ngay_DK >= " + "'" + start_day + "'";
+                    sql_cmd += " and Ngay_DK <= " + "'" + end_day + "'";
+                    dk_where = true;
+                    Show_Sort_log += "\nTừ: " + start_day + " đến: " + end_day;
+                }
+            }
+            if (INPUT_XK_Check_Ma_loai_hinh.My_CheckBox.Checked == true)
+            {
+                ma_lh = INPUT_XK_Ma_loai_hinh_TxbL.My_TextBox.Text.ToString().Trim();
+                if (ma_lh != "")
+                {
+                    Show_Sort_log += "\nMã loại hình: " + ma_lh;
+                }
+                else
+                {
+                    Show_Sort_log += "\nHãy điền vào Mã loại hình";
+                }
+                if (dk_where == true)
+                {
+                    sql_cmd += " and Ma_loai_hinh = " + "'" + ma_lh + "'";
+                }
+                else
+                {
+                    sql_cmd += " where Ma_loai_hinh = " + "'" + ma_lh + "'";
+                    dk_where = true;
+                }
+            }
+            if (INPUT_XK_Check_Ma_HS.My_CheckBox.Checked == true)
+            {
+                ma_hs = INPUT_XK_Ma_HS_TxbL.My_TextBox.Text.ToString().Trim();
+                if (ma_hs != "")
+                {
+                    Show_Sort_log += "\nMã HS: " + ma_hs;
+                }
+                else
+                {
+                    Show_Sort_log += "\nHãy điền vào Mã HS";
+                }
+                if (dk_where == true)
+                {
+                    sql_cmd += " and Ma_HS = " + "'" + ma_hs + "'";
+                }
+                else
+                {
+                    sql_cmd += " where Ma_HS = " + "'" + ma_hs + "'";
+                    dk_where = true;
+                }
+            }
+            if (INPUT_XK_Check_Ma_hang.My_CheckBox.Checked == true)
+            {
+                ma_hang = INPUT_XK_Ma_hang_TxbL.My_TextBox.Text.ToString().Trim();
+                if (ma_hang != "")
+                {
+                    Show_Sort_log += "\nMã hàng: " + ma_hang;
+                }
+                else
+                {
+                    Show_Sort_log += "\nHãy điền vào Mã hàng";
+                }
+                if (dk_where == true)
+                {
+                    sql_cmd += " and Ma_hang = " + "'" + ma_hang + "'";
+                }
+                else
+                {
+                    sql_cmd += " where Ma_hang = " + "'" + ma_hang + "'";
+                    dk_where = true;
+                }
+            }
+            if (INPUT_XK_Check_Recent_Day.My_CheckBox.Checked == true)
+            {
+                string sql_recent_day = @"SELECT Ngay_DK = (Max(Ngay_DK)) FROM [WHM_INFOMATION_DB].[dbo].[INPUT_XK_tb]";
+
+                Recent_day_TBL = Get_SQL_Data(Database_WHM_Info_Con_Str, sql_recent_day, ref Recent_day_da, ref Recent_day_ds);
+                //INPUT_XK_Table_Form.Load_DataBase(Database_WHM_Info_Con_Str, sql_recent_day);
+                if (Recent_day_TBL.Rows.Count != 0)
+                {
+                    recent_day = Convert.ToDateTime(Recent_day_TBL.Rows[0]["Ngay_DK"].ToString().Trim()).Date.ToString("yyyy-MM-dd");
+                    Recent_day_TBL.Clear();
+                    if (dk_where == true)
+                    {
+                        sql_cmd += " and Ngay_DK = " + "'" + recent_day + "'";
+                        Show_Sort_log += "\nNgày gần nhất: " + recent_day;
+                    }
+                    else
+                    {
+                        sql_cmd += " where Ngay_DK = " + "'" + recent_day + "'";
+                        dk_where = true;
+                        Show_Sort_log += "\nNgày gần nhất: " + recent_day;
+                    }
+                }
+                else
+                {
+                    Show_Sort_log += "\nDữ liệu chưa được import";
+                }
+            }
+            INPUT_XK_Table_Form.Load_DataBase(Database_WHM_Info_Con_Str, sql_cmd);
+            if (INPUT_XK_Table_Form.Data_dtb.Rows.Count == 0)
+            {
+                MessageBox.Show(Show_Sort_log, "Warning");
+            }
         }
 
         private void INPUT_XK_Store_BT_Click(object sender, EventArgs e)
@@ -341,6 +533,15 @@ namespace WarehouseManager
             }
         }
 
-      
+        private void INPUT_XK_So_TK_CbxL_Click(object sender, EventArgs e)
+        {
+            Load_List_TK_XK(Database_WHM_Info_Con_Str);
+        }
+
+        private void INPUT_XK_So_TK_CbxL_Text_Change(object sender, EventArgs e)
+        {
+            Load_Ma_LH_XK(Database_WHM_Info_Con_Str);
+            XK_Find_So_TK();
+        }
     }
 }
