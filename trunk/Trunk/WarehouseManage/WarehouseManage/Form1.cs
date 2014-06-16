@@ -24,27 +24,29 @@ namespace WarehouseManager
 
         string Error_log;
 
-        //public string User_Conn = @"server=ADMIN\SQLEXPRESS;database=USER_DB;uid=sa;pwd=123456";
-        //public string Database_WHM_Info_Con_Str = @"server=ADMIN\SQLEXPRESS;database=WHM_INFOMATION_DB;uid=sa;pwd=123456";
-        //public string Database_WHM_Stock_Con_Str = @"server=ADMIN\SQLEXPRESS;database=WHM_STOCK_DB;uid=sa;pwd=123456";
-        //public string Database_WHM_Import_Con_Str = @"server=ADMIN\SQLEXPRESS;database=WHM_IMPORT_DB;uid=sa;pwd=123456";
-        //public string Database_WHM_Export_Con_Str = @"server=ADMIN\SQLEXPRESS;database=WHM_EXPORT_DB;uid=sa;pwd=123456";
+        public string User_Conn = @"server=ADMIN\SQLEXPRESS;database=USER_DB;uid=sa;pwd=123456";
+        public string Database_WHM_Info_Con_Str = @"server=ADMIN\SQLEXPRESS;database=WHM_INFOMATION_DB;uid=sa;pwd=123456";
+        public string Database_WHM_Stock_Con_Str = @"server=ADMIN\SQLEXPRESS;database=WHM_STOCK_DB;uid=sa;pwd=123456";
+        public string Database_WHM_Import_Con_Str = @"server=ADMIN\SQLEXPRESS;database=WHM_IMPORT_DB;uid=sa;pwd=123456";
+        public string Database_WHM_Export_Con_Str = @"server=ADMIN\SQLEXPRESS;database=WHM_EXPORT_DB;uid=sa;pwd=123456";
 
-        public string User_Conn = @"server=VNMSRV607\SQLEXPRESS;database=USER_DB;uid=sa2;pwd=123456!@#";
-        public string Database_WHM_Info_Con_Str = @"server=VNMSRV607\SQLEXPRESS;database=WHM_INFOMATION_DB;uid=sa2;pwd=123456!@#";
-        public string Database_WHM_Stock_Con_Str = @"server=VNMSRV607\SQLEXPRESS;database=WHM_STOCK_DB;uid=sa2;pwd=123456!@#";
-        public string Database_WHM_Import_Con_Str = @"server=VNMSRV607\SQLEXPRESS;database=WHM_IMPORT_DB;uid=sa2;pwd=123456!@#";
-        public string Database_WHM_Export_Con_Str = @"server=VNMSRV607\SQLEXPRESS;database=WHM_EXPORT_DB;uid=sa2;pwd=123456!@#";
+        //public string User_Conn = @"server=VNMSRV607\SQLEXPRESS;database=USER_DB;uid=sa2;pwd=123456!@#";
+        //public string Database_WHM_Info_Con_Str = @"server=VNMSRV607\SQLEXPRESS;database=WHM_INFOMATION_DB;uid=sa2;pwd=123456!@#";
+        //public string Database_WHM_Stock_Con_Str = @"server=VNMSRV607\SQLEXPRESS;database=WHM_STOCK_DB;uid=sa2;pwd=123456!@#";
+        //public string Database_WHM_Import_Con_Str = @"server=VNMSRV607\SQLEXPRESS;database=WHM_IMPORT_DB;uid=sa2;pwd=123456!@#";
+        //public string Database_WHM_Export_Con_Str = @"server=VNMSRV607\SQLEXPRESS;database=WHM_EXPORT_DB;uid=sa2;pwd=123456!@#";
 
         private const bool AUTO_RESIZE = true;
         private const bool NO_AUTO_RESIZE = false;
         public int RELOAD_DB = 0;
 
         public DataTable List_Item_FA_TBL;
+        public String User_Name;
 
-        public Form1()
+        public Form1(string username)
         {
             InitializeComponent();
+            User_Name = username;
             OpenXL = new Excel.Application();
             OpenXL.SheetsInNewWorkbook = 1;
             OpenXL.Visible = false;
@@ -54,6 +56,8 @@ namespace WarehouseManager
             INPUT_SXXK_XK_InitExcelCol_Infor();
             INPUT_KD_NK_InitExcelCol_Infor();
             INPUT_KD_XK_InitExcelCol_Infor();
+            Stock_Manage_InitExcelCol_Infor();
+            WH_List_Manage_InitExcelCol_Infor();
 
         }
 
@@ -67,9 +71,9 @@ namespace WarehouseManager
 
             Create_INPUT_NK_Manage_Tab();
             Create_INPUT_XK_Manage_Tab();
-            Create_Import_Manage_Tab();
-            Create_Export_Manage_Tab();
             Create_Stock_Manage_Tab();
+            Create_Export_Manage_Tab();
+            Create_WH_ID_List_Manage_Tab();
             //Create_User_Manage_Tab();
 
         }
@@ -102,8 +106,8 @@ namespace WarehouseManager
                     new PointF(e.Bounds.X + 2, e.Bounds.Y + 2));
 
             }
-    }
- 
+        }
+
         private void MainTabControl_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             TabControl tc = (TabControl)sender;
