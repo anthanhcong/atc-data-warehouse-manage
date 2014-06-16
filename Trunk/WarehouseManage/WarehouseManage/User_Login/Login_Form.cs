@@ -13,16 +13,15 @@ namespace WarehouseManager
 {
     public partial class User_Login : Form
     {
-        //Form1 f1 = new Form1();
+        DataTable User_Info;
+        DataSet User_Info_ds = new DataSet();
+        SqlDataAdapter User_Info_da = new SqlDataAdapter();
+
         public User_Login()
         {
             InitializeComponent();
             Init_form_Configure();
-            //f1.Hide();
         }
-        DataTable user_info;
-        DataSet user_info_dataset = new DataSet();
-        SqlDataAdapter user_info_dataAdapter = new SqlDataAdapter();
 
         private void Login_BT_Click(object sender, EventArgs e)
         {
@@ -30,35 +29,31 @@ namespace WarehouseManager
             string password;
 
             username = Map_UserName(username);
-            user_info = Get_UserInfo(username, ref user_info_dataAdapter, ref user_info_dataset);
-            if (user_info.Rows.Count == 0)
+            User_Info = Get_UserInfo(username, ref User_Info_da, ref User_Info_ds);
+            if (User_Info.Rows.Count == 0)
             {
                 MessageBox.Show("This Username did not register. \nPlease contact with Admin!");
                 return;
             }
-            password = ((string)user_info.Rows[0]["password"]).Trim();
+            password = ((string)User_Info.Rows[0]["password"]).Trim();
             if (Password_txt.Text.Trim() == Decrypt_Pass(password))
             {
-                //TCA_User.Bill_List.Bill_List bill_list = new TCA_User.Bill_List.Bill_List();
-                //bill_list.Show();
                 Thread Material_Manage_Thread = new Thread(run_WarehouseManage);
                 Material_Manage_Thread.SetApartmentState(ApartmentState.STA);
                 Material_Manage_Thread.Start();
-                //this.Hide();
-                //f1.Show();
                 this.Close();
-                // Application.Exit();
-
             }
-            else {
+            else
+            {
                 MessageBox.Show("Wrong Password");
             }
         }
 
-        
+
         private void run_WarehouseManage()
         {
-            Application.Run(new Form1());
+            string username = User_Info.Rows[0]["UserName"].ToString().Trim();
+            Application.Run(new Form1(username));
         }
 
         private void HidePass_check_CheckedChanged(object sender, EventArgs e)
@@ -67,7 +62,7 @@ namespace WarehouseManager
             {
                 Password_txt.UseSystemPasswordChar = true;
             }
-            else 
+            else
             {
                 Password_txt.UseSystemPasswordChar = false;
             }
@@ -75,7 +70,7 @@ namespace WarehouseManager
 
         private void Password_txt_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar==13)
+            if (e.KeyChar == 13)
             {
                 Login_BT_Click(null, null);
             }

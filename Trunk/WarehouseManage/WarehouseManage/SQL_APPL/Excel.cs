@@ -17,7 +17,7 @@ using ConvertDB;
 
 namespace WarehouseManager
 {
-    public partial class Form1
+    public partial class SQL_APPL
     {
         #region
         public Int32 Total_Emp;
@@ -37,20 +37,20 @@ namespace WarehouseManager
         /**************************************************
          * Create & Open Excel File
          * ************************************************/
-        private bool create_excel_file(string file_path)
+        public bool create_excel_file(string file_path)
         {
             bool result = false;
             string[] file_info = file_path.Split('.');
             if (File.Exists(file_path) == false)
             {
                 //khoi tao cac doi tuong Com Excel de lam viec
-                Excel.ApplicationClass xlApp;
+                Excel.Application xlApp;
                 Excel.Worksheet xlSheet;
                 Excel.Workbook xlBook;
                 //doi tuong Trống để thêm  vào xlApp sau đó lưu lại sau
                 object missValue = System.Reflection.Missing.Value;
                 // khoi tao doi tuong Com Excel moi
-                xlApp = new Excel.ApplicationClass();
+                xlApp = new Excel.Application();
                 xlBook = xlApp.Workbooks.Add(missValue);
                 //su dung Sheet dau tien de thao tac
                 xlSheet = (Excel.Worksheet)xlBook.Worksheets.get_Item(1);
@@ -214,7 +214,7 @@ namespace WarehouseManager
         /// <param name="first_col"></param>
         /// <param name="num_col"></param>
         /// <returns></returns>
-        private string Get_Excel_Line(Excel.Worksheet sheet, int row, int first_col, int num_col)
+        public string Get_Excel_Line(Excel.Worksheet sheet, int row, int first_col, int num_col)
         {
             Excel.Range cur_cell;
             string ret_str = "", cel_str;
@@ -233,7 +233,7 @@ namespace WarehouseManager
             return ret_str.Trim();
         }
 
-        private string Get_Text_Cell(Excel.Worksheet sheet, int row, int col, int max_length)
+        public string Get_Text_Cell(Excel.Worksheet sheet, int row, int col, int max_length)
         {
             Excel.Range cur_cell;
             string cel_str;
@@ -267,7 +267,7 @@ namespace WarehouseManager
             return cel_str;
         }
 
-        private string Get_date_str_Cell(Excel.Worksheet sheet, int row, int col)
+        public string Get_date_str_Cell(Excel.Worksheet sheet, int row, int col)
         {
             Excel.Range cur_cell;
             string cel_str;
@@ -278,7 +278,7 @@ namespace WarehouseManager
             return cel_str;
         }
 
-        private int Get_int_Cell(Excel.Worksheet sheet, int row, int col)
+        public int Get_int_Cell(Excel.Worksheet sheet, int row, int col)
         {
             Excel.Range cur_cell;
             string cel_str;
@@ -304,7 +304,7 @@ namespace WarehouseManager
             return value;
         }
 
-        private float Get_float_Cell(Excel.Worksheet sheet, int row, int col)
+        public float Get_float_Cell(Excel.Worksheet sheet, int row, int col)
         {
             Excel.Range cur_cell;
             string cel_str;
@@ -507,93 +507,93 @@ namespace WarehouseManager
         /// <param name="tieude"></param>
         /// <param name="dt"></param>
         /// <returns></returns>
-        //public bool ExportDataToExcel(string file_path, string tieude, DataTable dt)
-        //{
-        //    bool result = false;
-        //    //khoi tao cac doi tuong Com Excel de lam viec
-        //    Excel.ApplicationClass xlApp;
-        //    Excel.Worksheet xlSheet;
-        //    Excel.Workbook xlBook;
-        //    //doi tuong Trống để thêm  vào xlApp sau đó lưu lại sau
-        //    object missValue = System.Reflection.Missing.Value;
-        //    //khoi tao doi tuong Com Excel moi
-        //    xlApp = new Excel.ApplicationClass();
-        //    xlBook = xlApp.Workbooks.Add(missValue);
-        //    //su dung Sheet dau tien de thao tac
-        //    xlSheet = (Excel.Worksheet)xlBook.Worksheets.get_Item(1);
-        //    //không cho hiện ứng dụng Excel lên để tránh gây đơ máy
-        //    xlApp.Visible = false;
-        //    int socot = dt.Columns.Count;
-        //    int sohang = dt.Rows.Count;
-        //    int i, j;
+        public bool ExportDataToExcel(string file_path, string tieude, DataTable dt)
+        {
+            bool result = false;
+            //khoi tao cac doi tuong Com Excel de lam viec
+            Excel.Application xlApp;
+            Excel.Worksheet xlSheet;
+            Excel.Workbook xlBook;
+            //doi tuong Trống để thêm  vào xlApp sau đó lưu lại sau
+            object missValue = System.Reflection.Missing.Value;
+            //khoi tao doi tuong Com Excel moi
+            xlApp = new Excel.Application();
+            xlBook = xlApp.Workbooks.Add(missValue);
+            //su dung Sheet dau tien de thao tac
+            xlSheet = (Excel.Worksheet)xlBook.Worksheets.get_Item(1);
+            //không cho hiện ứng dụng Excel lên để tránh gây đơ máy
+            xlApp.Visible = false;
+            int socot = dt.Columns.Count;
+            int sohang = dt.Rows.Count;
+            int i, j;
 
-        //    if (file_path != "")
-        //    {
-        //        //set thuoc tinh cho tieu de
-        //        xlSheet.get_Range("A1", Convert.ToChar(socot + 65) + "1").Merge(false);
-        //        Excel.Range caption = xlSheet.get_Range("A1", Convert.ToChar(socot + 65) + "1");
-        //        caption.Select();
-        //        caption.FormulaR1C1 = tieude;
-        //        //căn lề cho tiêu đề
-        //        caption.HorizontalAlignment = Excel.Constants.xlCenter;
-        //        caption.Font.Bold = true;
-        //        caption.VerticalAlignment = Excel.Constants.xlCenter;
-        //        caption.Font.Size = 15;
-        //        //màu nền cho tiêu đề
-        //        caption.Interior.ColorIndex = 20;
-        //        caption.RowHeight = 30;
-        //        //set thuoc tinh cho cac header
-        //        Excel.Range header = xlSheet.get_Range("A2", Convert.ToChar(socot + 65) + "2");
-        //        header.Select();
+            if (file_path != "")
+            {
+                //set thuoc tinh cho tieu de
+                xlSheet.get_Range("A1", Convert.ToChar(socot + 65) + "1").Merge(false);
+                Excel.Range caption = xlSheet.get_Range("A1", Convert.ToChar(socot + 65) + "1");
+                caption.Select();
+                caption.FormulaR1C1 = tieude;
+                //căn lề cho tiêu đề
+                caption.HorizontalAlignment = Excel.Constants.xlCenter;
+                caption.Font.Bold = true;
+                caption.VerticalAlignment = Excel.Constants.xlCenter;
+                caption.Font.Size = 15;
+                //màu nền cho tiêu đề
+                caption.Interior.ColorIndex = 20;
+                caption.RowHeight = 30;
+                //set thuoc tinh cho cac header
+                Excel.Range header = xlSheet.get_Range("A2", Convert.ToChar(socot + 65) + "2");
+                header.Select();
 
-        //        header.HorizontalAlignment = Excel.Constants.xlCenter;
-        //        header.Font.Bold = true;
-        //        header.Font.Size = 10;
-        //        //điền tiêu đề cho các cột trong file excel
-        //        for (i = 0; i < socot; i++)
-        //        {
-        //            xlSheet.Cells[2, i + 2] = dt.Columns[i].ColumnName;
-        //        }
-        //        //dien cot stt
-        //        xlSheet.Cells[2, 1] = "STT";
-        //        for (i = 0; i < sohang; i++)
-        //        {
-        //            xlSheet.Cells[i + 3, 1] = i + 1;
-        //        }
+                header.HorizontalAlignment = Excel.Constants.xlCenter;
+                header.Font.Bold = true;
+                header.Font.Size = 10;
+                //điền tiêu đề cho các cột trong file excel
+                for (i = 0; i < socot; i++)
+                {
+                    xlSheet.Cells[2, i + 2] = dt.Columns[i].ColumnName;
+                }
+                //dien cot stt
+                xlSheet.Cells[2, 1] = "STT";
+                for (i = 0; i < sohang; i++)
+                {
+                    xlSheet.Cells[i + 3, 1] = i + 1;
+                }
 
-        //        //dien du lieu vao sheet
-        //        // ProgressBar1.Visible = true;
-        //        for (i = 0; i < sohang; i++)
-        //        {
-        //            for (j = 0; j < socot; j++)
-        //            {
-        //                ((Excel.Range)xlSheet.Cells[i + 3, j + 2]).NumberFormat = "@";
-        //                xlSheet.Cells[i + 3, j + 2] = dt.Rows[i][j].ToString() == "" ? dt.Rows[i][j] : dt.Rows[i][j].ToString().Trim();
-        //            }
-        //            // Update progress Bar
-        //            // ProgressBar1.Value = i % 100;
-        //        }
-        //        // ProgressBar1.Visible = false;
+                //dien du lieu vao sheet
+                // ProgressBar1.Visible = true;
+                for (i = 0; i < sohang; i++)
+                {
+                    for (j = 0; j < socot; j++)
+                    {
+                        ((Excel.Range)xlSheet.Cells[i + 3, j + 2]).NumberFormat = "@";
+                        xlSheet.Cells[i + 3, j + 2] = dt.Rows[i][j].ToString() == "" ? dt.Rows[i][j] : dt.Rows[i][j].ToString().Trim();
+                    }
+                    // Update progress Bar
+                    // ProgressBar1.Value = i % 100;
+                }
+                // ProgressBar1.Visible = false;
 
-        //        //autofit độ rộng cho các cột
-        //        for (i = 0; i < socot; i++)
-        //        {
-        //            ((Excel.Range)xlSheet.Cells[1, i + 1]).EntireColumn.AutoFit();
-        //        }
+                //autofit độ rộng cho các cột
+                for (i = 0; i < socot; i++)
+                {
+                    ((Excel.Range)xlSheet.Cells[1, i + 1]).EntireColumn.AutoFit();
+                }
 
-        //        //save file
-        //        xlBook.SaveAs(file_path, Excel.XlFileFormat.xlWorkbookNormal, missValue, missValue, missValue, missValue, Excel.XlSaveAsAccessMode.xlExclusive, missValue, missValue, missValue, missValue, missValue);
-        //        xlBook.Close(true, missValue, missValue);
-        //        xlApp.Quit();
+                //save file
+                xlBook.SaveAs(file_path, Excel.XlFileFormat.xlWorkbookNormal, missValue, missValue, missValue, missValue, Excel.XlSaveAsAccessMode.xlExclusive, missValue, missValue, missValue, missValue, missValue);
+                xlBook.Close(true, missValue, missValue);
+                xlApp.Quit();
 
-        //        // release cac doi tuong COM
-        //        releaseObject(xlSheet);
-        //        releaseObject(xlBook);
-        //        releaseObject(xlApp);
-        //        result = true;
-        //    }
-        //    return result;
-        //}
+                // release cac doi tuong COM
+                releaseObject(xlSheet);
+                releaseObject(xlBook);
+                releaseObject(xlApp);
+                result = true;
+            }
+            return result;
+        }
 
         public bool Export_Data2Excel(Button bt, DataTable dt, string title)
         {
