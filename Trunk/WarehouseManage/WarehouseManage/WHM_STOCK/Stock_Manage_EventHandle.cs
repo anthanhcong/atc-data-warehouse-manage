@@ -180,5 +180,42 @@ namespace WarehouseManager
                 MessageBox.Show("Store Data Fail", "Failed");
             }
         }
+
+        private void Ma_List_Import_BT_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog open_dialog = new OpenFileDialog();
+
+            string file_name;
+            string fInfo;
+            string temp;
+
+            open_dialog.Filter = "Excel file (*.xlsx;*.xls;*.csv)|*.xlsx;*.xls;*.csv|" + "All files (*.*)|*.*";
+            open_dialog.Multiselect = true;
+            if (open_dialog.ShowDialog() == DialogResult.OK)
+            {
+                file_name = open_dialog.FileName;
+                fInfo = Path.GetExtension(open_dialog.FileName);
+                temp = Ma_List_Import_BT.Text;
+                Ma_List_Import_BT.Text = "Running ...";
+                Ma_List_Import_BT.Enabled = false;
+                Import_Ma_List_Manage_Table_in_file(file_name);
+                Ma_List_Import_BT.Enabled = true;
+                Ma_List_Import_BT.Text = temp;
+            }
+        }
+
+        private void Ma_List_Store_BT_Click(object sender, EventArgs e)
+        {
+            if (Update_SQL_Data(Material_List_Table_Form.Data_da, Material_List_Table_Form.Data_dtb) == true)
+            {
+                MessageBox.Show("Store Data Complete", "Successful");
+                //RELOAD_DB = 3;
+                //Load_WHM_Info_DB();
+            }
+            else
+            {
+                MessageBox.Show("Store Data Fail", "Failed");
+            }
+        }
     }
 }

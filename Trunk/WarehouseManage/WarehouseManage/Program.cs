@@ -15,7 +15,7 @@ namespace WarehouseManager
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());// (new User_Login());
+            Application.Run(new Form1(""));// (new User_Login());
         }
     }
 }

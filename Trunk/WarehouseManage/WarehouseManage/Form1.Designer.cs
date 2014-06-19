@@ -57,8 +57,8 @@
             this.MainTabControl.Size = new System.Drawing.Size(747, 456);
             this.MainTabControl.TabIndex = 0;
             this.MainTabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.Close_Tab);
-            this.MainTabControl.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MainTabControl_MouseClick);
             this.MainTabControl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainTabControl_KeyDown);
+            this.MainTabControl.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MainTabControl_MouseClick);
             // 
             // menuStrip1
             // 
@@ -144,8 +144,8 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "WarehouseManage -  Rev ";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_Closed);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

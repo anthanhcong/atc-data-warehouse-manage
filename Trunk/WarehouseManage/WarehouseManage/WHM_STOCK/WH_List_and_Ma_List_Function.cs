@@ -107,7 +107,22 @@ namespace WarehouseManager
                     if (Is_exist_WH_List_Manage(wh_id) == true)
                     {
                         // Update for this row
-                        Update_WH_List_Manage_Line(wh_id, (Excel.Worksheet)OpenWB.Sheets[1], row);
+                        if (WH_List_Import_Auto_Update.My_CheckBox.Checked == true)
+                        {
+                            Update_WH_List_Manage_Line(wh_id, (Excel.Worksheet)OpenWB.Sheets[1], row);
+                        }
+                        else
+                        {
+                            DialogResult thongbao;
+
+                            thongbao = (MessageBox.Show("Warehouse ID: " + wh_id + " was created.\n"
+                                                         + "Do you want to update ?", " Attention ",
+                                                                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning));
+                            if (thongbao == DialogResult.Yes)
+                            {
+                                Update_WH_List_Manage_Line(wh_id, (Excel.Worksheet)OpenWB.Sheets[1], row);
+                            }
+                        }
                     }
                     else
                     {

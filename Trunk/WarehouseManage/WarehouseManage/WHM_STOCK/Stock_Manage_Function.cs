@@ -30,6 +30,8 @@ namespace WarehouseManager
         public DataSet Stock_Manage_Tbl_ds = new DataSet();
         public SqlDataAdapter Stock_Manage_Tbl_da;
 
+        public string Stock_error_log;
+
         private void Stock_Manage_InitExcelCol_Infor()
         {
             Stock_Manage_Col[0] = new ExcelImportStruct("WareHouse_ID", "WareHouse_ID", Excel_Col_Type.COL_STRING, 30);
@@ -93,6 +95,7 @@ namespace WarehouseManager
         {
             int row;
             string part_number, wh_id, bin, plant;
+            bool exist_wh_id = false, exist_part = false;
             string cell_str;
 
 
@@ -104,6 +107,8 @@ namespace WarehouseManager
             if (Stock_Manage_Get_Col_info(OpenWB) == true)
             {
                 Load_Form_Stock_Manage_Line();
+                Load_Material_List();
+                Load_WH_ID_List();
                 row = 3;
                 cell_str = Get_Text_Cell((Excel.Worksheet)OpenWB.Sheets[1], row, 2, 20);
                 while (cell_str != "")
@@ -113,15 +118,29 @@ namespace WarehouseManager
                     plant = Get_Text_Cell((Excel.Worksheet)OpenWB.Sheets[1], row, Stock_Manage_Col[Stock_Manage_Plant].Col, Stock_Manage_Col[Stock_Manage_Plant].Data_Max_len);
                     wh_id = Get_Text_Cell((Excel.Worksheet)OpenWB.Sheets[1], row, Stock_Manage_Col[Stock_Manage_WH_ID].Col, Stock_Manage_Col[Stock_Manage_WH_ID].Data_Max_len);
                     // Kiem tra Line da co trong database chua
-                    if (Is_exist_Stock_Manage(part_number, bin, plant, wh_id) == true)
+                    exist_wh_id = Is_exist_WH_ID(wh_id);
+                    exist_part  = Is_exist_Part_number(part_number);
+
+                    if (exist_part == false)
                     {
-                        // Update for this row
-                        Update_Stock_Manage_Line(part_number, bin, plant, wh_id, (Excel.Worksheet)OpenWB.Sheets[1], row);
+                        Error_log += "\nPart number: " + part_number + " is'nt exist in Material list Datatable.";
                     }
-                    else
+                    if (exist_wh_id == false)
                     {
-                        // Insert new row
-                        Create_New_Stock_Manage_Line(part_number, bin, plant, wh_id, (Excel.Worksheet)OpenWB.Sheets[1], row);
+                        Error_log += "\nWarehouse ID: " + wh_id + " is'nt exist in Warehouse List Datatable.";
+                    }
+                    if ((exist_part == true) && (exist_wh_id == true))
+                    {
+                        if (Is_exist_Stock_Manage(part_number, bin, plant, wh_id) == true)
+                        {
+                            // Update for this row
+                            Update_Stock_Manage_Line(part_number, bin, plant, wh_id, (Excel.Worksheet)OpenWB.Sheets[1], row);
+                        }
+                        else
+                        {
+                            // Insert new row
+                            Create_New_Stock_Manage_Line(part_number, bin, plant, wh_id, (Excel.Worksheet)OpenWB.Sheets[1], row);
+                        }
                     }
                     row++;
                     cell_str = Get_Text_Cell((Excel.Worksheet)OpenWB.Sheets[1], row, 2, 20);
@@ -131,20 +150,28 @@ namespace WarehouseManager
 
                 Close_WorkBook(OpenWB);
                 // Store data
-                if (Update_SQL_Data(Stock_Table_Form.Data_da, Stock_Table_Form.Data_dtb) == true)
+                if (Error_log != "")
                 {
+                    MessageBox.Show(Error_log, "Error");
                     ProgressBar1.Visible = false;
                     StatusLabel.Text = "DONE";
-                    MessageBox.Show("Complete Import Data");
                 }
                 else
                 {
-                    ProgressBar1.Visible = false;
-                    StatusLabel.Text = "Import Failed";
-                    MessageBox.Show("Import Data Failed");
-                    StatusLabel.Text = "DONE";
+                    if (Update_SQL_Data(Stock_Table_Form.Data_da, Stock_Table_Form.Data_dtb) == true)
+                    {
+                        ProgressBar1.Visible = false;
+                        StatusLabel.Text = "DONE";
+                        MessageBox.Show("Complete Import Data");
+                    }
+                    else
+                    {
+                        ProgressBar1.Visible = false;
+                        StatusLabel.Text = "Import Failed";
+                        MessageBox.Show("Import Data Failed");
+                        StatusLabel.Text = "DONE";
+                    }
                 }
-
             }
             else
             {
@@ -183,6 +210,56 @@ namespace WarehouseManager
                 }
             }
             return false;
+        }
+
+        private void Load_Material_List()
+        {
+            if (Load_Ma_List_Tbl != null)
+            {
+                Load_Ma_List_Tbl.Clear();
+            }
+            Load_Ma_List_Tbl = Get_SQL_Data(Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Material_List_tb", ref Load_Ma_List_Tbl_da, ref Load_Ma_List_Tbl_ds);
+        }
+
+        private void Load_WH_ID_List()
+        {
+            if (Load_WH_ID_List_Tbl != null)
+            {
+                Load_WH_ID_List_Tbl.Clear();
+            }
+            Load_WH_ID_List_Tbl = Get_SQL_Data(Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Warehouse_List_tb", ref Load_WH_ID_List_Tbl_da, ref Load_WH_ID_List_Tbl_ds);
+        }
+
+        private bool Is_exist_WH_ID(string wh_id)
+        {
+            string filterExpression = "";
+
+            filterExpression = "WareHouse_ID =" + "'" + wh_id + "'";
+            DataRow[] rows = Load_WH_ID_List_Tbl.Select(filterExpression);
+            if (rows.Length == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private bool Is_exist_Part_number(string part_number)
+        {
+            string filterExpression = "";
+
+            filterExpression = "Part_Number =" + "'" + part_number + "'";
+            DataRow[] rows = Load_Ma_List_Tbl.Select(filterExpression);
+            if (rows.Length == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         private bool Update_Stock_Manage_Line(string part_number, string bin, string plant, string wh_id, Excel.Worksheet xsheet, int row)

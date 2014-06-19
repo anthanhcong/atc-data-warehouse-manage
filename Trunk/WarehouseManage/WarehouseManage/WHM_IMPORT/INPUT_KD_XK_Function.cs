@@ -50,7 +50,7 @@ namespace WarehouseManager
             INPUT_KD_XK_Col[15] = new ExcelImportStruct("Ma_hang", "Mã hàng", Excel_Col_Type.COL_STRING, 50);
             INPUT_KD_XK_Col[16] = new ExcelImportStruct("Ten_hang", "Tên hàng", Excel_Col_Type.COL_STRING, 100);
             INPUT_KD_XK_Col[17] = new ExcelImportStruct("Don_vi_tinh", "Đơn vị tính", Excel_Col_Type.COL_STRING, 30);
-            INPUT_KD_XK_Col[18] = new ExcelImportStruct("So_luong", "Số lượng", Excel_Col_Type.COL_INT, 20);
+            INPUT_KD_XK_Col[18] = new ExcelImportStruct("So_luong", "Số lượng", Excel_Col_Type.COL_FLOAT, 20);
             INPUT_KD_XK_Col[19] = new ExcelImportStruct("Tri_gia_VND", "Trị giá VND", Excel_Col_Type.COL_FLOAT, 20);
             INPUT_KD_XK_Col[20] = new ExcelImportStruct("Don_gia", "Đơn giá", Excel_Col_Type.COL_FLOAT, 20);
             INPUT_KD_XK_Col[21] = new ExcelImportStruct("Tri_gia_NT", "Trị giá NT", Excel_Col_Type.COL_FLOAT, 20);
