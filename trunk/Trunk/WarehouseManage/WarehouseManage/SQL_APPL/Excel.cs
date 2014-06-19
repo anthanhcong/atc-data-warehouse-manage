@@ -44,13 +44,13 @@ namespace WarehouseManager
             if (File.Exists(file_path) == false)
             {
                 //khoi tao cac doi tuong Com Excel de lam viec
-                Excel.Application xlApp;
+                Excel.ApplicationClass xlApp;
                 Excel.Worksheet xlSheet;
                 Excel.Workbook xlBook;
                 //doi tuong Trống để thêm  vào xlApp sau đó lưu lại sau
                 object missValue = System.Reflection.Missing.Value;
                 // khoi tao doi tuong Com Excel moi
-                xlApp = new Excel.Application();
+                xlApp = new Excel.ApplicationClass();
                 xlBook = xlApp.Workbooks.Add(missValue);
                 //su dung Sheet dau tien de thao tac
                 xlSheet = (Excel.Worksheet)xlBook.Worksheets.get_Item(1);
@@ -511,13 +511,13 @@ namespace WarehouseManager
         {
             bool result = false;
             //khoi tao cac doi tuong Com Excel de lam viec
-            Excel.Application xlApp;
+            Excel.ApplicationClass xlApp;
             Excel.Worksheet xlSheet;
             Excel.Workbook xlBook;
             //doi tuong Trống để thêm  vào xlApp sau đó lưu lại sau
             object missValue = System.Reflection.Missing.Value;
             //khoi tao doi tuong Com Excel moi
-            xlApp = new Excel.Application();
+            xlApp = new Excel.ApplicationClass();
             xlBook = xlApp.Workbooks.Add(missValue);
             //su dung Sheet dau tien de thao tac
             xlSheet = (Excel.Worksheet)xlBook.Worksheets.get_Item(1);
@@ -576,7 +576,7 @@ namespace WarehouseManager
                 // ProgressBar1.Visible = false;
 
                 //autofit độ rộng cho các cột
-                for (i = 0; i < socot; i++)
+                for (i = 0; i <= socot; i++)
                 {
                     ((Excel.Range)xlSheet.Cells[1, i + 1]).EntireColumn.AutoFit();
                 }

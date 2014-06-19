@@ -31,6 +31,7 @@ namespace WarehouseManager
         public Button INPUT_NK_Store_BT;
         //public Button INPUT_NK_Search_BT;
         //private TextBox_Lbl INPUT_NK_Search_Txt_Lb;
+        public Button INPUT_NK_Test_Export_BT;
 
         private Button_Lbl INPUT_NK_Find_BtL;
         private ComboBox_Lbl INPUT_NK_So_TK_CbxL;
@@ -245,6 +246,7 @@ namespace WarehouseManager
             INPUT_NK_SX_Import_BT = new Button();
             INPUT_NK_Store_BT = new Button();
             //INPUT_NK_Search_BT = new Button();
+            INPUT_NK_Test_Export_BT = new Button();
 
 
             INPUT_NK_KD_Import_BT.Name = "INPUT_NK_KD_Import_BT";
@@ -271,6 +273,13 @@ namespace WarehouseManager
             INPUT_NK_Store_BT.Click += new System.EventHandler(INPUT_NK_Store_BT_Click);
             INPUT_NK_Manage_Tab.Controls.Add(INPUT_NK_Store_BT);
 
+            INPUT_NK_Test_Export_BT.Name = "INPUT_NK_Test_Export_BT";
+            INPUT_NK_Test_Export_BT.Text = "Export";
+            INPUT_NK_Test_Export_BT.Location = new System.Drawing.Point(650, 120);
+            INPUT_NK_Test_Export_BT.Size = new System.Drawing.Size(50, 23);
+            INPUT_NK_Test_Export_BT.UseVisualStyleBackColor = true;
+            INPUT_NK_Test_Export_BT.Click += new System.EventHandler(INPUT_NK_Test_Export_BT_Click);
+            INPUT_NK_Manage_Tab.Controls.Add(INPUT_NK_Test_Export_BT);
             //INPUT_NK_Search_BT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             //INPUT_NK_Search_BT.Name = "INPUT_NK_Search_BT";
             //INPUT_NK_Search_BT.Text = "Search";
