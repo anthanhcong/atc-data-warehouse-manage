@@ -22,6 +22,7 @@ namespace WarehouseManager
             COL_STRING,
             COL_INT,
             COL_FLOAT,
+            COL_DECIMAL,
             COL_DATE
         };
 

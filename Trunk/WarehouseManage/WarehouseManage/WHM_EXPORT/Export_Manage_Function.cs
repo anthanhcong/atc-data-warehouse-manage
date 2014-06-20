@@ -26,7 +26,7 @@ namespace WarehouseManager
 
         public DataTable Temp_TK_tbl;
         public DataTable Temp_Data_tbl;       
-        Double Sum_NT;
+        decimal Sum_NT;
         public void Process_Export_Form_NK()
         {
             string so_tk, ngay_dk, ma_loaihinh;
@@ -112,7 +112,7 @@ namespace WarehouseManager
             return true;
         }
 
-        private bool Sum_Qty_and_Re_calc()
+        public bool Sum_Qty_and_Re_calc()
         {
             string ma_hang;
             float so_luong, don_gia;
@@ -154,7 +154,7 @@ namespace WarehouseManager
         //        return true;
         //}
 
-        private bool Plus_or_Add_New_Ma_hang_Line(string ma_hang, float don_gia, float so_luong, DataRow row_add)
+        public bool Plus_or_Add_New_Ma_hang_Line(string ma_hang, float don_gia, float so_luong, DataRow row_add)
         {
             string filterExpression = "";
             float cur_qty;
@@ -178,32 +178,40 @@ namespace WarehouseManager
             return true;
         }
 
-        private void Final_Calc_Export()
+        public void Final_Calc_Export()
         {
-            float so_luong, don_gia, phi_BH, phi_VC, ty_gia_VND;
-            double tri_gia_NT, tri_gia_VND, ts_XNK, ts_TTDB, ts_VAT, thu_khac,
-                    tt_XNK, tt_TTDB, tt_VAT, t_thu_khac, tong_tien_thue;
+            //float so_luong, don_gia, phi_BH, phi_VC, ty_gia_VND;
+            //decimal tri_gia_NT, tri_gia_VND, ts_XNK, ts_TTDB, ts_VAT, thu_khac,
+            //        tt_XNK, tt_TTDB, tt_VAT, t_thu_khac, tong_tien_thue;//, temp_tri_gia;
+            //decimal temp_tri_gia;
+            decimal so_luong, don_gia, phi_BH, phi_VC, ty_gia_VND, ts_XNK, ts_TTDB, ts_VAT, thu_khac;
+            decimal tri_gia_NT, tri_gia_VND,
+                    tt_XNK, tt_TTDB, tt_VAT, t_thu_khac, tong_tien_thue;//, temp_tri_gia;
+            decimal temp_tri_gia;
             Sum_NT = 0;
             foreach (DataRow row in Temp_Data_tbl.Rows)
             {
-                so_luong = float.Parse(row["So_luong"].ToString().Trim());
-                don_gia = float.Parse(row["Don_gia"].ToString().Trim());
-                tri_gia_NT = Math.Round(so_luong * don_gia, 6);
+                so_luong = decimal.Parse(row["So_luong"].ToString().Trim());
+                don_gia = decimal.Parse(row["Don_gia"].ToString().Trim());
+                tri_gia_NT =Math.Round(so_luong * don_gia, 6);
                 row["Tri_gia_NT"] = tri_gia_NT;
                 Sum_NT = Sum_NT + tri_gia_NT;
 
             }
             foreach (DataRow row in Temp_Data_tbl.Rows)
             {
-                phi_BH = float.Parse(row["Phi_BH"].ToString().Trim());
-                phi_VC = float.Parse(row["Phi_VC"].ToString().Trim());
-                ts_XNK = float.Parse(row["Thue_suat_XNK"].ToString().Trim());
-                ts_TTDB = float.Parse(row["Thue_suat_TTDB"].ToString().Trim());
-                ts_VAT = float.Parse(row["Thue_suat_VAT"].ToString().Trim());
-                thu_khac = float.Parse(row["Thu_khac"].ToString().Trim());
-                tri_gia_NT = float.Parse(row["Tri_gia_NT"].ToString().Trim());
-                ty_gia_VND = float.Parse(row["Ty_gia_VND"].ToString().Trim());
-                tri_gia_VND = Math.Round((((phi_BH + phi_BH) * tri_gia_NT / Sum_NT) + tri_gia_NT )* ty_gia_VND, 6);
+                phi_BH = decimal.Parse(row["Phi_BH"].ToString().Trim());
+                phi_VC = decimal.Parse(row["Phi_VC"].ToString().Trim());
+                ts_XNK = decimal.Parse(row["Thue_suat_XNK"].ToString().Trim());
+                ts_TTDB = decimal.Parse(row["Thue_suat_TTDB"].ToString().Trim());
+                ts_VAT = decimal.Parse(row["Thue_suat_VAT"].ToString().Trim());
+                thu_khac = decimal.Parse(row["Thu_khac"].ToString().Trim());
+                tri_gia_NT = decimal.Parse(row["Tri_gia_NT"].ToString().Trim());
+                ty_gia_VND = decimal.Parse(row["Ty_gia_VND"].ToString().Trim());
+                //temp_tri_gia = (((phi_BH + phi_VC) * tri_gia_NT / Sum_NT) + tri_gia_NT) ;
+                //temp_tri_gia = temp_tri_gia * ty_gia_VND;
+                //tri_gia_VND = Math.Round(temp_tri_gia* ty_gia_VND, 6);//Math.Round((((phi_BH + phi_VC) * tri_gia_NT / Sum_NT) + tri_gia_NT) * ty_gia_VND, 4);
+                tri_gia_VND =Math.Round((((phi_BH + phi_VC) * tri_gia_NT / Sum_NT) + tri_gia_NT) * ty_gia_VND, 6);
                 tt_XNK = Math.Round(tri_gia_VND* ts_XNK/100 , 6);
                 tt_TTDB = Math.Round((tri_gia_VND + tt_XNK) * ts_TTDB / 100, 6);
                 tt_VAT = Math.Round((tri_gia_VND + tt_XNK + tt_TTDB) * ts_VAT / 100, 6);
@@ -217,7 +225,7 @@ namespace WarehouseManager
                 row["Tong_tien_thue"] = tong_tien_thue;
             }
         }
-        private void Paste_to_Ouput_table()
+        public void Paste_to_Ouput_table()
         {
             foreach (DataRow row in Temp_Data_tbl.Rows)
             {

@@ -283,7 +283,7 @@ namespace WarehouseManager
             NK_Find_So_TK();
         }
 
-        private void INPUT_NK_Test_Export_BT_Click(object sender, EventArgs e)
+        public void INPUT_NK_Test_Export_BT_Click(object sender, EventArgs e)
         {
             Process_Export_Form_NK();
         }
