@@ -32,6 +32,46 @@ namespace WarehouseManager
 
         string Ma_KD_Or_SX;
 
+        //private void INPUT_KD_NK_InitExcelCol_Infor()
+        //{
+        //    INPUT_KD_NK_Col[0] = new ExcelImportStruct("So_TK", "Số TK", Excel_Col_Type.COL_STRING, 20);
+        //    INPUT_KD_NK_Col[1] = new ExcelImportStruct("Ngay_DK", "Ngày ĐK", Excel_Col_Type.COL_DATE, 20);
+        //    INPUT_KD_NK_Col[2] = new ExcelImportStruct("Ma_loai_hinh", "Mã loại hình", Excel_Col_Type.COL_STRING, 30);
+        //    INPUT_KD_NK_Col[3] = new ExcelImportStruct("Ten_doi_tac", "Tên đối tác", Excel_Col_Type.COL_STRING, 300);
+        //    INPUT_KD_NK_Col[4] = new ExcelImportStruct("Van_don", "Vận đơn", Excel_Col_Type.COL_STRING, 20);
+        //    INPUT_KD_NK_Col[5] = new ExcelImportStruct("So_HD", "Số HĐ", Excel_Col_Type.COL_STRING, 100);
+        //    INPUT_KD_NK_Col[6] = new ExcelImportStruct("So_hoa_don_TM", "Số hóa đơn TM", Excel_Col_Type.COL_STRING, 100);
+        //    INPUT_KD_NK_Col[7] = new ExcelImportStruct("Nuoc_xuat", "Nước xuất", Excel_Col_Type.COL_STRING, 50);
+        //    INPUT_KD_NK_Col[8] = new ExcelImportStruct("Ma_cua_khau", "Mã cửa khẩu", Excel_Col_Type.COL_STRING, 100);
+        //    INPUT_KD_NK_Col[9] = new ExcelImportStruct("Ma_giao_hang", "Mã giao hàng", Excel_Col_Type.COL_STRING, 20);
+        //    INPUT_KD_NK_Col[10] = new ExcelImportStruct("Nguyen_te", "Nguyên tệ", Excel_Col_Type.COL_STRING, 20);
+        //    INPUT_KD_NK_Col[11] = new ExcelImportStruct("Phi_BH", "Phí BH", Excel_Col_Type.COL_FLOAT, 20);
+        //    INPUT_KD_NK_Col[12] = new ExcelImportStruct("Phi_VC", "Phí VC", Excel_Col_Type.COL_FLOAT, 20);
+        //    INPUT_KD_NK_Col[13] = new ExcelImportStruct("Ty_gia_VND", "Tỷ giá VNĐ", Excel_Col_Type.COL_FLOAT, 20);
+        //    INPUT_KD_NK_Col[14] = new ExcelImportStruct("So_kien", "Số kiện", Excel_Col_Type.COL_INT, 20);
+        //    INPUT_KD_NK_Col[15] = new ExcelImportStruct("Cont_20", "Cont 20", Excel_Col_Type.COL_INT, 10);
+        //    INPUT_KD_NK_Col[16] = new ExcelImportStruct("Cont_40", "Cont 40", Excel_Col_Type.COL_INT, 10);
+        //    INPUT_KD_NK_Col[17] = new ExcelImportStruct("Trong_luong", "Trọng lượng", Excel_Col_Type.COL_FLOAT, 20);
+        //    INPUT_KD_NK_Col[18] = new ExcelImportStruct("Ma_HS", "Mã HS", Excel_Col_Type.COL_STRING, 20);
+        //    INPUT_KD_NK_Col[19] = new ExcelImportStruct("Ma_hang", "Mã hàng", Excel_Col_Type.COL_STRING, 20);
+        //    INPUT_KD_NK_Col[20] = new ExcelImportStruct("Ten_hang", "Tên hàng", Excel_Col_Type.COL_STRING, 100);
+        //    INPUT_KD_NK_Col[21] = new ExcelImportStruct("Don_vi_tinh", "Đơn vị tính", Excel_Col_Type.COL_STRING, 30);
+        //    INPUT_KD_NK_Col[22] = new ExcelImportStruct("So_luong", "Số lượng", Excel_Col_Type.COL_FLOAT, 20);
+        //    INPUT_KD_NK_Col[23] = new ExcelImportStruct("Tri_gia_VND", "Trị giá VND", Excel_Col_Type.COL_FLOAT, 20);
+        //    INPUT_KD_NK_Col[24] = new ExcelImportStruct("Don_gia", "Đơn giá", Excel_Col_Type.COL_FLOAT, 20);
+        //    INPUT_KD_NK_Col[25] = new ExcelImportStruct("Tri_gia_NT", "Trị giá NT", Excel_Col_Type.COL_FLOAT, 20);
+        //    INPUT_KD_NK_Col[26] = new ExcelImportStruct("Thue_suat_XNK", "Thuế suất XNK (%)", Excel_Col_Type.COL_FLOAT, 10);
+        //    INPUT_KD_NK_Col[27] = new ExcelImportStruct("Tien_thue_XNK", "Tiền thuế XNK", Excel_Col_Type.COL_FLOAT, 30);
+        //    INPUT_KD_NK_Col[28] = new ExcelImportStruct("Thue_suat_TTDB", "Thuế suất TTĐB (%)", Excel_Col_Type.COL_FLOAT, 10);
+        //    INPUT_KD_NK_Col[29] = new ExcelImportStruct("Tien_thue_TTDB", "Tiền thuế TTĐB", Excel_Col_Type.COL_FLOAT, 30);
+        //    INPUT_KD_NK_Col[30] = new ExcelImportStruct("Thue_suat_VAT", "Thuế suất VAT (%)", Excel_Col_Type.COL_FLOAT, 10);
+        //    INPUT_KD_NK_Col[31] = new ExcelImportStruct("Tien_thue_VAT", "Tiền thuế VAT", Excel_Col_Type.COL_FLOAT, 30);
+        //    INPUT_KD_NK_Col[32] = new ExcelImportStruct("Thu_khac", "Thu khác (%)", Excel_Col_Type.COL_FLOAT, 10);
+        //    INPUT_KD_NK_Col[33] = new ExcelImportStruct("Tien_thu_khac", "Tiền thu khác", Excel_Col_Type.COL_FLOAT, 30);
+        //    INPUT_KD_NK_Col[34] = new ExcelImportStruct("Tong_tien_thue", "Tổng tiền thuế", Excel_Col_Type.COL_FLOAT, 30);
+        //    INPUT_KD_NK_Col[35] = new ExcelImportStruct("Nuoc_xuat_xu", "Nước xuất xứ", Excel_Col_Type.COL_STRING, 50);
+        //}
+
         private void INPUT_KD_NK_InitExcelCol_Infor()
         {
             INPUT_KD_NK_Col[0] = new ExcelImportStruct("So_TK", "Số TK", Excel_Col_Type.COL_STRING, 20);
@@ -56,19 +96,19 @@ namespace WarehouseManager
             INPUT_KD_NK_Col[19] = new ExcelImportStruct("Ma_hang", "Mã hàng", Excel_Col_Type.COL_STRING, 20);
             INPUT_KD_NK_Col[20] = new ExcelImportStruct("Ten_hang", "Tên hàng", Excel_Col_Type.COL_STRING, 100);
             INPUT_KD_NK_Col[21] = new ExcelImportStruct("Don_vi_tinh", "Đơn vị tính", Excel_Col_Type.COL_STRING, 30);
-            INPUT_KD_NK_Col[22] = new ExcelImportStruct("So_luong", "Số lượng", Excel_Col_Type.COL_FLOAT, 20);
-            INPUT_KD_NK_Col[23] = new ExcelImportStruct("Tri_gia_VND", "Trị giá VND", Excel_Col_Type.COL_FLOAT, 20);
-            INPUT_KD_NK_Col[24] = new ExcelImportStruct("Don_gia", "Đơn giá", Excel_Col_Type.COL_FLOAT, 20);
-            INPUT_KD_NK_Col[25] = new ExcelImportStruct("Tri_gia_NT", "Trị giá NT", Excel_Col_Type.COL_FLOAT, 20);
+            INPUT_KD_NK_Col[22] = new ExcelImportStruct("So_luong", "Số lượng", Excel_Col_Type.COL_DECIMAL, 20);
+            INPUT_KD_NK_Col[23] = new ExcelImportStruct("Tri_gia_VND", "Trị giá VND", Excel_Col_Type.COL_DECIMAL, 20);
+            INPUT_KD_NK_Col[24] = new ExcelImportStruct("Don_gia", "Đơn giá", Excel_Col_Type.COL_DECIMAL, 20);
+            INPUT_KD_NK_Col[25] = new ExcelImportStruct("Tri_gia_NT", "Trị giá NT", Excel_Col_Type.COL_DECIMAL, 20);
             INPUT_KD_NK_Col[26] = new ExcelImportStruct("Thue_suat_XNK", "Thuế suất XNK (%)", Excel_Col_Type.COL_FLOAT, 10);
-            INPUT_KD_NK_Col[27] = new ExcelImportStruct("Tien_thue_XNK", "Tiền thuế XNK", Excel_Col_Type.COL_FLOAT, 30);
+            INPUT_KD_NK_Col[27] = new ExcelImportStruct("Tien_thue_XNK", "Tiền thuế XNK", Excel_Col_Type.COL_DECIMAL, 30);
             INPUT_KD_NK_Col[28] = new ExcelImportStruct("Thue_suat_TTDB", "Thuế suất TTĐB (%)", Excel_Col_Type.COL_FLOAT, 10);
-            INPUT_KD_NK_Col[29] = new ExcelImportStruct("Tien_thue_TTDB", "Tiền thuế TTĐB", Excel_Col_Type.COL_FLOAT, 30);
+            INPUT_KD_NK_Col[29] = new ExcelImportStruct("Tien_thue_TTDB", "Tiền thuế TTĐB", Excel_Col_Type.COL_DECIMAL, 30);
             INPUT_KD_NK_Col[30] = new ExcelImportStruct("Thue_suat_VAT", "Thuế suất VAT (%)", Excel_Col_Type.COL_FLOAT, 10);
-            INPUT_KD_NK_Col[31] = new ExcelImportStruct("Tien_thue_VAT", "Tiền thuế VAT", Excel_Col_Type.COL_FLOAT, 30);
+            INPUT_KD_NK_Col[31] = new ExcelImportStruct("Tien_thue_VAT", "Tiền thuế VAT", Excel_Col_Type.COL_DECIMAL, 30);
             INPUT_KD_NK_Col[32] = new ExcelImportStruct("Thu_khac", "Thu khác (%)", Excel_Col_Type.COL_FLOAT, 10);
-            INPUT_KD_NK_Col[33] = new ExcelImportStruct("Tien_thu_khac", "Tiền thu khác", Excel_Col_Type.COL_FLOAT, 30);
-            INPUT_KD_NK_Col[34] = new ExcelImportStruct("Tong_tien_thue", "Tổng tiền thuế", Excel_Col_Type.COL_FLOAT, 30);
+            INPUT_KD_NK_Col[33] = new ExcelImportStruct("Tien_thu_khac", "Tiền thu khác", Excel_Col_Type.COL_DECIMAL, 30);
+            INPUT_KD_NK_Col[34] = new ExcelImportStruct("Tong_tien_thue", "Tổng tiền thuế", Excel_Col_Type.COL_DECIMAL, 30);
             INPUT_KD_NK_Col[35] = new ExcelImportStruct("Nuoc_xuat_xu", "Nước xuất xứ", Excel_Col_Type.COL_STRING, 50);
         }
 
@@ -245,6 +285,9 @@ namespace WarehouseManager
                                     break;
                                 case Excel_Col_Type.COL_FLOAT:
                                     dt_row[INPUT_KD_NK_Col[i].DB_str] = Get_float_Cell(xsheet, row, INPUT_KD_NK_Col[i].Col);
+                                    break;
+                                case Excel_Col_Type.COL_DECIMAL:
+                                    dt_row[INPUT_KD_NK_Col[i].DB_str] = Get_decimal_Cell(xsheet, row, INPUT_KD_NK_Col[i].Col);
                                     break;
                                 case Excel_Col_Type.COL_DATE:
                                     dt_row[INPUT_KD_NK_Col[i].DB_str] = Get_date_str_Cell(xsheet, row, INPUT_KD_NK_Col[i].Col);

@@ -28,3 +28,13 @@ D:\LAM\PROJECTS\WHM\Trunk\WarehouseManage-VS2008\WarehouseManage\obj\Debug\Wareh
 D:\LAM\PROJECTS\WHM\Trunk\WarehouseManage-VS2008\WarehouseManage\obj\Debug\WarehouseManage.csproj.GenerateResource.Cache
 D:\LAM\PROJECTS\WHM\Trunk\WarehouseManage-VS2008\WarehouseManage\bin\Debug\WarehouseManage.exe
 D:\LAM\PROJECTS\WHM\Trunk\WarehouseManage-VS2008\WarehouseManage\bin\Debug\WarehouseManage.pdb
+D:\LAM\PROJECTS\Warehouse_Manage\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.csproj.ResolveComReference.cache
+D:\LAM\PROJECTS\Warehouse_Manage\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.exe
+D:\LAM\PROJECTS\Warehouse_Manage\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.pdb
+D:\LAM\PROJECTS\Warehouse_Manage\Trunk\WarehouseManage\WarehouseManage\bin\Debug\WarehouseManage.exe
+D:\LAM\PROJECTS\Warehouse_Manage\Trunk\WarehouseManage\WarehouseManage\bin\Debug\WarehouseManage.pdb
+D:\LAM\PROJECTS\Warehouse_Manage\Trunk\WarehouseManage\WarehouseManage\obj\Debug\ResolveAssemblyReference.cache
+D:\LAM\PROJECTS\Warehouse_Manage\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManager.Form1.resources
+D:\LAM\PROJECTS\Warehouse_Manage\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.Properties.Resources.resources
+D:\LAM\PROJECTS\Warehouse_Manage\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManager.User_Login.resources
+D:\LAM\PROJECTS\Warehouse_Manage\Trunk\WarehouseManage\WarehouseManage\obj\Debug\WarehouseManage.csproj.GenerateResource.Cache

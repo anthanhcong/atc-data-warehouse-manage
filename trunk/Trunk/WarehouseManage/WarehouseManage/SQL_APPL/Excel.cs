@@ -330,6 +330,32 @@ namespace WarehouseManager
             return value;
         }
 
+        public decimal Get_decimal_Cell(Excel.Worksheet sheet, int row, int col)
+        {
+            Excel.Range cur_cell;
+            string cel_str;
+            decimal value;
+            try
+            {
+                ((Excel.Range)sheet.Cells[row, col]).NumberFormat = "0.000000";
+                ((Excel.Range)sheet.Cells[row, col]).EntireColumn.AutoFit();
+                cur_cell = (Excel.Range)sheet.Cells[row, col];
+                cel_str = cur_cell.Text.ToString().Trim();
+                if (cel_str == "") value = 0;
+                else value = decimal.Parse(cel_str);
+                cur_cell.Interior.Color = 5296274;
+            }
+            catch
+            {
+                MessageBox.Show("Error when get Float value in cell (row = " + row + "; col = " + col + ")");
+                ((Excel.Range)sheet.Cells[row, col]).Interior.Color = 255;
+                value = 0;
+                OpenWB.Save();
+            }
+
+            return value;
+        }
+
         public int Convert_StringNumber2Int(string number)
         {
             string value_num;
