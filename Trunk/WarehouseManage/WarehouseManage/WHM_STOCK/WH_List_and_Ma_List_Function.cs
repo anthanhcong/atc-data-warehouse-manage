@@ -19,10 +19,13 @@ namespace WarehouseManager
 {
     public partial class Form1
     {
-        const int WH_List_Manage_COL_NUM = 2;
+        const int WH_List_Manage_COL_NUM = 5;
         ExcelImportStruct[] WH_List_Manage_Col = new ExcelImportStruct[WH_List_Manage_COL_NUM];
-        const int WH_List_Manage_WH_List_ID = 0;
-        const int WH_List_Manage_WH_List_Name = 1;
+        const int WH_List_Manage_WH_Ma_Loaihinh= 0;
+        const int WH_List_Manage_WH_List_ID = 1;
+        const int WH_List_Manage_WH_List_Name = 2;
+        const int WH_List_Manage_WH_Fa_wh = 3;
+        const int WH_List_Manage_WH_Sub_wh = 4;
 
         public DataTable WH_List_Manage_Tbl;
         public DataSet WH_List_Manage_Tbl_ds = new DataSet();
@@ -30,8 +33,11 @@ namespace WarehouseManager
 
         private void WH_List_Manage_InitExcelCol_Infor()
         {
-            WH_List_Manage_Col[0] = new ExcelImportStruct("WareHouse_ID", "WareHouse_ID", Excel_Col_Type.COL_STRING, 30);
-            WH_List_Manage_Col[1] = new ExcelImportStruct("WareHouse_Name", "WareHouse_Name", Excel_Col_Type.COL_STRING, 50);
+            WH_List_Manage_Col[0] = new ExcelImportStruct("Ma_loai_hinh", "Ma_loai_hinh", Excel_Col_Type.COL_STRING, 20);
+            WH_List_Manage_Col[1] = new ExcelImportStruct("WareHouse_ID", "WareHouse_ID", Excel_Col_Type.COL_STRING, 30);
+            WH_List_Manage_Col[2] = new ExcelImportStruct("WareHouse_Name", "WareHouse_Name", Excel_Col_Type.COL_STRING, 50);
+            WH_List_Manage_Col[3] = new ExcelImportStruct("Fa_wh_id", "Fa_wh_id", Excel_Col_Type.COL_STRING, 30);
+            WH_List_Manage_Col[4] = new ExcelImportStruct("Sub_wh_id", "Sub_wh_id", Excel_Col_Type.COL_STRING, 30);
         }
 
         private bool WH_List_Manage_Get_Col_info(Excel.Workbook cur_wbook)
@@ -86,7 +92,7 @@ namespace WarehouseManager
         private bool Import_WH_List_Manage_Table_in_file(string file_name)
         {
             int row;
-            string wh_id;
+            string ma_loaihinh, wh_id, sub_wh;
             string cell_str;
 
 
@@ -103,31 +109,39 @@ namespace WarehouseManager
                 while (cell_str != "")
                 {
                     wh_id = Get_Text_Cell((Excel.Worksheet)OpenWB.Sheets[1], row, WH_List_Manage_Col[WH_List_Manage_WH_List_ID].Col, WH_List_Manage_Col[WH_List_Manage_WH_List_ID].Data_Max_len);
+                    ma_loaihinh = Get_Text_Cell((Excel.Worksheet)OpenWB.Sheets[1], row, WH_List_Manage_Col[WH_List_Manage_WH_Ma_Loaihinh].Col, WH_List_Manage_Col[WH_List_Manage_WH_Ma_Loaihinh].Data_Max_len);
+                    sub_wh = Get_Text_Cell((Excel.Worksheet)OpenWB.Sheets[1], row, WH_List_Manage_Col[WH_List_Manage_WH_Sub_wh].Col, WH_List_Manage_Col[WH_List_Manage_WH_Sub_wh].Data_Max_len);
+                    if (sub_wh == "")
+                    {
+                        sub_wh = "Blank";
+                    }
                     // Kiem tra Line da co trong database chua
-                    if (Is_exist_WH_List_Manage(wh_id) == true)
+                    if (Is_exist_WH_List_Manage(wh_id, ma_loaihinh, sub_wh) == true)
                     {
                         // Update for this row
                         if (WH_List_Import_Auto_Update.My_CheckBox.Checked == true)
                         {
-                            Update_WH_List_Manage_Line(wh_id, (Excel.Worksheet)OpenWB.Sheets[1], row);
+                            Update_WH_List_Manage_Line(wh_id, ma_loaihinh, sub_wh, (Excel.Worksheet)OpenWB.Sheets[1], row);
                         }
                         else
                         {
                             DialogResult thongbao;
 
-                            thongbao = (MessageBox.Show("Warehouse ID: " + wh_id + " was created.\n"
+                            thongbao = (MessageBox.Show("Warehouse ID: " + wh_id +
+                                                        "\nMã loại hình: " + ma_loaihinh + 
+                                                        "\nSub WH: " + sub_wh + " was created.\n"
                                                          + "Do you want to update ?", " Attention ",
                                                                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning));
                             if (thongbao == DialogResult.Yes)
                             {
-                                Update_WH_List_Manage_Line(wh_id, (Excel.Worksheet)OpenWB.Sheets[1], row);
+                                Update_WH_List_Manage_Line(wh_id, ma_loaihinh, sub_wh, (Excel.Worksheet)OpenWB.Sheets[1], row);
                             }
                         }
                     }
                     else
                     {
                         // Insert new row
-                        Create_New_WH_List_Manage_Line(wh_id, (Excel.Worksheet)OpenWB.Sheets[1], row);
+                        Create_New_WH_List_Manage_Line(wh_id, ma_loaihinh, sub_wh, (Excel.Worksheet)OpenWB.Sheets[1], row);
                     }
                     row++;
                     cell_str = Get_Text_Cell((Excel.Worksheet)OpenWB.Sheets[1], row, 2, 20);
@@ -174,13 +188,15 @@ namespace WarehouseManager
             WH_ID_List_Table_Form.Load_DataBase(Database_WHM_Stock_Con_Str, @"SELECT * FROM [WHM_STOCK_DB].[dbo].[Warehouse_List_tb]");
         }
 
-        private bool Is_exist_WH_List_Manage(string wh_id)
+        private bool Is_exist_WH_List_Manage(string wh_id, string ma_loaihinh, string sub_wh)
         {
-            string cur_wh_id;
+            string cur_wh_id, cur_ma_lh, cur_sub_wh;
             foreach (DataRow row in WH_ID_List_Table_Form.Data_dtb.Rows)
             {
                 cur_wh_id = row[WH_List_Manage_Col[WH_List_Manage_WH_List_ID].DB_str].ToString().Trim();
-                if (cur_wh_id == wh_id)
+                cur_ma_lh = row[WH_List_Manage_Col[WH_List_Manage_WH_Ma_Loaihinh].DB_str].ToString().Trim();
+                cur_sub_wh = row[WH_List_Manage_Col[WH_List_Manage_WH_Sub_wh].DB_str].ToString().Trim();
+                if ((cur_wh_id == wh_id) && (cur_ma_lh == ma_loaihinh) && (cur_sub_wh == sub_wh))
                 {
                     return true;
                 }
@@ -188,20 +204,22 @@ namespace WarehouseManager
             return false;
         }
 
-        private bool Update_WH_List_Manage_Line(string wh_id, Excel.Worksheet xsheet, int row)
+        private bool Update_WH_List_Manage_Line(string wh_id, string ma_loaihinh, string sub_wh, Excel.Worksheet xsheet, int row)
         {
-            string cur_wh_id;
+            string cur_wh_id, cur_ma_lh, cur_sub_wh;
             Excel_Col_Type col_type;
             int i;
 
             foreach (DataRow dt_row in WH_ID_List_Table_Form.Data_dtb.Rows)
             {
                 cur_wh_id = dt_row[WH_List_Manage_Col[WH_List_Manage_WH_List_ID].DB_str].ToString().Trim();
-                if (cur_wh_id == wh_id)
+                cur_ma_lh = dt_row[WH_List_Manage_Col[WH_List_Manage_WH_Ma_Loaihinh].DB_str].ToString().Trim();
+                cur_sub_wh = dt_row[WH_List_Manage_Col[WH_List_Manage_WH_Sub_wh].DB_str].ToString().Trim();
+                if ((cur_wh_id == wh_id) && (cur_ma_lh == ma_loaihinh) && (cur_sub_wh == sub_wh))
                 {
                     for (i = 0; i < WH_List_Manage_COL_NUM; i++)
                     {
-                        if (i != WH_List_Manage_WH_List_ID)
+                        if ((i != WH_List_Manage_WH_List_ID) && (i != WH_List_Manage_WH_Ma_Loaihinh) && (i != WH_List_Manage_WH_Sub_wh))
                         {
                             col_type = WH_List_Manage_Col[i].Col_type;
                             switch (col_type)
@@ -229,16 +247,18 @@ namespace WarehouseManager
             return false;
         }
 
-        private bool Create_New_WH_List_Manage_Line (string wh_id, Excel.Worksheet xsheet, int row)
+        private bool Create_New_WH_List_Manage_Line (string wh_id, string ma_loaihinh, string sub_wh, Excel.Worksheet xsheet, int row)
         {
             DataRow new_row = WH_ID_List_Table_Form.Data_dtb.NewRow();
             Excel_Col_Type col_type;
             int i;
 
             new_row[WH_List_Manage_Col[WH_List_Manage_WH_List_ID].DB_str] = wh_id;
+            new_row[WH_List_Manage_Col[WH_List_Manage_WH_Ma_Loaihinh].DB_str] = ma_loaihinh;
+            new_row[WH_List_Manage_Col[WH_List_Manage_WH_Sub_wh].DB_str] = sub_wh;
             for (i = 0; i < WH_List_Manage_COL_NUM; i++)
             {
-                if (i != WH_List_Manage_WH_List_ID)
+                if ((i != WH_List_Manage_WH_List_ID) && (i != WH_List_Manage_WH_Ma_Loaihinh) && (i != WH_List_Manage_WH_Sub_wh))
                 {
                     col_type = WH_List_Manage_Col[i].Col_type;
                     switch (col_type)
