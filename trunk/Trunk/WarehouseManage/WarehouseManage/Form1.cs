@@ -59,6 +59,7 @@ namespace WarehouseManager
             Stock_Manage_InitExcelCol_Infor();
             WH_List_Manage_InitExcelCol_Infor();
             Ma_List_Manage_InitExcelCol_Infor();
+            Create_Report_TK_NK_Manage_Tab();
 
         }
 
