@@ -110,7 +110,7 @@ namespace WarehouseManager
             if (Stock_Manage_Get_Col_info(OpenWB) == true)
             {
                 Load_Form_Stock_Manage_Line();
-                Load_Material_List();
+                //Load_Material_List();
                 Load_WH_ID_List();
                 row = 3;
                 cell_str = Get_Text_Cell((Excel.Worksheet)OpenWB.Sheets[1], row, 2, 20);
@@ -279,7 +279,7 @@ namespace WarehouseManager
             {
                 Load_Ma_List_Tbl.Clear();
             }
-            Load_Ma_List_Tbl = Get_SQL_Data(Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Material_List_tb", ref Load_Ma_List_Tbl_da, ref Load_Ma_List_Tbl_ds);
+            //Load_Ma_List_Tbl = Get_SQL_Data(Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Material_List_tb", ref Load_Ma_List_Tbl_da, ref Load_Ma_List_Tbl_ds);
         }
 
         private void Load_WH_ID_List()
@@ -288,7 +288,7 @@ namespace WarehouseManager
             {
                 Load_WH_ID_List_Tbl.Clear();
             }
-            Load_WH_ID_List_Tbl = Get_SQL_Data(Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Warehouse_List_tb", ref Load_WH_ID_List_Tbl_da, ref Load_WH_ID_List_Tbl_ds);
+            Load_WH_ID_List_Tbl = Get_SQL_Data(Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Warehouse_Dashboard_tb", ref Load_WH_ID_List_Tbl_da, ref Load_WH_ID_List_Tbl_ds);
         }
 
         private bool Is_exist_WH_ID(string wh_id)
