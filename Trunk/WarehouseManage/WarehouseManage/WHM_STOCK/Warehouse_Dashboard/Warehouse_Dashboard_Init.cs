@@ -174,8 +174,9 @@ namespace WarehouseManager
             WH_Daskboard_Mother_WH_CbxL = new ComboBox_Lbl(WH_Daskboard_Tab, "Mother WH", possize, Load_WH_Daskboard_TBL, "Mother_WHID", "Mother_WHID", AnchorType.LEFT);
             WH_Daskboard_Mother_WH_CbxL.My_Combo.Location = new Point(100, 90);
             WH_Daskboard_Mother_WH_CbxL.My_Combo.Size = new Size(210, 20);
-            WH_Daskboard_Mother_WH_CbxL.My_Combo.Click += new EventHandler(WH_Daskboard_Mother_WH_CbxL_Click);
-            
+            //WH_Daskboard_Mother_WH_CbxL.My_Combo.Click += new EventHandler(WH_Daskboard_Mother_WH_CbxL_Click);
+            WH_Daskboard_Mother_WH_CbxL.My_Combo.MouseDown += new MouseEventHandler(WH_Daskboard_Mother_WH_CbxL_MouseDown);
+            WH_Daskboard_Mother_WH_CbxL.My_Combo.SelectedValueChanged += new EventHandler(WH_Daskboard_Mother_WH_CbxL_SelectedValueChanged);
             possize.pos_x = 10;
             possize.pos_y = 114;
             WH_Daskboard_Note_Txt_Lb = new TextBox_Lbl(WH_Daskboard_Tab, "Note", TextBox_Type.TEXT, possize, AnchorType.LEFT);
@@ -218,8 +219,9 @@ namespace WarehouseManager
             WH_ID_with_MaLH_WH_ID_CbxL = new ComboBox_Lbl(WH_Daskboard_Tab, "WH ID", possize, Load_WH_Daskboard_TBL, "WareHouse_ID", "WareHouse_ID", AnchorType.LEFT);
             WH_ID_with_MaLH_WH_ID_CbxL.My_Combo.Location = new Point(130, 66);
             WH_ID_with_MaLH_WH_ID_CbxL.My_Combo.Size = new Size(100, 20);
-            WH_ID_with_MaLH_WH_ID_CbxL.My_Combo.Click += new EventHandler(WH_ID_with_MaLH_WH_ID_CbxL_Click);
-
+            WH_ID_with_MaLH_WH_ID_CbxL.My_Combo.MouseDown += new MouseEventHandler(WH_ID_with_MaLH_WH_ID_CbxL_MouseDown);
+            WH_ID_with_MaLH_WH_ID_CbxL.My_Combo.SelectedValueChanged += new EventHandler(WH_ID_with_MaLH_WH_ID_CbxL_SelectedValueChanged);
+            
             WH_Daskboard_Create_gbx.Controls.Add(WH_Daskboard_WH_ID_TbxL.My_Label);
             WH_Daskboard_Create_gbx.Controls.Add(WH_Daskboard_WH_ID_TbxL.My_TextBox);
             WH_Daskboard_Create_gbx.Controls.Add(WH_Daskboard_WH_Name_TbxL.My_Label);
