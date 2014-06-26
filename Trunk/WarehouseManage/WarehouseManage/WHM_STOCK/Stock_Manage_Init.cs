@@ -35,6 +35,7 @@ namespace WarehouseManager
         private ComboBox_Lbl Stock_Part_Number_cbx;
         private TextBox_Lbl Stock_Bin_Txt;
         private TextBox_Lbl Stock_Plant_Txt;
+        private GroupBox Stock_Manage_Single_gbx;
 
         public DataTable Load_Stock_TBL;
         //DataSet Load_Stock_ds = new DataSet();
@@ -51,7 +52,7 @@ namespace WarehouseManager
         private void Create_Stock_Manage_Tab()
         {
             PosSize possize = new PosSize();
-            string tab_name = "Stock Manage Tab";
+            string tab_name = "Single Stock Manage Tab";
 
             Stock_Manage_Tab = new System.Windows.Forms.TabPage();
             Stock_Manage_Tab.Text = tab_name;
@@ -67,9 +68,9 @@ namespace WarehouseManager
 
             // Init Card Table
             possize.pos_x = 6;
-            possize.pos_y = 150;
+            possize.pos_y = 140;
             possize.width = Stock_Manage_Tab.Size.Width - 15;
-            possize.height = Stock_Manage_Tab.Size.Height - 160;
+            possize.height = Stock_Manage_Tab.Size.Height - 150;
             Stock_Table_Form = new Gridview_Grp(Stock_Manage_Tab, "Stock Manage Table", possize, AUTO_RESIZE,
                                                 Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Material_Stock_tb", AnchorType.LEFT);
             Stock_Table_Form.Load_DataBase(Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Material_Stock_tb");
@@ -83,23 +84,33 @@ namespace WarehouseManager
             Stock_Store_BT = new Button();
             Stock_Process_BT = new Button();
             Stock_Search_BT = new Button();
+            Stock_Manage_Single_gbx = new GroupBox();
 
+            Stock_Manage_Tab.Controls.Add(Stock_Manage_Single_gbx);
+            Stock_Manage_Single_gbx.Location = new System.Drawing.Point(6, 6);
+            Stock_Manage_Single_gbx.Name = "Stock_Manage_Single_gbx";
+            Stock_Manage_Single_gbx.Size = new System.Drawing.Size(280, 122);
+            Stock_Manage_Single_gbx.TabIndex = 1;
+            Stock_Manage_Single_gbx.TabStop = false;
+            Stock_Manage_Single_gbx.Text = "Manage Single Stock Group";
 
             Stock_Import_BT.Name = "Stock_Import_BT";
             Stock_Import_BT.Text = "Import";
-            Stock_Import_BT.Location = new System.Drawing.Point(220, 76);
+            Stock_Import_BT.Location = new System.Drawing.Point(220, 66);
             Stock_Import_BT.Size = new System.Drawing.Size(50, 20);
             Stock_Import_BT.UseVisualStyleBackColor = true;
             Stock_Import_BT.Click += new System.EventHandler(Stock_Import_BT_Click);
-            Stock_Manage_Tab.Controls.Add(Stock_Import_BT);
+            //Stock_Manage_Tab.Controls.Add(Stock_Import_BT);
+            Stock_Manage_Single_gbx.Controls.Add(Stock_Import_BT);
 
             Stock_Store_BT.Name = "Stock_Store_BT";
             Stock_Store_BT.Text = "Save";
-            Stock_Store_BT.Location = new System.Drawing.Point(220, 106);
+            Stock_Store_BT.Location = new System.Drawing.Point(220, 90);
             Stock_Store_BT.Size = new System.Drawing.Size(50, 20);
             Stock_Store_BT.UseVisualStyleBackColor = true;
             Stock_Store_BT.Click += new System.EventHandler(Stock_Store_BT_Click);
-            Stock_Manage_Tab.Controls.Add(Stock_Store_BT);
+            //Stock_Manage_Tab.Controls.Add(Stock_Store_BT);
+            Stock_Manage_Single_gbx.Controls.Add(Stock_Store_BT);
 
             Stock_Process_BT.Name = "Stock_Process_BT";
             Stock_Process_BT.Text = "Process";
@@ -120,25 +131,33 @@ namespace WarehouseManager
 
             Load_WH_ID_List(); 
             possize.pos_x = 10;
-            possize.pos_y = 46;
-            Stock_WH_ID_List_cbx = new ComboBox_Lbl(Stock_Manage_Tab, "WH ID List", possize, Load_WH_ID_List_Tbl, "WareHouse_ID", "WareHouse_ID", AnchorType.RIGHT);
+            possize.pos_y = 42;
+            Stock_WH_ID_List_cbx = new ComboBox_Lbl(Stock_Manage_Tab, "WH ID List", possize, Load_WH_ID_List_Tbl, "WareHouse_ID", "WareHouse_ID", AnchorType.LEFT);
             Stock_WH_ID_List_cbx.My_Combo.Size = new Size(100, 20);
+            Stock_Manage_Single_gbx.Controls.Add(Stock_WH_ID_List_cbx.My_Label);
+            Stock_Manage_Single_gbx.Controls.Add(Stock_WH_ID_List_cbx.My_Combo);
 
             Load_Material_List();
             possize.pos_x = 10;
             possize.pos_y = 16;
-            Stock_Part_Number_cbx = new ComboBox_Lbl(Stock_Manage_Tab, "Part Number", possize, Load_Ma_List_Tbl, "Part_Number", "Part_Number", AnchorType.RIGHT);
+            Stock_Part_Number_cbx = new ComboBox_Lbl(Stock_Manage_Tab, "Part Number", possize, Load_Ma_List_Tbl, "Part_Number", "Part_Number", AnchorType.LEFT);
             Stock_Part_Number_cbx.My_Combo.Size = new Size(100, 20);
+            Stock_Manage_Single_gbx.Controls.Add(Stock_Part_Number_cbx.My_Label);
+            Stock_Manage_Single_gbx.Controls.Add(Stock_Part_Number_cbx.My_Combo);
 
             possize.pos_x = 10;
-            possize.pos_y = 76;
-            Stock_Bin_Txt = new TextBox_Lbl(Stock_Manage_Tab, "Bin", TextBox_Type.TEXT, possize, AnchorType.RIGHT);
+            possize.pos_y = 66;
+            Stock_Bin_Txt = new TextBox_Lbl(Stock_Manage_Tab, "Bin", TextBox_Type.TEXT, possize, AnchorType.LEFT);
             Stock_Bin_Txt.My_TextBox.Size = new Size(100, 20);
+            Stock_Manage_Single_gbx.Controls.Add(Stock_Bin_Txt.My_Label);
+            Stock_Manage_Single_gbx.Controls.Add(Stock_Bin_Txt.My_TextBox);
 
             possize.pos_x = 10;
-            possize.pos_y = 106;
-            Stock_Plant_Txt = new TextBox_Lbl(Stock_Manage_Tab, "Plant", TextBox_Type.TEXT, possize, AnchorType.RIGHT);
+            possize.pos_y = 90;
+            Stock_Plant_Txt = new TextBox_Lbl(Stock_Manage_Tab, "Plant", TextBox_Type.TEXT, possize, AnchorType.LEFT);
             Stock_Plant_Txt.My_TextBox.Size = new Size(100, 20);
+            Stock_Manage_Single_gbx.Controls.Add(Stock_Plant_Txt.My_Label);
+            Stock_Manage_Single_gbx.Controls.Add(Stock_Plant_Txt.My_TextBox);
 
             possize.pos_x = 500;
             possize.pos_y = 6;

@@ -19,6 +19,138 @@ namespace WarehouseManager
 {
     public partial class Form1
     {
+        void WH_ID_with_MaLH_Table_Form_CellDoubleClick(Object sender, EventArgs e)
+        {
+            if (WH_ID_with_MaLH_Table_Form.dataGridView_View.CurrentCell == WH_ID_with_MaLH_Table_Form.dataGridView_View.CurrentRow.Cells["ID"])
+            {
+                WH_ID_with_MaLH_View_All.My_CheckBox.Checked = false;
+                WH_ID_with_MLH_Store_BT.My_Button.Enabled = false;
+                WH_ID_with_MaLH_ID_TbxL.My_TextBox.Text = WH_ID_with_MaLH_Table_Form.dataGridView_View.CurrentRow.Cells["ID"].Value.ToString().Trim();
+                WH_ID_with_MaLH_Ma_LH_TbxL.My_TextBox.Text = WH_ID_with_MaLH_Table_Form.dataGridView_View.CurrentRow.Cells["Ma_loai_hinh"].Value.ToString().Trim();
+                WH_ID_with_MaLH_WH_ID_CbxL.My_Combo.Text = WH_ID_with_MaLH_Table_Form.dataGridView_View.CurrentRow.Cells["WareHouse_ID"].Value.ToString().Trim();
+                WH_ID_with_MaLH_Im_or_Ex_TbxL.My_TextBox.Text = WH_ID_with_MaLH_Table_Form.dataGridView_View.CurrentRow.Cells["Import_Export"].Value.ToString().Trim();
+                WH_ID_with_MaLH_Ty_le_TbxL.My_TextBox.Text = WH_ID_with_MaLH_Table_Form.dataGridView_View.CurrentRow.Cells["Ty_le"].Value.ToString().Trim();
+       
+            }
+        }
+        
+        void WH_Daskboard_Table_Form_CellDoubleClick(Object sender, EventArgs e)
+        {
+            string import;
+            if (WH_Daskboard_Table_Form.dataGridView_View.CurrentCell == WH_Daskboard_Table_Form.dataGridView_View.CurrentRow.Cells["WareHouse_ID"])
+            {
+                WH_Daskboard_View_All.My_CheckBox.Checked = false;
+                WH_Daskboard_Store_BT.My_Button.Enabled = false;
+                WH_Daskboard_WH_ID_TbxL.My_TextBox.Text = WH_Daskboard_Table_Form.dataGridView_View.CurrentRow.Cells["WareHouse_ID"].Value.ToString().Trim();
+                WH_Daskboard_WH_Name_TbxL.My_TextBox.Text = WH_Daskboard_Table_Form.dataGridView_View.CurrentRow.Cells["WareHouse_Name"].Value.ToString().Trim();
+                WH_Daskboard_Mother_WH_CbxL.My_Combo.Text = WH_Daskboard_Table_Form.dataGridView_View.CurrentRow.Cells["Mother_WHID"].Value.ToString().Trim();
+                WH_Daskboard_Note_Txt_Lb.My_TextBox.Text = WH_Daskboard_Table_Form.dataGridView_View.CurrentRow.Cells["Note"].Value.ToString().Trim();
+                import = WH_Daskboard_Table_Form.dataGridView_View.CurrentRow.Cells["Import_allow"].Value.ToString().Trim();
+                if (import == "True")
+                {
+                    WH_Daskboard_Check_Import.My_CheckBox.Checked = true;
+                }
+                else
+                {
+                    WH_Daskboard_Check_Import.My_CheckBox.Checked = false;
+                }
+            }
+        }
+
+        private void WH_ID_with_MaLH_View_All_CheckedChanged(object sender, EventArgs e)
+        {
+            if (WH_ID_with_MaLH_View_All.My_CheckBox.Checked == true)
+            {
+                WH_ID_with_MaLH_Load_All();
+                WH_ID_with_MaLH_WH_ID_CbxL.My_Combo.Enabled = false;
+                WH_ID_with_MaLH_ID_TbxL.My_TextBox.Enabled = false;
+                WH_ID_with_MaLH_Ma_LH_TbxL.My_TextBox.Enabled = false;
+                WH_ID_with_MaLH_Im_or_Ex_TbxL.My_TextBox.Enabled = false;
+                WH_ID_with_MaLH_Ty_le_TbxL.My_TextBox.Enabled = false;
+                WH_ID_with_MLH_Create_BT.My_Button.Enabled = false;
+                WH_ID_with_MLH_Store_BT.My_Button.Enabled = false;
+            }
+            else
+            {
+                WH_ID_with_MaLH_WH_ID_CbxL.My_Combo.Enabled = true;
+                WH_ID_with_MaLH_ID_TbxL.My_TextBox.Enabled = true;
+                WH_ID_with_MaLH_Ma_LH_TbxL.My_TextBox.Enabled = true;
+                WH_ID_with_MaLH_Im_or_Ex_TbxL.My_TextBox.Enabled = true;
+                WH_ID_with_MaLH_Ty_le_TbxL.My_TextBox.Enabled = true;
+                WH_ID_with_MLH_Create_BT.My_Button.Enabled = true;
+                WH_ID_with_MLH_Store_BT.My_Button.Enabled = true;
+            }
+        }
+        private void WH_Daskboard_View_All_CheckedChanged(object sender, EventArgs e)
+        {
+            if (WH_Daskboard_View_All.My_CheckBox.Checked == true)
+            {
+                WH_Dashboard_Load_WH_ID("All");
+                WH_Daskboard_WH_ID_TbxL.My_TextBox.Enabled = false;
+                WH_Daskboard_WH_Name_TbxL.My_TextBox.Enabled = false;
+                WH_Daskboard_Check_Import.My_CheckBox.Enabled = false;
+                WH_Daskboard_Mother_WH_CbxL.My_Combo.Enabled = false;
+                WH_Daskboard_Note_Txt_Lb.My_TextBox.Enabled = false;
+                WH_Daskboard_Create_BT.My_Button.Enabled = false;
+                WH_Daskboard_Store_BT.My_Button.Enabled = false;
+            }
+            else
+            {
+                WH_Daskboard_WH_ID_TbxL.My_TextBox.Enabled = true;
+                WH_Daskboard_WH_Name_TbxL.My_TextBox.Enabled = true;
+                WH_Daskboard_Check_Import.My_CheckBox.Enabled = true;
+                WH_Daskboard_Mother_WH_CbxL.My_Combo.Enabled = true;
+                WH_Daskboard_Note_Txt_Lb.My_TextBox.Enabled = true;
+                WH_Daskboard_Create_BT.My_Button.Enabled = true;
+                WH_Daskboard_Store_BT.My_Button.Enabled = true;
+            }
+
+        }
+
+        private void WH_Daskboard_WH_ID_Leave(object sender, EventArgs e)
+        {
+            string import;
+            string wh_id = WH_Daskboard_WH_ID_TbxL.My_TextBox.Text.ToString().Trim();
+            
+            WH_Dashboard_Load_WH_ID(wh_id);
+            if ((WH_Daskboard_Table_Form.Data_dtb != null) && (WH_Daskboard_Table_Form.Data_dtb.Rows.Count > 0))
+            {
+                // Reload infor
+                WH_Daskboard_Create_BT.My_Button.Enabled = false;
+                WH_Daskboard_Store_BT.My_Button.Enabled = true;
+
+                WH_Daskboard_WH_Name_TbxL.My_TextBox.Text = WH_Daskboard_Table_Form.Data_dtb.Rows[0]["WareHouse_Name"].ToString().Trim();
+                WH_Daskboard_Mother_WH_CbxL.My_Combo.Text = WH_Daskboard_Table_Form.Data_dtb.Rows[0]["Mother_WHID"].ToString().Trim();
+                WH_Daskboard_Note_Txt_Lb.My_TextBox.Text = WH_Daskboard_Table_Form.Data_dtb.Rows[0]["Note"].ToString().Trim();
+                import = WH_Daskboard_Table_Form.Data_dtb.Rows[0]["Import_allow"].ToString().Trim();
+                if (import == "True")
+                {
+                    WH_Daskboard_Check_Import.My_CheckBox.Checked = true;
+                }
+                else
+                {
+                    WH_Daskboard_Check_Import.My_CheckBox.Checked = false;
+                }
+            }
+            else
+            {
+                // Create New Produc
+                WH_Daskboard_Create_BT.My_Button.Enabled = true;
+                WH_Daskboard_Store_BT.My_Button.Enabled = false;
+                WH_Daskboard_WH_Name_TbxL.My_TextBox.Text = "";
+                WH_Daskboard_Note_Txt_Lb.My_TextBox.Text = "";
+            }
+        }
+        
+        private void WH_ID_with_MaLH_WH_ID_CbxL_Click(object sender, EventArgs e)
+        {
+            WH_Dashboard_Load_Table();
+        }
+        
+        private void WH_Daskboard_Mother_WH_CbxL_Click(object sender, EventArgs e)
+        {
+            WH_Dashboard_Load_Table();
+        }
         private void WH_Daskboard_Create_BT_Click(object sender, EventArgs e)
         {
             string cur_wh_id, wh_id, wh_name, mother_wh, note;
@@ -50,9 +182,9 @@ namespace WarehouseManager
                 {
                     DialogResult thongbao;
 
-                    thongbao = (MessageBox.Show("WH ID was created\n"
+                    thongbao = (MessageBox.Show("WH ID was created.\n"
                                                 + "WH ID = " + wh_id 
-                                                + "Do you want to update ?", " Attention ",
+                                                + "\nDo you want to update ?", " Attention ",
                                                             MessageBoxButtons.YesNo, MessageBoxIcon.Warning));
                     if (thongbao == DialogResult.Yes)
                     {
@@ -73,6 +205,7 @@ namespace WarehouseManager
             newrow["Mother_WHID"] = mother_wh;
             newrow["Note"] = note;
             WH_Daskboard_Table_Form.Data_dtb.Rows.Add(newrow);
+            WH_Daskboard_Store_BT.My_Button.Enabled = true;
         }
 
         private void WH_Daskboard_Store_BT_Click(object sender, EventArgs e)
@@ -92,6 +225,7 @@ namespace WarehouseManager
             string cur_wh_id, cur_ma_lh, id, ma_lh, wh_id, im_or_ex, ty_le;
             decimal tyle;
 
+            WH_ID_with_MaLH_Load_All();
             id = WH_ID_with_MaLH_ID_TbxL.My_TextBox.Text.ToString().Trim();
             ma_lh = WH_ID_with_MaLH_Ma_LH_TbxL.My_TextBox.Text.ToString().Trim();
             wh_id = WH_ID_with_MaLH_WH_ID_CbxL.My_Combo.Text.ToString().Trim();
@@ -125,10 +259,10 @@ namespace WarehouseManager
                 {
                     DialogResult thongbao;
 
-                    thongbao = (MessageBox.Show("Item was created\n"
+                    thongbao = (MessageBox.Show("Item was created.\n"
                                                 + "Mã loại hình = " + ma_lh
-                                                + "WH ID = " + wh_id
-                                                + "Do you want to update ?", " Attention ",
+                                                + "\nWH ID = " + wh_id
+                                                + "\nDo you want to update ?", " Attention ",
                                                             MessageBoxButtons.YesNo, MessageBoxIcon.Warning));
                     if (thongbao == DialogResult.Yes)
                     {
@@ -137,7 +271,7 @@ namespace WarehouseManager
                         row["WareHouse_ID"] = wh_id;
                         row["Import_Export"] = im_or_ex;
                         row["Ty_le"] = decimal.Parse(ty_le);
-                        WH_Daskboard_Store_BT_Click(null, null);
+                        WH_ID_with_MLH_Store_BT_Click(null, null);
                     }
                     return;
                 }
