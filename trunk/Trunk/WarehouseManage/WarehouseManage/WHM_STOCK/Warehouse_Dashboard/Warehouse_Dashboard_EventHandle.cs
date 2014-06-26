@@ -19,6 +19,26 @@ namespace WarehouseManager
 {
     public partial class Form1
     {
+        void WH_Daskboard_Mother_WH_CbxL_SelectedValueChanged(Object sender, EventArgs e)
+        {
+            string mother_wh;
+            if (WH_Daskboard_Mother_WH_CbxL.My_Combo.SelectedValue != null)
+            {
+                mother_wh = WH_Daskboard_Mother_WH_CbxL.My_Combo.SelectedValue.ToString().Trim();
+                WH_Dashboard_Load_with_Mother_wh(mother_wh);
+            }
+        }
+        
+        void WH_ID_with_MaLH_WH_ID_CbxL_SelectedValueChanged(Object sender, EventArgs e)
+        {
+            string wh_id;
+            if (WH_ID_with_MaLH_WH_ID_CbxL.My_Combo.SelectedValue != null)
+            {
+                wh_id = WH_ID_with_MaLH_WH_ID_CbxL.My_Combo.SelectedValue.ToString().Trim();
+                WH_ID_with_MaLH_Load_with_WH_ID(wh_id);
+            }
+        }
+
         void WH_ID_with_MaLH_Table_Form_CellDoubleClick(Object sender, EventArgs e)
         {
             if (WH_ID_with_MaLH_Table_Form.dataGridView_View.CurrentCell == WH_ID_with_MaLH_Table_Form.dataGridView_View.CurrentRow.Cells["ID"])
@@ -141,10 +161,21 @@ namespace WarehouseManager
                 WH_Daskboard_Note_Txt_Lb.My_TextBox.Text = "";
             }
         }
-        
-        private void WH_ID_with_MaLH_WH_ID_CbxL_Click(object sender, EventArgs e)
+
+        private void WH_Daskboard_Mother_WH_CbxL_MouseDown(object sender, MouseEventArgs e)
         {
-            WH_Dashboard_Load_Table();
+            if (e.Button == MouseButtons.Right)
+            {
+                WH_Dashboard_Load_Table();
+            }
+        }
+
+        private void WH_ID_with_MaLH_WH_ID_CbxL_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                WH_Dashboard_Load_Table();
+            }
         }
         
         private void WH_Daskboard_Mother_WH_CbxL_Click(object sender, EventArgs e)
