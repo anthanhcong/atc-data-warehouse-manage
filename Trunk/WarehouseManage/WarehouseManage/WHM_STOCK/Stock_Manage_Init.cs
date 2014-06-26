@@ -36,6 +36,11 @@ namespace WarehouseManager
         private TextBox_Lbl Stock_Bin_Txt;
         private TextBox_Lbl Stock_Plant_Txt;
         private GroupBox Stock_Manage_Single_gbx;
+        private Checkbox_Lbl Stock_Manage_Single_Check_WH_ID;
+        private Checkbox_Lbl Stock_Manage_Single_Check_Part_Number;
+        private Checkbox_Lbl Stock_Manage_Single_Check_Plant;
+        private Checkbox_Lbl Stock_Manage_Single_Check_Bin;
+        private Checkbox_Lbl Stock_Manage_Single_View_All;
 
         public DataTable Load_Stock_TBL;
         //DataSet Load_Stock_ds = new DataSet();
@@ -89,15 +94,15 @@ namespace WarehouseManager
             Stock_Manage_Tab.Controls.Add(Stock_Manage_Single_gbx);
             Stock_Manage_Single_gbx.Location = new System.Drawing.Point(6, 6);
             Stock_Manage_Single_gbx.Name = "Stock_Manage_Single_gbx";
-            Stock_Manage_Single_gbx.Size = new System.Drawing.Size(280, 122);
+            Stock_Manage_Single_gbx.Size = new System.Drawing.Size(380, 122);
             Stock_Manage_Single_gbx.TabIndex = 1;
             Stock_Manage_Single_gbx.TabStop = false;
             Stock_Manage_Single_gbx.Text = "Manage Single Stock Group";
 
             Stock_Import_BT.Name = "Stock_Import_BT";
             Stock_Import_BT.Text = "Import";
-            Stock_Import_BT.Location = new System.Drawing.Point(220, 66);
-            Stock_Import_BT.Size = new System.Drawing.Size(50, 20);
+            Stock_Import_BT.Location = new System.Drawing.Point(315, 66);
+            Stock_Import_BT.Size = new System.Drawing.Size(55, 20);
             Stock_Import_BT.UseVisualStyleBackColor = true;
             Stock_Import_BT.Click += new System.EventHandler(Stock_Import_BT_Click);
             //Stock_Manage_Tab.Controls.Add(Stock_Import_BT);
@@ -105,8 +110,8 @@ namespace WarehouseManager
 
             Stock_Store_BT.Name = "Stock_Store_BT";
             Stock_Store_BT.Text = "Save";
-            Stock_Store_BT.Location = new System.Drawing.Point(220, 90);
-            Stock_Store_BT.Size = new System.Drawing.Size(50, 20);
+            Stock_Store_BT.Location = new System.Drawing.Point(315, 90);
+            Stock_Store_BT.Size = new System.Drawing.Size(55, 20);
             Stock_Store_BT.UseVisualStyleBackColor = true;
             Stock_Store_BT.Click += new System.EventHandler(Stock_Store_BT_Click);
             //Stock_Manage_Tab.Controls.Add(Stock_Store_BT);
@@ -123,11 +128,42 @@ namespace WarehouseManager
             Stock_Search_BT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             Stock_Search_BT.Name = "Stock_Search_BT";
             Stock_Search_BT.Text = "Search";
-            Stock_Search_BT.Location = new System.Drawing.Point(600, 35);
-            Stock_Search_BT.Size = new System.Drawing.Size(60, 23);
+            Stock_Search_BT.Location = new System.Drawing.Point(315, 42);
+            Stock_Search_BT.Size = new System.Drawing.Size(55, 20);
             Stock_Search_BT.UseVisualStyleBackColor = true;
             Stock_Search_BT.Click += new System.EventHandler(Stock_Search_BT_Click);
-            Stock_Manage_Tab.Controls.Add(Stock_Search_BT);
+            //Stock_Manage_Tab.Controls.Add(Stock_Search_BT);
+            Stock_Manage_Single_gbx.Controls.Add(Stock_Search_BT);
+
+            possize.pos_x = 315;
+            possize.pos_y = 20;
+            Stock_Manage_Single_View_All = new Checkbox_Lbl(Stock_Manage_Tab, "View All", possize, AnchorType.LEFT);
+            Stock_Manage_Single_View_All.My_CheckBox.Checked = false;
+            Stock_Manage_Single_gbx.Controls.Add(Stock_Manage_Single_View_All.My_CheckBox);
+
+            possize.pos_x = 210;
+            possize.pos_y = 20;
+            Stock_Manage_Single_Check_WH_ID = new Checkbox_Lbl(Stock_Manage_Tab, "Select WH_ID", possize, AnchorType.LEFT);
+            Stock_Manage_Single_Check_WH_ID.My_CheckBox.Checked = false;
+            Stock_Manage_Single_gbx.Controls.Add(Stock_Manage_Single_Check_WH_ID.My_CheckBox);
+
+            possize.pos_x = 210;
+            possize.pos_y = 44;
+            Stock_Manage_Single_Check_Part_Number = new Checkbox_Lbl(Stock_Manage_Tab, "Select Part", possize, AnchorType.LEFT);
+            Stock_Manage_Single_Check_Part_Number.My_CheckBox.Checked = false;
+            Stock_Manage_Single_gbx.Controls.Add(Stock_Manage_Single_Check_Part_Number.My_CheckBox);
+
+            possize.pos_x = 210;
+            possize.pos_y = 68;
+            Stock_Manage_Single_Check_Bin = new Checkbox_Lbl(Stock_Manage_Tab, "Select Bin", possize, AnchorType.LEFT);
+            Stock_Manage_Single_Check_Bin.My_CheckBox.Checked = false;
+            Stock_Manage_Single_gbx.Controls.Add(Stock_Manage_Single_Check_Bin.My_CheckBox);
+
+            possize.pos_x = 210;
+            possize.pos_y = 92;
+            Stock_Manage_Single_Check_Plant = new Checkbox_Lbl(Stock_Manage_Tab, "Selest Plant", possize, AnchorType.LEFT);
+            Stock_Manage_Single_Check_Plant.My_CheckBox.Checked = false;
+            Stock_Manage_Single_gbx.Controls.Add(Stock_Manage_Single_Check_Plant.My_CheckBox);
 
             Load_WH_ID_List(); 
             possize.pos_x = 10;
@@ -137,7 +173,7 @@ namespace WarehouseManager
             Stock_Manage_Single_gbx.Controls.Add(Stock_WH_ID_List_cbx.My_Label);
             Stock_Manage_Single_gbx.Controls.Add(Stock_WH_ID_List_cbx.My_Combo);
 
-            Load_Material_List();
+            //Load_Material_List();
             possize.pos_x = 10;
             possize.pos_y = 16;
             Stock_Part_Number_cbx = new ComboBox_Lbl(Stock_Manage_Tab, "Part Number", possize, Load_Ma_List_Tbl, "Part_Number", "Part_Number", AnchorType.LEFT);
