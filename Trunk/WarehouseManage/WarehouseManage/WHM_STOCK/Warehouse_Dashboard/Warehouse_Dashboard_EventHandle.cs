@@ -53,7 +53,6 @@ namespace WarehouseManager
        
             }
         }
-        
         void WH_Daskboard_Table_Form_CellDoubleClick(Object sender, EventArgs e)
         {
             string import;

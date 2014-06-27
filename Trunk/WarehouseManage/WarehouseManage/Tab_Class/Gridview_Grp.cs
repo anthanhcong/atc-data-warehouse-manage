@@ -120,7 +120,7 @@ namespace WarehouseManager
             //dataGridView_View.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             //dataGridView_View.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             //dataGridView_View.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-
+            //dataGridView_View.ColumnNameChanged += new DataGridViewColumnEventHandler(dataGridView_View_ColumnNameChanged);
 
             Review_BT.Text = "Refresh";
             Review_BT.Location = new System.Drawing.Point(235, Tab_Grp.Size.Height - 30);

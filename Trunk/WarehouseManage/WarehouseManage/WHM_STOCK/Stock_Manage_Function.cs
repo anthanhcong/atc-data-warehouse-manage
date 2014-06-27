@@ -282,6 +282,28 @@ namespace WarehouseManager
             //Load_Ma_List_Tbl = Get_SQL_Data(Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Material_List_tb", ref Load_Ma_List_Tbl_da, ref Load_Ma_List_Tbl_ds);
         }
 
+        private void Load_Stock_Table_All()
+        {
+            string load_cmd = @"SELECT * FROM [WHM_STOCK_DB].[dbo].[Material_Stock_tb]";
+
+            if (Stock_Table_Form.Data_dtb != null)
+            {
+                Stock_Table_Form.Data_dtb.Clear();
+            }
+            Stock_Table_Form.Load_DataBase(Database_WHM_Stock_Con_Str, load_cmd);
+        }
+
+        private void Load_Stock_Table(string load_cmd)
+        {
+            //string load_cmd = @"SELECT * FROM [WHM_STOCK_DB].[dbo].[Material_Stock_tb]";
+
+            if (Stock_Table_Form.Data_dtb != null)
+            {
+                Stock_Table_Form.Data_dtb.Clear();
+            }
+            Stock_Table_Form.Load_DataBase(Database_WHM_Stock_Con_Str, load_cmd);
+        }
+
         private void Load_WH_ID_List()
         {
             if (Load_WH_ID_List_Tbl != null)
@@ -403,6 +425,8 @@ namespace WarehouseManager
             }
             Stock_Table_Form.Data_dtb.Rows.Add(new_row);
             return true;
-        }    
+        } 
+   
+
     }
 }

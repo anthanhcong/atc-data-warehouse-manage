@@ -43,8 +43,8 @@ namespace WarehouseManager
         private Checkbox_Lbl Stock_Manage_Single_View_All;
 
         public DataTable Load_Stock_TBL;
-        //DataSet Load_Stock_ds = new DataSet();
-        //SqlDataAdapter Load_Stock_da;
+        DataSet Load_Stock_ds = new DataSet();
+        SqlDataAdapter Load_Stock_da;
 
         public DataTable Load_Ma_List_Tbl;
         public DataSet Load_Ma_List_Tbl_ds = new DataSet();
@@ -79,6 +79,8 @@ namespace WarehouseManager
             Stock_Table_Form = new Gridview_Grp(Stock_Manage_Tab, "Stock Manage Table", possize, AUTO_RESIZE,
                                                 Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Material_Stock_tb", AnchorType.LEFT);
             Stock_Table_Form.Load_DataBase(Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Material_Stock_tb");
+            Stock_Table_Form.dataGridView_View.CellDoubleClick += new DataGridViewCellEventHandler(Stock_Table_Form_CellDoubleClick);
+            //Stock_Table_Form.dataGridView_View.ColumnNameChanged += new DataGridViewColumnEventHandler(dataGridView_View_ColumnNameChanged);
             Stock_Init_BT();
         }
 
@@ -139,6 +141,7 @@ namespace WarehouseManager
             possize.pos_y = 20;
             Stock_Manage_Single_View_All = new Checkbox_Lbl(Stock_Manage_Tab, "View All", possize, AnchorType.LEFT);
             Stock_Manage_Single_View_All.My_CheckBox.Checked = false;
+            Stock_Manage_Single_View_All.My_CheckBox.CheckedChanged += new EventHandler(Stock_Manage_Single_View_All_CheckedChanged);
             Stock_Manage_Single_gbx.Controls.Add(Stock_Manage_Single_View_All.My_CheckBox);
 
             possize.pos_x = 210;
@@ -170,6 +173,8 @@ namespace WarehouseManager
             possize.pos_y = 42;
             Stock_WH_ID_List_cbx = new ComboBox_Lbl(Stock_Manage_Tab, "WH ID List", possize, Load_WH_ID_List_Tbl, "WareHouse_ID", "WareHouse_ID", AnchorType.LEFT);
             Stock_WH_ID_List_cbx.My_Combo.Size = new Size(100, 20);
+            Stock_WH_ID_List_cbx.My_Combo.KeyDown += new KeyEventHandler(Stock_WH_ID_List_cbx_KeyDown);
+            Stock_WH_ID_List_cbx.My_Combo.SelectedValueChanged += new EventHandler(Stock_WH_ID_List_cbx_SelectedValueChanged);
             Stock_Manage_Single_gbx.Controls.Add(Stock_WH_ID_List_cbx.My_Label);
             Stock_Manage_Single_gbx.Controls.Add(Stock_WH_ID_List_cbx.My_Combo);
 
@@ -178,6 +183,8 @@ namespace WarehouseManager
             possize.pos_y = 16;
             Stock_Part_Number_cbx = new ComboBox_Lbl(Stock_Manage_Tab, "Part Number", possize, Load_Ma_List_Tbl, "Part_Number", "Part_Number", AnchorType.LEFT);
             Stock_Part_Number_cbx.My_Combo.Size = new Size(100, 20);
+            Stock_Part_Number_cbx.My_Combo.KeyDown += new KeyEventHandler(Stock_Part_Number_cbx_KeyDown);
+            Stock_Part_Number_cbx.My_Combo.SelectedValueChanged += new EventHandler(Stock_Part_Number_cbx_SelectedValueChanged);
             Stock_Manage_Single_gbx.Controls.Add(Stock_Part_Number_cbx.My_Label);
             Stock_Manage_Single_gbx.Controls.Add(Stock_Part_Number_cbx.My_Combo);
 
@@ -185,6 +192,7 @@ namespace WarehouseManager
             possize.pos_y = 66;
             Stock_Bin_Txt = new TextBox_Lbl(Stock_Manage_Tab, "Bin", TextBox_Type.TEXT, possize, AnchorType.LEFT);
             Stock_Bin_Txt.My_TextBox.Size = new Size(100, 20);
+            Stock_Bin_Txt.My_TextBox.KeyDown += new KeyEventHandler(Stock_Bin_Txt_KeyDown);
             Stock_Manage_Single_gbx.Controls.Add(Stock_Bin_Txt.My_Label);
             Stock_Manage_Single_gbx.Controls.Add(Stock_Bin_Txt.My_TextBox);
 
@@ -192,6 +200,7 @@ namespace WarehouseManager
             possize.pos_y = 90;
             Stock_Plant_Txt = new TextBox_Lbl(Stock_Manage_Tab, "Plant", TextBox_Type.TEXT, possize, AnchorType.LEFT);
             Stock_Plant_Txt.My_TextBox.Size = new Size(100, 20);
+            Stock_Plant_Txt.My_TextBox.KeyDown += new KeyEventHandler(Stock_Plant_Txt_KeyDown);
             Stock_Manage_Single_gbx.Controls.Add(Stock_Plant_Txt.My_Label);
             Stock_Manage_Single_gbx.Controls.Add(Stock_Plant_Txt.My_TextBox);
 

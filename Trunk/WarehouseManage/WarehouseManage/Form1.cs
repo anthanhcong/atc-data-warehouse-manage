@@ -36,6 +36,8 @@ namespace WarehouseManager
         public string Database_WHM_Import_Con_Str = @"server=VNMSRV607\SQLEXPRESS;database=WHM_IMPORT_DB;uid=sa2;pwd=123456!@#";
         public string Database_WHM_Export_Con_Str = @"server=VNMSRV607\SQLEXPRESS;database=WHM_EXPORT_DB;uid=sa2;pwd=123456!@#";
 
+        string Load_Stock_cmd = @"SELECT * FROM [WHM_STOCK_DB].[dbo].[Material_Stock_tb]";
+
         private const bool AUTO_RESIZE = true;
         private const bool NO_AUTO_RESIZE = false;
         public int RELOAD_DB = 0;
