@@ -51,9 +51,9 @@ namespace WarehouseManager
         private void Stock_Part_Number_cbx_SelectedValueChanged(Object sender, EventArgs e)
         {
             string part, load_cmd;
-            if (Stock_WH_ID_List_cbx.My_Combo.SelectedValue != null)
+            if (Stock_Part_Number_cbx.My_Combo.SelectedValue != null)
             {
-                part = Stock_WH_ID_List_cbx.My_Combo.SelectedValue.ToString().Trim();
+                part = Stock_Part_Number_cbx.My_Combo.SelectedValue.ToString().Trim();
                 load_cmd = Load_Stock_cmd;
                 load_cmd += " where Part_Number =" + "'" + part + "'";
                 if (part != "")
@@ -84,7 +84,7 @@ namespace WarehouseManager
                 load_cmd += " where WareHouse_ID =" + "'" + wh_id + "'";
                 if (wh_id != "")
                 {
-                    Load_Stock_Table(wh_id);
+                    Load_Stock_Table(load_cmd);
                     if (Stock_Table_Form.Data_dtb.Rows.Count == 0)
                     {
                         MessageBox.Show("Can not find WH ID: '" + wh_id + "'.", "Warning");
@@ -101,19 +101,19 @@ namespace WarehouseManager
 
         private void Stock_Part_Number_cbx_KeyDown(object sender, KeyEventArgs e)
         {
-            string wh_id, load_cmd;
+            string part, load_cmd;
 
-            wh_id = Stock_WH_ID_List_cbx.My_Combo.Text.ToString().Trim();
+            part = Stock_Part_Number_cbx.My_Combo.Text.ToString().Trim();
             if (e.KeyCode == Keys.Enter)
             {
                 load_cmd = Load_Stock_cmd;
-                load_cmd += " where Part_Number =" + "'" + wh_id + "'";
-                if (wh_id != "")
+                load_cmd += " where Part_Number =" + "'" + part + "'";
+                if (part != "")
                 {
                     Load_Stock_Table(load_cmd);
                     if (Stock_Table_Form.Data_dtb.Rows.Count == 0)
                     {
-                        MessageBox.Show("Can not find Part_Number: '" + wh_id + "'.", "Warning");
+                        MessageBox.Show("Can not find Part_Number: '" + part + "'.", "Warning");
                         return;
                     }
                 }
@@ -165,13 +165,13 @@ namespace WarehouseManager
                     Load_Stock_Table(load_cmd);
                     if (Stock_Table_Form.Data_dtb.Rows.Count == 0)
                     {
-                        MessageBox.Show("Can not find Bin: '" + plant + "'.", "Warning");
+                        MessageBox.Show("Can not find Plant: '" + plant + "'.", "Warning");
                         return;
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Please fill Bin.", "Warning");
+                    MessageBox.Show("Please fill Plant.", "Warning");
                     return;
                 }
             }
@@ -264,51 +264,80 @@ namespace WarehouseManager
         
         private void Stock_Search_BT_Click(object sender, EventArgs e)
         {
-            //string component_id, component_cell;
-            //bool component_exist;
-
-            //component_id = Stock_Search_Txt_Lb.My_TextBox.Text.ToString().Trim();
-            //int i, max_row;
-
-            //if (component_id != "")
-            //{
-            //    component_exist = false;
-            //    max_row = Stock_Table_Form.dataGridView_View.RowCount;
-            //    for (i = 0; i < max_row - 1; i++)
-            //    {
-            //        component_cell = Stock_Table_Form.dataGridView_View.Rows[i].Cells["Item_ID"].Value.ToString().Trim();
-            //        if (component_id == component_cell)
-            //        {
-            //            Stock_Table_Form.dataGridView_View.CurrentCell = Stock_Table_Form.dataGridView_View.Rows[i].Cells["Item_ID"];
-            //            Stock_Table_Form.dataGridView_View.CurrentCell.Selected = true;
-            //            component_exist = true;
-            //            break;
-            //        }
-            //    }
-            //    if (component_exist == false)
-            //    {
-            //        MessageBox.Show("Component number : " + component_id + " isn't exist", "Error");
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Please Fill Name !", "Warning");
-            //}
-            string part, wh_id, plant, bin, sql_cmd, sql_cmd_temp;
-
+            string part, wh_id, plant, bin, sql_cmd = "";
+            string tem_sql_cmd = "";
             Show_Sort_log = "";
-            if (INPUT_XK_Check_So_TK.My_CheckBox.Checked == true)
+
+            sql_cmd = @"SELECT * FROM [WHM_STOCK_DB].[dbo].[Material_Stock_tb]";
+            if (Stock_Manage_Single_Check_Part_Number.My_CheckBox.Checked == true)
             {
-                part = INPUT_XK_So_TK_TxbL.My_TextBox.Text.ToString().Trim();
+                part = Stock_Part_Number_cbx.My_Combo.Text.ToString().Trim();
                 if (part != "")
                 {
-                    Show_Sort_log = "Part_Number: " + part;
+                    Show_Sort_log += "Part_Number: " + part + ".\n";
                 }
                 else
                 {
-                    Show_Sort_log = "Hãy điền vào Số TK";
+                    Show_Sort_log += "Hãy điền vào thông tin Part Number.\n";
                 }
-                sql_cmd_temp = " where Part_Number = " + "'" + part + "'";
+                tem_sql_cmd = " WHERE Part_Number = " + "'" + part + "'";
+            }
+            if (Stock_Manage_Single_Check_WH_ID.My_CheckBox.Checked == true)
+            {
+                wh_id = Stock_WH_ID_List_cbx.My_Combo.Text.ToString().Trim();
+                if (wh_id != "")
+                {
+                    Show_Sort_log += "Warehouse ID: " + wh_id + ".\n";
+                }
+                else
+                {
+                    Show_Sort_log += "Hãy điền vào thông tin Warehouse ID.\n";
+                }
+                if (tem_sql_cmd != "") tem_sql_cmd += " AND ";
+                else tem_sql_cmd += " WHERE ";
+                tem_sql_cmd += " WareHouse_ID = " + "'" + wh_id + "'";
+            }
+            if (Stock_Manage_Single_Check_Bin.My_CheckBox.Checked == true)
+            {
+                bin = Stock_Bin_Txt.My_TextBox.Text.ToString().Trim();
+                if (bin != "")
+                {
+                    Show_Sort_log += "Bin: " + bin + ".\n";
+                }
+                else
+                {
+                    Show_Sort_log += "Hãy điền vào thông tin Bin.\n";
+                }
+                if (tem_sql_cmd != "") tem_sql_cmd += " AND ";
+                else tem_sql_cmd += " WHERE ";
+                tem_sql_cmd += " Bin = " + "'" + bin + "'";
+            }
+            if (Stock_Manage_Single_Check_Plant.My_CheckBox.Checked == true)
+            {
+                plant = Stock_Plant_Txt.My_TextBox.Text.ToString().Trim();
+                if (plant != "")
+                {
+                    Show_Sort_log += "Plant: " + plant + ".\n";
+                }
+                else
+                {
+                    Show_Sort_log += "Hãy điền vào thông tin Plant.\n";
+                }
+                if (tem_sql_cmd != "") tem_sql_cmd += " AND ";
+                else tem_sql_cmd += " WHERE ";
+                tem_sql_cmd += " Plant = " + "'" + plant + "'";
+            }
+            if (tem_sql_cmd == "")
+            {
+                MessageBox.Show("Please select sort condition !", "Warning");
+                return;
+            }
+            sql_cmd = sql_cmd + tem_sql_cmd;
+            Load_Stock_Table(sql_cmd);
+            if (Stock_Table_Form.Data_dtb.Rows.Count == 0)
+            {
+                Show_Sort_log += "\nCan not find.";
+                MessageBox.Show( Show_Sort_log, "Warning");
             }
         }
 

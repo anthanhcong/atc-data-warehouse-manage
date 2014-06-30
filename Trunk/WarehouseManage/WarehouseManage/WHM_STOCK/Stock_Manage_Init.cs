@@ -30,7 +30,7 @@ namespace WarehouseManager
         public Button Stock_Store_BT;
         public Button Stock_Process_BT;
         public Button Stock_Search_BT;
-        private TextBox_Lbl Stock_Search_Txt_Lb;
+        //private TextBox_Lbl Stock_Search_Txt_Lb;
         private ComboBox_Lbl Stock_WH_ID_List_cbx;
         private ComboBox_Lbl Stock_Part_Number_cbx;
         private TextBox_Lbl Stock_Bin_Txt;
@@ -49,6 +49,10 @@ namespace WarehouseManager
         public DataTable Load_Ma_List_Tbl;
         public DataSet Load_Ma_List_Tbl_ds = new DataSet();
         public SqlDataAdapter Load_Ma_List_Tbl_da;
+
+        public DataTable Stock_WH_ID_List_Tbl;
+        public DataSet Stock_WH_ID_List_Tbl_ds = new DataSet();
+        public SqlDataAdapter Stock_WH_ID_List_Tbl_da;
 
         public DataTable Load_WH_ID_List_Tbl;
         public DataSet Load_WH_ID_List_Tbl_ds = new DataSet();
@@ -145,13 +149,13 @@ namespace WarehouseManager
             Stock_Manage_Single_gbx.Controls.Add(Stock_Manage_Single_View_All.My_CheckBox);
 
             possize.pos_x = 210;
-            possize.pos_y = 20;
+            possize.pos_y = 44;
             Stock_Manage_Single_Check_WH_ID = new Checkbox_Lbl(Stock_Manage_Tab, "Select WH_ID", possize, AnchorType.LEFT);
             Stock_Manage_Single_Check_WH_ID.My_CheckBox.Checked = false;
             Stock_Manage_Single_gbx.Controls.Add(Stock_Manage_Single_Check_WH_ID.My_CheckBox);
 
             possize.pos_x = 210;
-            possize.pos_y = 44;
+            possize.pos_y = 20;
             Stock_Manage_Single_Check_Part_Number = new Checkbox_Lbl(Stock_Manage_Tab, "Select Part", possize, AnchorType.LEFT);
             Stock_Manage_Single_Check_Part_Number.My_CheckBox.Checked = false;
             Stock_Manage_Single_gbx.Controls.Add(Stock_Manage_Single_Check_Part_Number.My_CheckBox);
@@ -168,20 +172,20 @@ namespace WarehouseManager
             Stock_Manage_Single_Check_Plant.My_CheckBox.Checked = false;
             Stock_Manage_Single_gbx.Controls.Add(Stock_Manage_Single_Check_Plant.My_CheckBox);
 
-            Load_WH_ID_List(); 
+            Load_Material_Stock();
+            Stock_WH_ID_List();
             possize.pos_x = 10;
             possize.pos_y = 42;
-            Stock_WH_ID_List_cbx = new ComboBox_Lbl(Stock_Manage_Tab, "WH ID List", possize, Load_WH_ID_List_Tbl, "WareHouse_ID", "WareHouse_ID", AnchorType.LEFT);
+            Stock_WH_ID_List_cbx = new ComboBox_Lbl(Stock_Manage_Tab, "WH ID List", possize, Stock_WH_ID_List_Tbl, "WareHouse_ID", "WareHouse_ID", AnchorType.LEFT);
             Stock_WH_ID_List_cbx.My_Combo.Size = new Size(100, 20);
             Stock_WH_ID_List_cbx.My_Combo.KeyDown += new KeyEventHandler(Stock_WH_ID_List_cbx_KeyDown);
             Stock_WH_ID_List_cbx.My_Combo.SelectedValueChanged += new EventHandler(Stock_WH_ID_List_cbx_SelectedValueChanged);
             Stock_Manage_Single_gbx.Controls.Add(Stock_WH_ID_List_cbx.My_Label);
             Stock_Manage_Single_gbx.Controls.Add(Stock_WH_ID_List_cbx.My_Combo);
 
-            //Load_Material_List();
             possize.pos_x = 10;
             possize.pos_y = 16;
-            Stock_Part_Number_cbx = new ComboBox_Lbl(Stock_Manage_Tab, "Part Number", possize, Load_Ma_List_Tbl, "Part_Number", "Part_Number", AnchorType.LEFT);
+            Stock_Part_Number_cbx = new ComboBox_Lbl(Stock_Manage_Tab, "Part Number", possize, Load_Stock_TBL, "Part_Number", "Part_Number", AnchorType.LEFT);
             Stock_Part_Number_cbx.My_Combo.Size = new Size(100, 20);
             Stock_Part_Number_cbx.My_Combo.KeyDown += new KeyEventHandler(Stock_Part_Number_cbx_KeyDown);
             Stock_Part_Number_cbx.My_Combo.SelectedValueChanged += new EventHandler(Stock_Part_Number_cbx_SelectedValueChanged);
@@ -203,10 +207,6 @@ namespace WarehouseManager
             Stock_Plant_Txt.My_TextBox.KeyDown += new KeyEventHandler(Stock_Plant_Txt_KeyDown);
             Stock_Manage_Single_gbx.Controls.Add(Stock_Plant_Txt.My_Label);
             Stock_Manage_Single_gbx.Controls.Add(Stock_Plant_Txt.My_TextBox);
-
-            possize.pos_x = 500;
-            possize.pos_y = 6;
-            Stock_Search_Txt_Lb = new TextBox_Lbl(Stock_Manage_Tab, "              Search", TextBox_Type.TEXT, possize, AnchorType.RIGHT);
 
             return true;
         }
