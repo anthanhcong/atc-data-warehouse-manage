@@ -19,13 +19,13 @@ namespace WarehouseManager
 {
     public partial class Form1
     {
-        const int Stock_Manage_COL_NUM = 7;
+        const int Stock_Manage_COL_NUM = 6;
         ExcelImportStruct[] Stock_Manage_Col = new ExcelImportStruct[Stock_Manage_COL_NUM];
-        const int Stock_Manage_Ma_LH = 0;
-        const int Stock_Manage_WH_ID = 1;
-        const int Stock_Manage_Part_Number = 2;
-        const int Stock_Manage_Bin = 3;
-        const int Stock_Manage_Plant = 4;
+        //const int Stock_Manage_Ma_LH = 0;
+        const int Stock_Manage_WH_ID = 0;
+        const int Stock_Manage_Part_Number = 1;
+        const int Stock_Manage_Bin = 2;
+        const int Stock_Manage_Plant = 3;
 
         public DataTable Stock_Manage_Tbl;
         public DataSet Stock_Manage_Tbl_ds = new DataSet();
@@ -35,13 +35,13 @@ namespace WarehouseManager
 
         private void Stock_Manage_InitExcelCol_Infor()
         {
-            Stock_Manage_Col[0] = new ExcelImportStruct("Ma_loai_hinh", "Ma_loai_hinh", Excel_Col_Type.COL_STRING, 20);
-            Stock_Manage_Col[1] = new ExcelImportStruct("WareHouse_ID", "WareHouse_ID", Excel_Col_Type.COL_STRING, 30);
-            Stock_Manage_Col[2] = new ExcelImportStruct("Part_Number", "Part_Number", Excel_Col_Type.COL_STRING, 50);
-            Stock_Manage_Col[3] = new ExcelImportStruct("Bin", "Bin", Excel_Col_Type.COL_STRING, 50);
-            Stock_Manage_Col[4] = new ExcelImportStruct("Plant", "Plant", Excel_Col_Type.COL_STRING, 50);
-            Stock_Manage_Col[5] = new ExcelImportStruct("Qty", "Qty", Excel_Col_Type.COL_FLOAT, 10);
-            Stock_Manage_Col[6] = new ExcelImportStruct("Description", "Description", Excel_Col_Type.COL_STRING, 200);
+            //Stock_Manage_Col[0] = new ExcelImportStruct("Ma_loai_hinh", "Ma_loai_hinh", Excel_Col_Type.COL_STRING, 20);
+            Stock_Manage_Col[0] = new ExcelImportStruct("WareHouse_ID", "WareHouse_ID", Excel_Col_Type.COL_STRING, 30);
+            Stock_Manage_Col[1] = new ExcelImportStruct("Part_Number", "Part_Number", Excel_Col_Type.COL_STRING, 50);
+            Stock_Manage_Col[2] = new ExcelImportStruct("Bin", "Bin", Excel_Col_Type.COL_STRING, 50);
+            Stock_Manage_Col[3] = new ExcelImportStruct("Plant", "Plant", Excel_Col_Type.COL_STRING, 50);
+            Stock_Manage_Col[4] = new ExcelImportStruct("Qty", "Qty", Excel_Col_Type.COL_FLOAT, 10);
+            Stock_Manage_Col[5] = new ExcelImportStruct("Description", "Description", Excel_Col_Type.COL_STRING, 200);
         }
 
         private bool Stock_Manage_Get_Col_info(Excel.Workbook cur_wbook)
@@ -110,7 +110,7 @@ namespace WarehouseManager
             if (Stock_Manage_Get_Col_info(OpenWB) == true)
             {
                 Load_Form_Stock_Manage_Line();
-                //Load_Material_List();
+                Load_Material_List();
                 Load_WH_ID_List();
                 row = 3;
                 cell_str = Get_Text_Cell((Excel.Worksheet)OpenWB.Sheets[1], row, 2, 20);
@@ -120,10 +120,10 @@ namespace WarehouseManager
                     bin = Get_Text_Cell((Excel.Worksheet)OpenWB.Sheets[1], row, Stock_Manage_Col[Stock_Manage_Bin].Col, Stock_Manage_Col[Stock_Manage_Bin].Data_Max_len);
                     plant = Get_Text_Cell((Excel.Worksheet)OpenWB.Sheets[1], row, Stock_Manage_Col[Stock_Manage_Plant].Col, Stock_Manage_Col[Stock_Manage_Plant].Data_Max_len);
                     wh_id = Get_Text_Cell((Excel.Worksheet)OpenWB.Sheets[1], row, Stock_Manage_Col[Stock_Manage_WH_ID].Col, Stock_Manage_Col[Stock_Manage_WH_ID].Data_Max_len);
-                    ma_lh = Get_Text_Cell((Excel.Worksheet)OpenWB.Sheets[1], row, Stock_Manage_Col[Stock_Manage_Ma_LH].Col, Stock_Manage_Col[Stock_Manage_Ma_LH].Data_Max_len);
+                    //ma_lh = Get_Text_Cell((Excel.Worksheet)OpenWB.Sheets[1], row, Stock_Manage_Col[Stock_Manage_Ma_LH].Col, Stock_Manage_Col[Stock_Manage_Ma_LH].Data_Max_len);
                     // Kiem tra Line da co trong database chua
-                    import_allow = Allow_import(ma_lh, wh_id);
-                    if (import_allow == "Y")
+                    import_allow = Allow_import(wh_id);
+                    if (import_allow == "True")
                     {
                         exist_wh_id = Is_exist_WH_ID(wh_id);
                         exist_part = Is_exist_Part_number(part_number);
@@ -154,9 +154,9 @@ namespace WarehouseManager
                         ProgressBar1.Value = row % 100;
                         StatusLabel.Text = "Loading File, Line: " + row.ToString();
                     }
-                    else if ((import_allow == "N") || (import_allow == ""))
+                    else if (import_allow == "False")
                     {
-                        Error_log = "Please check 'Import_allow' of 'Ma_loai_hinh':" + ma_lh + " and 'WareHouse_ID': " + wh_id
+                        Error_log = "Please check 'Import_allow' of 'WareHouse_ID': " + wh_id
                                                             + " if you want to import";
                         //MessageBox.Show("Please check 'Import_allow' of 'Ma_loai_hinh':" + ma_lh+ " and 'WareHouse_ID': " + wh_id 
                         //                                    + " if you want to import", "Error");
@@ -169,8 +169,8 @@ namespace WarehouseManager
                     }
                     else
                     {
-                        Error_log = "Please import info 'Ma_loai_hinh':" + ma_lh + " and 'WareHouse_ID': " + wh_id
-                                                            + " with WH_List_and_Material_List Tab";
+                        Error_log = "Please add info 'WareHouse_ID': " + wh_id
+                                                            + " with Warehouse Dashboard Tab";
                         //MessageBox.Show("Please import info 'Ma_loai_hinh':" + ma_lh+ " and 'WareHouse_ID': " + wh_id 
                         //                                    + " with WH_List_and_Material_List Tab", "Error");
                         row++;
@@ -255,19 +255,18 @@ namespace WarehouseManager
             return false;
         }
 
-        private string Allow_import(string ma_loaihinh, string warehouse_id)
+        private string Allow_import( string warehouse_id)
         {
-            string cur_ma_lh, cur_wh_id, cur_sub_wh_id, im_allow;
+            string cur_wh_id, im_allow;
             string ret_val = "Nulldata";
             foreach (DataRow row in Load_WH_ID_List_Tbl.Rows)
             {
-                cur_ma_lh = row["Ma_loai_hinh"].ToString().Trim();
                 cur_wh_id = row["WareHouse_ID"].ToString().Trim();
-                cur_sub_wh_id = row["Sub_wh_id"].ToString().Trim();
                 im_allow = row["Import_allow"].ToString().Trim();
-                if ((cur_ma_lh == ma_loaihinh) && (cur_wh_id == warehouse_id))
+                if (cur_wh_id == warehouse_id)
                 {
                     ret_val = im_allow;
+                    break;
                 }
             }
             return ret_val;
@@ -275,11 +274,12 @@ namespace WarehouseManager
 
         private void Load_Material_List()
         {
+            string load_cmd = @"SELECT * FROM [MM_MATERIAL_INFORMATION_DB].[dbo].[HQ_ITEMS_REGISTERED]";
             if (Load_Ma_List_Tbl != null)
             {
                 Load_Ma_List_Tbl.Clear();
             }
-            //Load_Ma_List_Tbl = Get_SQL_Data(Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Material_List_tb", ref Load_Ma_List_Tbl_da, ref Load_Ma_List_Tbl_ds);
+            Load_Ma_List_Tbl = Get_SQL_Data(Database_WHM_Material_Info_Con_Str, load_cmd, ref Load_Ma_List_Tbl_da, ref Load_Ma_List_Tbl_ds);
         }
 
         private void Load_Stock_Table_All()
@@ -304,13 +304,35 @@ namespace WarehouseManager
             Stock_Table_Form.Load_DataBase(Database_WHM_Stock_Con_Str, load_cmd);
         }
 
+        private void Load_Material_Stock()
+        {
+            string load_cmd = @"SELECT * FROM [WHM_STOCK_DB].[dbo].[Material_Stock_tb]";
+            if (Load_Stock_TBL != null)
+            {
+                Load_Stock_TBL.Clear();
+            }
+            Load_Stock_TBL = Get_SQL_Data(Database_WHM_Stock_Con_Str,load_cmd, ref Load_Stock_da, ref Load_Stock_ds);
+        }
+
+        private void Stock_WH_ID_List()
+        {
+            string load_cmd = @"SELECT distinct[WareHouse_ID] FROM [WHM_STOCK_DB].[dbo].[Material_Stock_tb]";
+            if (Stock_WH_ID_List_Tbl != null)
+            {
+                Stock_WH_ID_List_Tbl.Clear();
+            }
+            Stock_WH_ID_List_Tbl = Get_SQL_Data(Database_WHM_Stock_Con_Str, load_cmd, ref Stock_WH_ID_List_Tbl_da, ref Stock_WH_ID_List_Tbl_ds);
+
+        }
+
         private void Load_WH_ID_List()
         {
+            string load_cmd = @"SELECT distinct[WareHouse_ID] FROM [WHM_STOCK_DB].[dbo].[Warehouse_Dashboard_tb]";
             if (Load_WH_ID_List_Tbl != null)
             {
                 Load_WH_ID_List_Tbl.Clear();
             }
-            Load_WH_ID_List_Tbl = Get_SQL_Data(Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Warehouse_Dashboard_tb", ref Load_WH_ID_List_Tbl_da, ref Load_WH_ID_List_Tbl_ds);
+            Load_WH_ID_List_Tbl = Get_SQL_Data(Database_WHM_Stock_Con_Str, load_cmd, ref Load_WH_ID_List_Tbl_da, ref Load_WH_ID_List_Tbl_ds);
         }
 
         private bool Is_exist_WH_ID(string wh_id)
@@ -333,7 +355,7 @@ namespace WarehouseManager
         {
             string filterExpression = "";
 
-            filterExpression = "Part_Number =" + "'" + part_number + "'";
+            filterExpression = "Ma_NPL =" + "'" + part_number + "'";
             DataRow[] rows = Load_Ma_List_Tbl.Select(filterExpression);
             if (rows.Length == 0)
             {
