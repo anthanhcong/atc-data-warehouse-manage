@@ -26,13 +26,13 @@ namespace WarehouseManager
         private Button_Lbl WH_Daskboard_Store_BT;
         //public Button_Lbl WH_Daskboard_Search_BT;
         private TextBox_Lbl WH_Daskboard_WH_ID_TbxL;
-        private Label WH_Daskboard_WH_Name_Lb;
+        //private Label WH_Daskboard_WH_Name_Lb;
         private TextBox_Lbl WH_Daskboard_WH_Name_TbxL;
         private ComboBox_Lbl WH_Daskboard_Mother_WH_CbxL;
         private Checkbox_Lbl WH_Daskboard_Check_Import;
         private Checkbox_Lbl WH_Daskboard_View_All;
         private Checkbox_Lbl WH_ID_with_MaLH_View_All;
-        private TextBox_Lbl WH_Daskboard_Search_Txt_Lb;
+        //private TextBox_Lbl WH_Daskboard_Search_Txt_Lb;
         private TextBox_Lbl WH_Daskboard_Note_Txt_Lb;
         private TextBox_Lbl WH_ID_with_MaLH_ID_TbxL;
         private TextBox_Lbl WH_ID_with_MaLH_Ma_LH_TbxL;
@@ -47,6 +47,10 @@ namespace WarehouseManager
         public DataTable Load_WH_Daskboard_TBL;
         DataSet Load_WH_Daskboard_ds = new DataSet();
         SqlDataAdapter Load_WH_Daskboard_da;
+
+        public DataTable WH_Daskboard_Mother_WH_TBL;
+        DataSet WH_Daskboard_Mother_WH_ds = new DataSet();
+        SqlDataAdapter WH_Daskboard_Mother_WH_da;
 
         private void Create_WH_Daskboard_Tab()
         {
@@ -169,14 +173,16 @@ namespace WarehouseManager
             WH_Daskboard_Check_Import.My_CheckBox.Checked = false;
 
             WH_Dashboard_Load_Table();
+            WH_Dashboard_Mother_WH_List();
             possize.pos_x = 10;
             possize.pos_y = 90;
-            WH_Daskboard_Mother_WH_CbxL = new ComboBox_Lbl(WH_Daskboard_Tab, "Mother WH", possize, Load_WH_Daskboard_TBL, "Mother_WHID", "Mother_WHID", AnchorType.LEFT);
+            WH_Daskboard_Mother_WH_CbxL = new ComboBox_Lbl(WH_Daskboard_Tab, "Mother WH", possize, WH_Daskboard_Mother_WH_TBL, "Mother_WHID", "Mother_WHID", AnchorType.LEFT);
             WH_Daskboard_Mother_WH_CbxL.My_Combo.Location = new Point(100, 90);
             WH_Daskboard_Mother_WH_CbxL.My_Combo.Size = new Size(210, 20);
             //WH_Daskboard_Mother_WH_CbxL.My_Combo.Click += new EventHandler(WH_Daskboard_Mother_WH_CbxL_Click);
             WH_Daskboard_Mother_WH_CbxL.My_Combo.MouseDown += new MouseEventHandler(WH_Daskboard_Mother_WH_CbxL_MouseDown);
             WH_Daskboard_Mother_WH_CbxL.My_Combo.SelectedValueChanged += new EventHandler(WH_Daskboard_Mother_WH_CbxL_SelectedValueChanged);
+            WH_Daskboard_Mother_WH_CbxL.My_Combo.KeyDown += new KeyEventHandler(WH_Daskboard_Mother_WH_CbxL_KeyDown);
             possize.pos_x = 10;
             possize.pos_y = 114;
             WH_Daskboard_Note_Txt_Lb = new TextBox_Lbl(WH_Daskboard_Tab, "Note", TextBox_Type.TEXT, possize, AnchorType.LEFT);
@@ -199,6 +205,7 @@ namespace WarehouseManager
             possize.pos_x = 10;
             possize.pos_y = 42;
             WH_ID_with_MaLH_Ma_LH_TbxL = new TextBox_Lbl(WH_Daskboard_Tab, "Mã loại hình", TextBox_Type.TEXT, possize, AnchorType.LEFT);
+            WH_ID_with_MaLH_Ma_LH_TbxL.My_TextBox.KeyDown += new KeyEventHandler(WH_ID_with_MaLH_Ma_LH_TbxL_KeyDown);
             WH_ID_with_MaLH_Ma_LH_TbxL.My_TextBox.Location = new Point(130, 42);
             WH_ID_with_MaLH_Ma_LH_TbxL.My_TextBox.Size = new Size(100, 20);
 

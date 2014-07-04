@@ -177,7 +177,7 @@ namespace WarehouseManager
             }
         }
 
-        void Stock_Table_Form_CellDoubleClick(Object sender, EventArgs e)
+        private void Stock_Table_Form_CellDoubleClick(Object sender, EventArgs e)
         {
             string cell_value, load_cmd;
 

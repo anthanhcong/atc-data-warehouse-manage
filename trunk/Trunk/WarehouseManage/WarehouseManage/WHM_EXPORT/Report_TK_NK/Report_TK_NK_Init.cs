@@ -33,7 +33,7 @@ namespace WarehouseManager
         private Button_Lbl Report_TK_NK_Report_BtL;
         private ComboBox_Lbl Report_TK_NK_So_TK_CbxL;
         private ComboBox_Lbl Report_TK_NK_Loai_hinh_CbxL;
-        private TextBox_Lbl Report_TK_NK_So_TK_TxbL;
+        //private TextBox_Lbl Report_TK_NK_So_TK_TxbL;
         private Checkbox_Lbl Report_TK_NK_Check_Select_All;
         private DatePick_LBL Report_TK_NK_Start_Date;
         private DatePick_LBL Report_TK_NK_End_Date;
@@ -45,8 +45,8 @@ namespace WarehouseManager
         //SqlDataAdapter Load_Report_TK_NK_da;
 
         public DataTable Report_NK_List_TK_TBL;
-        DataSet Report_NK_List_TK_ds = new DataSet();
-        SqlDataAdapter Report_NK_List_TK_da;
+        //DataSet Report_NK_List_TK_ds = new DataSet();
+        //SqlDataAdapter Report_NK_List_TK_da;
 
         public DataTable Report_NK_Ma_LH_TBL;
         DataSet Report_NK_Ma_LH_ds = new DataSet();
