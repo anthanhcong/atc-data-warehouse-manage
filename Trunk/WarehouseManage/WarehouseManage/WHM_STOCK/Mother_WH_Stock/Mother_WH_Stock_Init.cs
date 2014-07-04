@@ -29,6 +29,7 @@ namespace WarehouseManager
         private ComboBox_Lbl Mother_Stock_WH_ID_List_cbx;
         private ComboBox_Lbl Mother_Stock_Part_Number_cbx;
         private ComboBox_Lbl Mother_Stock_WH_ID_cbx;
+        private ComboBox_Lbl Mother_Stock_With_wh_id_cbx;
         private TextBox_Lbl Mother_Stock_Qty_Txt;
         private TextBox_Lbl Mother_Stock_Sum_Qty_Txt;
         private ComboBox Mother_Stock_Menu_Sort_View_cbx;
@@ -74,7 +75,7 @@ namespace WarehouseManager
             possize.height = Mother_Stock_Manage_Tab.Size.Height - 150;
             Mother_Stock_Table_Form = new Gridview_Grp(Mother_Stock_Manage_Tab, "Mother_Stock Manage Table", possize, AUTO_RESIZE,
                                                 Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Material_Stock_tb", AnchorType.NONE);
-            Mother_Stock_Table_Form.Load_DataBase(Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Material_Stock_tb");
+            Mother_Stock_Table_Form.Load_DataBase(Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Material_Stock_tb where Part_Number = '0'");
             Mother_Stock_Table_Form.dataGridView_View.CellDoubleClick += new DataGridViewCellEventHandler(Mother_Stock_Table_Form_CellDoubleClick);
             //Mother_Stock_Table_Form.Tab_Grp.Anchor = (AnchorStyles)(AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Top);
 
@@ -85,7 +86,7 @@ namespace WarehouseManager
             Mother_Stock_Total_Qty_Form = new Gridview_Grp(Mother_Stock_Manage_Tab, "Total Qty Table", possize, NO_AUTO_RESIZE,
                                                 Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Material_Stock_tb", AnchorType.NONE);
             Mother_Stock_Total_Qty_Form.Tab_Grp.Anchor = (AnchorStyles)(AnchorStyles.Bottom | AnchorStyles.Right | AnchorStyles.Top);
-            Mother_Stock_Total_Qty_Form.Load_DataBase(Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Material_Stock_tb");
+            //Mother_Stock_Total_Qty_Form.Load_DataBase(Database_WHM_Stock_Con_Str, @"SELECT * FROM dbo.Material_Stock_tb");
             Mother_Stock_Total_Qty_Form.Review_BT.Visible = false;
             Mother_Stock_Total_Qty_Form.Delete_All_BT.Visible = false;
             Mother_Stock_Total_Qty_Form.Delete_Rows_BT.Visible = false;
@@ -114,7 +115,7 @@ namespace WarehouseManager
 
             Mother_Stock_Store_BT.Name = "Mother_Stock_Store_BT";
             Mother_Stock_Store_BT.Text = "Save";
-            Mother_Stock_Store_BT.Location = new System.Drawing.Point(475, 90);
+            Mother_Stock_Store_BT.Location = new System.Drawing.Point(485, 90);
             Mother_Stock_Store_BT.Size = new System.Drawing.Size(55, 20);
             Mother_Stock_Store_BT.UseVisualStyleBackColor = true;
             Mother_Stock_Store_BT.Click += new System.EventHandler(Mother_Stock_Store_BT_Click);
@@ -132,45 +133,44 @@ namespace WarehouseManager
             Mother_Stock_Search_BT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             Mother_Stock_Search_BT.Name = "Mother_Stock_Search_BT";
             Mother_Stock_Search_BT.Text = "Search";
-            Mother_Stock_Search_BT.Location = new System.Drawing.Point(475, 42);
+            Mother_Stock_Search_BT.Location = new System.Drawing.Point(485, 42);
             Mother_Stock_Search_BT.Size = new System.Drawing.Size(55, 20);
             Mother_Stock_Search_BT.UseVisualStyleBackColor = true;
             Mother_Stock_Search_BT.Click += new System.EventHandler(Mother_Stock_Search_BT_Click);
             Mother_WH_Stock_Manage_Group_gbx.Controls.Add(Mother_Stock_Search_BT);
 
-            possize.pos_x = 475;
+            possize.pos_x = 485;
             possize.pos_y = 20;
             Mother_Stock_Manage_Single_View_All = new Checkbox_Lbl(Mother_Stock_Manage_Tab, "View All", possize, AnchorType.LEFT);
             Mother_Stock_Manage_Single_View_All.My_CheckBox.Checked = false;
             //Mother_Stock_Manage_Single_View_All.My_CheckBox.CheckedChanged += new EventHandler(Mother_Stock_Manage_Single_View_All_CheckedChanged);
             Mother_WH_Stock_Manage_Group_gbx.Controls.Add(Mother_Stock_Manage_Single_View_All.My_CheckBox);
 
-            possize.pos_x = 370;
+            possize.pos_x = 380;
             possize.pos_y = 44;
             Mother_Stock_Manage_Single_Check_WH_ID = new Checkbox_Lbl(Mother_Stock_Manage_Tab, "Select WH_ID", possize, AnchorType.LEFT);
             Mother_Stock_Manage_Single_Check_WH_ID.My_CheckBox.Checked = false;
             Mother_WH_Stock_Manage_Group_gbx.Controls.Add(Mother_Stock_Manage_Single_Check_WH_ID.My_CheckBox);
 
-            possize.pos_x = 370;
+            possize.pos_x = 380;
             possize.pos_y = 20;
             Mother_Stock_Manage_Single_Check_Part_Number = new Checkbox_Lbl(Mother_Stock_Manage_Tab, "Select Part", possize, AnchorType.LEFT);
             Mother_Stock_Manage_Single_Check_Part_Number.My_CheckBox.Checked = false;
             Mother_WH_Stock_Manage_Group_gbx.Controls.Add(Mother_Stock_Manage_Single_Check_Part_Number.My_CheckBox);
 
-            possize.pos_x = 370;
+            possize.pos_x = 380;
             possize.pos_y = 68;
             Mother_Stock_Manage_Single_Check_Bin = new Checkbox_Lbl(Mother_Stock_Manage_Tab, "Select Bin", possize, AnchorType.LEFT);
             Mother_Stock_Manage_Single_Check_Bin.My_CheckBox.Checked = false;
             Mother_WH_Stock_Manage_Group_gbx.Controls.Add(Mother_Stock_Manage_Single_Check_Bin.My_CheckBox);
 
-            possize.pos_x = 370;
+            possize.pos_x = 380;
             possize.pos_y = 92;
             Mother_Stock_Manage_Single_Check_Plant = new Checkbox_Lbl(Mother_Stock_Manage_Tab, "Selest Plant", possize, AnchorType.LEFT);
             Mother_Stock_Manage_Single_Check_Plant.My_CheckBox.Checked = false;
             Mother_WH_Stock_Manage_Group_gbx.Controls.Add(Mother_Stock_Manage_Single_Check_Plant.My_CheckBox);
 
-            //Load_Material_Mother_Stock();
-            //Mother_Stock_WH_ID_List();
+            Mother_WH_Load_Part_Number();
             possize.pos_x = 10;
             possize.pos_y = 42;
             Mother_Stock_WH_ID_List_cbx = new ComboBox_Lbl(Mother_Stock_Manage_Tab, "List WH ID", possize, Mother_Stock_WH_ID_List_Tbl, "WareHouse_ID", "WareHouse_ID", AnchorType.LEFT);
@@ -182,16 +182,27 @@ namespace WarehouseManager
 
             possize.pos_x = 10;
             possize.pos_y = 16;
-            Mother_Stock_Part_Number_cbx = new ComboBox_Lbl(Mother_Stock_Manage_Tab, "Part Number", possize, Load_Mother_Stock_TBL, "Part_Number", "Part_Number", AnchorType.LEFT);
+            Mother_Stock_Part_Number_cbx = new ComboBox_Lbl(Mother_Stock_Manage_Tab, "Part Number", possize, Mother_WH_List_Part_Tbl, "Part_Number", "Part_Number", AnchorType.LEFT);
             Mother_Stock_Part_Number_cbx.My_Combo.Size = new Size(100, 20);
             Mother_Stock_Part_Number_cbx.My_Combo.KeyDown += new KeyEventHandler(Mother_Stock_Part_Number_cbx_KeyDown);
             Mother_Stock_Part_Number_cbx.My_Combo.SelectedValueChanged += new EventHandler(Mother_Stock_Part_Number_cbx_SelectedValueChanged);
             Mother_WH_Stock_Manage_Group_gbx.Controls.Add(Mother_Stock_Part_Number_cbx.My_Label);
             Mother_WH_Stock_Manage_Group_gbx.Controls.Add(Mother_Stock_Part_Number_cbx.My_Combo);
-            
+
+            Mother_WH_List_WH_with_part();
             possize.pos_x = 10;
             possize.pos_y = 42;
-            Mother_Stock_WH_ID_cbx = new ComboBox_Lbl(Mother_Stock_Manage_Tab, "WH_ID's", possize, Mother_Stock_WH_ID_List_Tbl, "WareHouse_ID", "WareHouse_ID", AnchorType.LEFT);
+            Mother_Stock_With_wh_id_cbx = new ComboBox_Lbl(Mother_Stock_Manage_Tab, "With wh_id", possize, List_WH_wiht_part_TBL, "WareHouse_ID", "WareHouse_ID", AnchorType.LEFT);
+            Mother_Stock_With_wh_id_cbx.My_Combo.Size = new Size(100, 20);
+            Mother_Stock_With_wh_id_cbx.My_Combo.KeyDown += new KeyEventHandler(Mother_Stock_With_wh_id_cbx_KeyDown);
+            Mother_Stock_With_wh_id_cbx.My_Combo.SelectedValueChanged += new EventHandler(Mother_Stock_With_wh_id_cbx_SelectedValueChanged);
+            Mother_WH_Stock_Manage_Group_gbx.Controls.Add(Mother_Stock_With_wh_id_cbx.My_Label);
+            Mother_WH_Stock_Manage_Group_gbx.Controls.Add(Mother_Stock_With_wh_id_cbx.My_Combo);
+
+            possize.pos_x = 210;
+            possize.pos_y = 90;
+            Mother_Stock_WH_ID_cbx = new ComboBox_Lbl(Mother_Stock_Manage_Tab, "WH_ID", possize, Mother_Stock_WH_ID_List_Tbl, "WareHouse_ID", "WareHouse_ID", AnchorType.LEFT);
+            Mother_Stock_WH_ID_cbx.My_Combo.Location = new Point(265, 90);
             Mother_Stock_WH_ID_cbx.My_Combo.Size = new Size(100, 20);
             //Mother_Stock_WH_ID_cbx.My_Combo.KeyDown += new KeyEventHandler(Mother_Stock_WH_ID_cbx_KeyDown);
             Mother_Stock_WH_ID_cbx.My_Combo.SelectedValueChanged += new EventHandler(Mother_Stock_WH_ID_List_cbx_SelectedValueChanged);
@@ -215,19 +226,19 @@ namespace WarehouseManager
             Mother_WH_Stock_Manage_Group_gbx.Controls.Add(Mother_Stock_Sum_Qty_Txt.My_TextBox);
 
             possize.pos_x = 210;
-            possize.pos_y = 66;
+            possize.pos_y = 42;
             Mother_Stock_Bin_Txt = new TextBox_Lbl(Mother_Stock_Manage_Tab, "Bin", TextBox_Type.TEXT, possize, AnchorType.LEFT);
-            Mother_Stock_Bin_Txt.My_TextBox.Location = new Point(255, 66);
-            Mother_Stock_Bin_Txt.My_TextBox.Size = new Size(90, 20);
+            Mother_Stock_Bin_Txt.My_TextBox.Location = new Point(265, 42);
+            Mother_Stock_Bin_Txt.My_TextBox.Size = new Size(100, 20);
             Mother_Stock_Bin_Txt.My_TextBox.KeyDown += new KeyEventHandler(Mother_Stock_Bin_Txt_KeyDown);
             Mother_WH_Stock_Manage_Group_gbx.Controls.Add(Mother_Stock_Bin_Txt.My_Label);
             Mother_WH_Stock_Manage_Group_gbx.Controls.Add(Mother_Stock_Bin_Txt.My_TextBox);
 
             possize.pos_x = 210;
-            possize.pos_y = 90;
+            possize.pos_y = 66;
             Mother_Stock_Plant_Txt = new TextBox_Lbl(Mother_Stock_Manage_Tab, "Plant", TextBox_Type.TEXT, possize, AnchorType.LEFT);
-            Mother_Stock_Plant_Txt.My_TextBox.Location = new Point(255, 90);
-            Mother_Stock_Plant_Txt.My_TextBox.Size = new Size(90, 20);
+            Mother_Stock_Plant_Txt.My_TextBox.Location = new Point(265, 66);
+            Mother_Stock_Plant_Txt.My_TextBox.Size = new Size(100, 20);
             Mother_Stock_Plant_Txt.My_TextBox.KeyDown += new KeyEventHandler(Mother_Stock_Plant_Txt_KeyDown);
             Mother_WH_Stock_Manage_Group_gbx.Controls.Add(Mother_Stock_Plant_Txt.My_Label);
             Mother_WH_Stock_Manage_Group_gbx.Controls.Add(Mother_Stock_Plant_Txt.My_TextBox);
@@ -237,9 +248,9 @@ namespace WarehouseManager
             "Single WH",
             "Sub_WH",
             "Mother and Sub"});
-            Mother_Stock_Menu_Sort_View_cbx.Location = new System.Drawing.Point(210, 16);
+            Mother_Stock_Menu_Sort_View_cbx.Location = new System.Drawing.Point(265, 16);
             Mother_Stock_Menu_Sort_View_cbx.Name = "Menu_Sort_View_cbx";
-            Mother_Stock_Menu_Sort_View_cbx.Size = new System.Drawing.Size(135, 20);
+            Mother_Stock_Menu_Sort_View_cbx.Size = new System.Drawing.Size(100, 20);
             //Mother_Stock_Menu_Sort_View_cbx.TabIndex = 7;
             Mother_Stock_Menu_Sort_View_cbx.Text = "Select Sort WH";
             Mother_WH_Stock_Manage_Group_gbx.Controls.Add(Mother_Stock_Menu_Sort_View_cbx);
