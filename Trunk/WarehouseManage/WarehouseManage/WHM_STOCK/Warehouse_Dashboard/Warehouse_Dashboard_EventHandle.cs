@@ -165,7 +165,59 @@ namespace WarehouseManager
         {
             if (e.Button == MouseButtons.Right)
             {
-                WH_Dashboard_Load_Table();
+                //WH_Dashboard_Load_Table();
+                WH_Dashboard_Mother_WH_List();
+            }
+        }
+
+        private void WH_Daskboard_Mother_WH_CbxL_KeyDown(object sender, KeyEventArgs e)
+        {
+            string mother_wh = "";
+
+            mother_wh = WH_Daskboard_Mother_WH_CbxL.My_Combo.Text.ToString().Trim();
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (mother_wh != "")
+                {
+                    WH_Dashboard_Load_with_Mother_wh(mother_wh);
+                    if (WH_Daskboard_Table_Form.Data_dtb.Rows.Count == 0)
+                    {
+                        MessageBox.Show("Can not find Mother WH: '" + mother_wh + "'.", "Warning");
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please fill Mother WH.", "Warning");
+                    return;
+                }
+            }
+        }
+
+        private void WH_ID_with_MaLH_Ma_LH_TbxL_KeyDown(object sender, KeyEventArgs e)
+        {
+            string ma_lh = "";
+
+            string load_table_cmd = @"SELECT * FROM [WHM_STOCK_DB].[dbo].[List_WH_ID_MaLH_tb]";
+            ma_lh = WH_ID_with_MaLH_Ma_LH_TbxL.My_TextBox.Text.ToString().Trim();
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (ma_lh != "")
+                {
+                    //load_table_cmd += " WHERE Ma_loai_hinh = " + "'" + ma_lh + "'";
+                    load_table_cmd += " WHERE Ma_loai_hinh like '" + ma_lh + "%' or Ma_loai_hinh like '" + ma_lh + "%'";
+                    WH_ID_with_MaLH_Load_table(load_table_cmd);
+                    if (WH_ID_with_MaLH_Table_Form.Data_dtb.Rows.Count == 0)
+                    {
+                        MessageBox.Show("Can not find Mã loại hình: '" + ma_lh + "'.", "Warning");
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please fill Mã loại hình.", "Warning");
+                    return;
+                }
             }
         }
 

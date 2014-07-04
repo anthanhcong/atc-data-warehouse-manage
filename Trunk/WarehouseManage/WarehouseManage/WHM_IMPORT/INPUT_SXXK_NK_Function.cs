@@ -129,10 +129,8 @@ namespace WarehouseManager
         private bool Import_INPUT_SXXK_NK_Table_in_file(string file_name)
         {
             int row;
-            string so_tk, ngay_dk, ma_loai_hinh;
-            string cell_str, cur_tk, last_tk = "" ;
-            bool tk_opened = false;
-            bool start_file = true;
+            string ngay_dk, ma_loai_hinh;
+            string cell_str, cur_tk;
 
 
             ProgressBar1.Visible = true;
@@ -531,7 +529,7 @@ namespace WarehouseManager
         {
             DataRow new_row = INPUT_NK_Table_Form.Data_dtb.NewRow();
             Excel_Col_Type col_type;
-            int i, max_stt;
+            int i;//, max_stt;
 
             //if (INPUT_NK_Table_Form.Data_dtb.Compute("Max(STT)", null) != DBNull.Value)
             //{

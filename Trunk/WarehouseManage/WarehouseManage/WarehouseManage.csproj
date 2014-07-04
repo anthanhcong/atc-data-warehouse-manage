@@ -58,10 +58,19 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -136,6 +145,15 @@
     <Compile Include="WHM_EXPORT\Export_Manage_Init.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="WHM_EXPORT\Report_TK_NK\Report_TK_NK_Function.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WHM_EXPORT\Report_TK_NK\Report_TK_NK_EventHandle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WHM_EXPORT\Report_TK_NK\Report_TK_NK_Init.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="WHM_IMPORT\INPUT_Import_Init.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +175,18 @@
     <Compile Include="WHM_STOCK\Material_List_Function.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="WHM_STOCK\Mother_WH_Stock\Mother_WH_Stock_Database.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WHM_STOCK\Mother_WH_Stock\Mother_WH_Stock_EventHandler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WHM_STOCK\Mother_WH_Stock\Mother_WH_Stock_Function.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WHM_STOCK\Mother_WH_Stock\Mother_WH_Stock_Init.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="WHM_STOCK\Stock_Manage_EventHandle.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +194,15 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="WHM_STOCK\Stock_Manage_Init.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WHM_STOCK\Warehouse_Dashboard\Warehouse_Dashboard_Init.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WHM_STOCK\Warehouse_Dashboard\Warehouse_Dashboard_EventHandle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WHM_STOCK\Warehouse_Dashboard\Warehouse_Dashboard_Function.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="WHM_STOCK\WH_List_and_Ma_List_Function.cs">
@@ -197,7 +236,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="WAREHOUSE_INFO\" />
+    <Folder Include="WHM_EXPORT\Report_TK_XK\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

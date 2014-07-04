@@ -96,7 +96,7 @@ namespace WarehouseManager
         private bool Import_Stock_Manage_Table_in_file(string file_name)
         {
             int row;
-            string part_number, wh_id, bin, plant, ma_lh;
+            string part_number, wh_id, bin, plant;
             bool exist_wh_id = false, exist_part = false, ret_save = true;
             string import_allow;
             string cell_str;

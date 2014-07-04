@@ -162,7 +162,7 @@ namespace WarehouseManager
             My_Combo.ValueMember = value_member;
             My_Combo.Size = new System.Drawing.Size(140, 20);
             My_Combo.Location = new System.Drawing.Point(My_PosSize.pos_x + 80, My_PosSize.pos_y);
-            My_Combo.Leave += new System.EventHandler(CheckCorrectValue);
+            //My_Combo.Leave += new System.EventHandler(CheckCorrectValue);
 
             if (anchor_type == AnchorType.RIGHT)
             {

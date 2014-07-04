@@ -200,6 +200,7 @@ namespace WarehouseManager
             INPUT_NK_Table_Form.Load_DataBase(Database_WHM_Info_Con_Str, sql_cmd);
             if (INPUT_NK_Table_Form.Data_dtb.Rows.Count == 0)
             {
+                Show_Sort_log += "\nCan not find.";
                 MessageBox.Show(Show_Sort_log, "Warning");
             }
         }

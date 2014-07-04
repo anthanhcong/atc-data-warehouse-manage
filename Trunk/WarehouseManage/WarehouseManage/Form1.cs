@@ -77,6 +77,7 @@ namespace WarehouseManager
             Create_INPUT_NK_Manage_Tab();
             Create_INPUT_XK_Manage_Tab();
             Create_Stock_Manage_Tab();
+            Create_Mother_Stock_Manage_Tab();
             Create_Export_Manage_Tab();
             //Create_WH_List_and_M_List_Tab();
             Create_WH_Daskboard_Tab();

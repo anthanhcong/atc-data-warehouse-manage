@@ -27,6 +27,18 @@ namespace WarehouseManager
             return table;
         }
 
+        public void WH_Dashboard_Mother_WH_List()
+        {
+            string load_table_cmd = @"SELECT distinct[Mother_WHID]
+                                    FROM [WHM_STOCK_DB].[dbo].[Warehouse_Dashboard_tb]
+                                    where Mother_WHID != ''";
+            if (WH_Daskboard_Mother_WH_TBL != null)
+            {
+                WH_Daskboard_Mother_WH_TBL.Clear();
+            }
+            WH_Daskboard_Mother_WH_TBL = Warehouse_Stock_Load_Table(load_table_cmd, ref WH_Daskboard_Mother_WH_ds, ref WH_Daskboard_Mother_WH_da);
+        }
+
         public void  WH_Dashboard_Load_Table()
         {
             string load_table_cmd = @"SELECT * FROM [WHM_STOCK_DB].[dbo].[Warehouse_Dashboard_tb]";
@@ -40,7 +52,6 @@ namespace WarehouseManager
 
         public void WH_Dashboard_Load_WH_ID(string wh_id)
         {
-            //distinct[WareHouse_ID]
             string load_table_cmd = @"SELECT * FROM [WHM_STOCK_DB].[dbo].[Warehouse_Dashboard_tb]";
             if (wh_id != "All")
             {
@@ -75,6 +86,15 @@ namespace WarehouseManager
                 WH_ID_with_MaLH_Table_Form.Data_dtb.Clear();
             }
             WH_ID_with_MaLH_Table_Form.Load_DataBase(Database_WHM_Stock_Con_Str, load_table_cmd);
+        }
+
+        public void WH_ID_with_MaLH_Load_table( string load_cmd)
+        {
+            if (WH_ID_with_MaLH_Table_Form.Data_dtb != null)
+            {
+                WH_ID_with_MaLH_Table_Form.Data_dtb.Clear();
+            }
+            WH_ID_with_MaLH_Table_Form.Load_DataBase(Database_WHM_Stock_Con_Str, load_cmd);
         }
 
         public void WH_ID_with_MaLH_Load_with_WH_ID( string wh_id)

@@ -361,7 +361,7 @@ namespace WarehouseManager
         private bool Import_WH_List_Manage_Table_in_file(string file_name)
         {
             int row;
-            string ma_loaihinh, wh_id, sub_wh, fa_wh;
+            string ma_loaihinh, wh_id, fa_wh;
             string cell_str;
 
 

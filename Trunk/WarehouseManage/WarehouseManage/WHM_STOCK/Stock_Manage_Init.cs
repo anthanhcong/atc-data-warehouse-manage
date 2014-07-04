@@ -43,8 +43,8 @@ namespace WarehouseManager
         private Checkbox_Lbl Stock_Manage_Single_View_All;
 
         public DataTable Load_Stock_TBL;
-        DataSet Load_Stock_ds = new DataSet();
-        SqlDataAdapter Load_Stock_da;
+        public DataSet Load_Stock_ds = new DataSet();
+        public SqlDataAdapter Load_Stock_da;
 
         public DataTable Load_Ma_List_Tbl;
         public DataSet Load_Ma_List_Tbl_ds = new DataSet();
